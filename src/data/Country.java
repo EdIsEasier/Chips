@@ -2,19 +2,30 @@ package data;
 
 
 import javafx.beans.property.StringProperty;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONTokener;
+
+import java.io.*;
+import java.net.URL;
+
 
 public class Country{
 
-    private StringProperty name;
-    private StringProperty regionID;
-    private StringProperty regionName;
-    private StringProperty incomeLevel;
-    private StringProperty lendingType;
-    private StringProperty capitalCity;
-    private StringProperty longitude;
-    private StringProperty latitude;
+    private final String API = "http://api.worldbank.org/countries?format=json";
+    private StringProperty id, iso2Code, name, regionID, regionName, incomeLevel, lendingType, capitalCity, longitude, latitude;
 
     public Country(){
+        this.id.set("id");
+        this.iso2Code.set("iso2Code");
+        this.name.set("name");
+        this.regionID.set("regionID");
+        this.regionName.set("regionName");
+        this.incomeLevel.set("incomeLevel");
+        this.lendingType.set("lendingType");
+        this.capitalCity.set("capitalCity");
+        this.longitude.set("longitude");
+        this.latitude.set("latitude");
 
     }
 
@@ -113,5 +124,56 @@ public class Country{
     public void setLatitude(String latitude) {
         this.latitude.set(latitude);
     }
+
+    private static void storeJSON(String url, String path){
+        String JSONText = readJSONURL(url);
+        try {
+            FileWriter file = new FileWriter(path);
+            file.write(JSONText);
+            file.flush();
+            file.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private static JSONArray readJSONFile(String fileName) {
+        FileReader reader = null;
+        JSONTokener tokener = null;
+        JSONArray jsonArray = null;
+        try {
+            reader = new FileReader(fileName);
+            tokener = new JSONTokener(reader);
+            jsonArray = new JSONArray(tokener);
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonArray;
+    }
+
+    public static String readJSONURL(String url){
+        InputStream is = null;
+        String JSONText = null;
+        BufferedReader rd = null;
+        try {
+            is = new URL(url).openStream();
+            rd = new BufferedReader(new InputStreamReader(is));
+            JSONText = rd.readLine();
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return JSONText;
+    }
+
+
+//    public static void main(String[] args) throws JSONException, IOException {
+//        storeJSON("http://api.worldbank.org/countries?format=json", "tmp2.json");
+//        //readJSONFile("tmp.json");
+//        //Object object = readJSONURL("http://api.worldbank.org/countries?format=json");
+//        //System.out.println(object.toString());
+//    }
 
 }
