@@ -127,12 +127,21 @@ public class Country{
 
     private static void storeJSON(String url, String path){
         String JSONText = readJSONURL(url);
+
         try {
-            FileWriter file = new FileWriter(path);
-            file.write(JSONText);
-            file.flush();
-            file.close();
-        } catch (IOException e) {
+            JSONArray jsonArray = new JSONArray(JSONText);
+            int pages = (int) jsonArray.getJSONObject(0).get("pages");
+            for(int i = 1; i <= pages; i++){
+                String newPath = path + i + ".json";
+                String newURL = url + "&page=" + i;
+                String newJSONText = readJSONURL(newURL);
+                FileWriter newFile = new FileWriter(newPath);
+                newFile.write(newJSONText);
+                newFile.flush();
+                newFile.close();
+            }
+
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 
@@ -154,8 +163,8 @@ public class Country{
 
     public static String readJSONURL(String url){
         InputStream is = null;
-        String JSONText = null;
         BufferedReader rd = null;
+        String JSONText = null;
         try {
             is = new URL(url).openStream();
             rd = new BufferedReader(new InputStreamReader(is));
@@ -169,11 +178,11 @@ public class Country{
     }
 
 
-//    public static void main(String[] args) throws JSONException, IOException {
-//        storeJSON("http://api.worldbank.org/countries?format=json", "tmp2.json");
-//        //readJSONFile("tmp.json");
-//        //Object object = readJSONURL("http://api.worldbank.org/countries?format=json");
-//        //System.out.println(object.toString());
-//    }
+    public static void main(String[] args) throws JSONException, IOException {
+        //storeJSON("http://api.worldbank.org/countries?format=json", "src/resources/Country");
+        //readJSONFile("tmp.json");
+        //Object object = readJSONURL("http://api.worldbank.org/countries?format=json");
+        //System.out.println(object.toString());
+    }
 
 }
