@@ -1,6 +1,5 @@
 package data;
 
-
 import javafx.beans.property.StringProperty;
 
 public class Indicator{

@@ -1,6 +1,7 @@
 package data;
 
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,20 +13,36 @@ import java.net.URL;
 
 public class Country{
 
+
     private final String API = "http://api.worldbank.org/countries?format=json";
     private StringProperty id, iso2Code, name, regionID, regionName, incomeLevel, lendingType, capitalCity, longitude, latitude;
 
     public Country(){
-        this.id.set("id");
-        this.iso2Code.set("iso2Code");
-        this.name.set("name");
-        this.regionID.set("regionID");
-        this.regionName.set("regionName");
-        this.incomeLevel.set("incomeLevel");
-        this.lendingType.set("lendingType");
-        this.capitalCity.set("capitalCity");
-        this.longitude.set("longitude");
-        this.latitude.set("latitude");
+        this.id = new SimpleStringProperty("id");
+        this.iso2Code = new SimpleStringProperty("iso2Code");
+        this.name = new SimpleStringProperty("name");
+        this.regionID = new SimpleStringProperty("regionID");
+        this.regionName = new SimpleStringProperty("regionName");
+        this.incomeLevel = new SimpleStringProperty("incomeLevel");
+        this.lendingType = new SimpleStringProperty("lendingType");
+        this.capitalCity = new SimpleStringProperty("capitalCity");
+        this.longitude = new SimpleStringProperty("longitude");
+        this.latitude = new SimpleStringProperty("latitude");
+    }
+
+    public Country(String id, String iso2Code, String name, String regionID,
+                   String regionName, String incomeLevel, String lendingType,
+                   String capitalCity, String longitude, String latitude) {
+        this.id = new SimpleStringProperty(id);
+        this.iso2Code = new SimpleStringProperty(iso2Code);
+        this.name = new SimpleStringProperty(name);
+        this.regionID = new SimpleStringProperty(regionID);
+        this.regionName = new SimpleStringProperty(regionName);
+        this.incomeLevel = new SimpleStringProperty(incomeLevel);
+        this.lendingType = new SimpleStringProperty(lendingType);
+        this.capitalCity = new SimpleStringProperty(capitalCity);
+        this.longitude = new SimpleStringProperty(longitude);
+        this.latitude = new SimpleStringProperty(latitude);
 
     }
 
@@ -125,64 +142,15 @@ public class Country{
         this.latitude.set(latitude);
     }
 
-    private static void storeJSON(String url, String path){
-        String JSONText = readJSONURL(url);
 
-        try {
-            JSONArray jsonArray = new JSONArray(JSONText);
-            int pages = (int) jsonArray.getJSONObject(0).get("pages");
-            for(int i = 1; i <= pages; i++){
-                String newPath = path + i + ".json";
-                String newURL = url + "&page=" + i;
-                String newJSONText = readJSONURL(newURL);
-                FileWriter newFile = new FileWriter(newPath);
-                newFile.write(newJSONText);
-                newFile.flush();
-                newFile.close();
-            }
-
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private static JSONArray readJSONFile(String fileName) {
-        FileReader reader = null;
-        JSONTokener tokener = null;
-        JSONArray jsonArray = null;
-        try {
-            reader = new FileReader(fileName);
-            tokener = new JSONTokener(reader);
-            jsonArray = new JSONArray(tokener);
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
-        }
-        return jsonArray;
-    }
-
-    public static String readJSONURL(String url){
-        InputStream is = null;
-        BufferedReader rd = null;
-        String JSONText = null;
-        try {
-            is = new URL(url).openStream();
-            rd = new BufferedReader(new InputStreamReader(is));
-            JSONText = rd.readLine();
-            is.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return JSONText;
-    }
 
 
     public static void main(String[] args) throws JSONException, IOException {
         //storeJSON("http://api.worldbank.org/countries?format=json", "src/resources/Country");
         //readJSONFile("tmp.json");
-        //Object object = readJSONURL("http://api.worldbank.org/countries?format=json");
+            //Object object = readJSONURL("http://api.worldbank.org/countries?format=json");
         //System.out.println(object.toString());
+
     }
 
 }
