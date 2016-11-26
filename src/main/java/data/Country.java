@@ -1,22 +1,18 @@
-package data;
-
+package main.java.data;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONTokener;
 
-import java.io.*;
-import java.net.URL;
-
-
+/**
+ * A class to represent a Country from the WorldBank API
+ */
 public class Country{
 
-
-    private final String API = "http://api.worldbank.org/countries?format=json";
     private StringProperty id, iso2Code, name, regionID, regionName, incomeLevel, lendingType, capitalCity, longitude, latitude;
 
+    /**
+     * Constructs a Country with a default property
+     */
     public Country(){
         this.id = new SimpleStringProperty("id");
         this.iso2Code = new SimpleStringProperty("iso2Code");
@@ -30,6 +26,19 @@ public class Country{
         this.latitude = new SimpleStringProperty("latitude");
     }
 
+    /**
+     * Constructs a Country with a specified property
+     * @param id
+     * @param iso2Code
+     * @param name
+     * @param regionID
+     * @param regionName
+     * @param incomeLevel
+     * @param lendingType
+     * @param capitalCity
+     * @param longitude
+     * @param latitude
+     */
     public Country(String id, String iso2Code, String name, String regionID,
                    String regionName, String incomeLevel, String lendingType,
                    String capitalCity, String longitude, String latitude) {
@@ -50,9 +59,7 @@ public class Country{
         return name.get();
     }
 
-    public StringProperty nameProperty() {
-        return name;
-    }
+    public StringProperty getNameProperty() { return name; }
 
     public void setName(String name) {
         this.name.set(name);
@@ -140,17 +147,6 @@ public class Country{
 
     public void setLatitude(String latitude) {
         this.latitude.set(latitude);
-    }
-
-
-
-
-    public static void main(String[] args) throws JSONException, IOException {
-        //storeJSON("http://api.worldbank.org/countries?format=json", "src/resources/Country");
-        //readJSONFile("tmp.json");
-            //Object object = readJSONURL("http://api.worldbank.org/countries?format=json");
-        //System.out.println(object.toString());
-
     }
 
 }

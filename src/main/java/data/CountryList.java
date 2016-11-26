@@ -1,4 +1,4 @@
-package data;
+package main.java.data;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,22 +9,38 @@ import org.json.JSONTokener;
 import java.io.*;
 import java.net.URL;
 
+/**
+ * A class to represent the list of countries from the WorldBank API
+ */
 public class CountryList{
 
     private ObservableList<Country> countries = FXCollections.observableArrayList();
-    private static final String COUNTRY_PATH = "src/resources/";
+    private static final String COUNTRY_PATH = "src/main/resources/";
+    private static final String COUNTRY_API = "http://api.worldbank.org/countries?format=json";
 
+    /**
+     * Constructs a CountryList by reading the local JSON files
+     */
     public CountryList(){
         readJSONFiles(COUNTRY_PATH);
     }
 
+    /**
+     * Read local JSON files by doing the following: <br>
+     * In the path provided, it loops through each file using .listFiles
+     * Next, in each file, get the JSONArray at 1
+     * Next, it loops through each individual JSONObject in that array
+     * and get each property of the JSONObject
+     * and create a Country object using all the properties retrived
+     * and finally store the Country in the list of countries.
+     * @param path where JSON files are stored
+     */
     private void readJSONFiles(String path) {
         File dir = new File(path);
         for(File file: dir.listFiles()){
             try{
                 JSONArray jsonArray = readJSONFile(file.getPath()).getJSONArray(1);
                 for(int i = 0; i < jsonArray.length(); i++){
-
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     String id = (String) jsonObject.get("id");
                     String iso2Code = (String) jsonObject.get("iso2Code");
@@ -38,7 +54,6 @@ public class CountryList{
                     String latitude = (String) jsonObject.get("latitude");
                     countries.add(new Country(id, iso2Code, name, regionID, regionName, incomeLevel, lendingType, capitalCity, longitude, latitude));
                 }
-
             }
             catch (JSONException e){
                 e.printStackTrace();
@@ -46,9 +61,18 @@ public class CountryList{
         }
     }
 
-    private static void storeJSON(String url, String path){
+    /**
+     * This method is used to store all JSON objects from a URL to a local file.
+     * Initially it finds the number of pages of data from the URL.
+     * It then loops the page numbers and in each loop it retrives the JSON object from a newly generated URL
+     * The new URL is the concatenation of the old URL and a page number query.
+     * In each loop, it stores the data locally as a .json file.
+     * @param url
+     * @param path
+     *
+     */
+    private static void saveJSON(String url, String path){
         String JSONText = readJSONURL(url);
-
         try {
             JSONArray jsonArray = new JSONArray(JSONText);
             int pages = (int) jsonArray.getJSONObject(0).get("pages");
@@ -56,25 +80,27 @@ public class CountryList{
                 String newPath = path + i + ".json";
                 String newURL = url + "&page=" + i;
                 String newJSONText = readJSONURL(newURL);
-                FileWriter newFile = new FileWriter(newPath);
-                newFile.write(newJSONText);
-                newFile.flush();
-                newFile.close();
+                FileWriter fileWriter = new FileWriter(newPath);
+                fileWriter.write(newJSONText);
+                fileWriter.flush();
+                fileWriter.close();
             }
-
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 
     }
 
+    /**
+     * This method reads a JSON file
+     * @param fileName
+     * @return JSONArray with the contents of the local file
+     */
     private static JSONArray readJSONFile(String fileName) {
-        FileReader reader = null;
-        JSONTokener tokener = null;
         JSONArray jsonArray = null;
         try {
-            reader = new FileReader(fileName);
-            tokener = new JSONTokener(reader);
+            FileReader reader = new FileReader(fileName);
+            JSONTokener tokener = new JSONTokener(reader);
             jsonArray = new JSONArray(tokener);
         } catch (IOException | JSONException e) {
             e.printStackTrace();
@@ -82,26 +108,24 @@ public class CountryList{
         return jsonArray;
     }
 
+    /**
+     * This methods reads the JSON object from a URL
+     * and returns it in a String format
+     * @param url
+     * @return JSON content as a String
+     */
     public static String readJSONURL(String url){
-        InputStream is = null;
-        BufferedReader rd = null;
         String JSONText = null;
         try {
-            is = new URL(url).openStream();
-            rd = new BufferedReader(new InputStreamReader(is));
-            JSONText = rd.readLine();
-            is.close();
+            InputStream inputStream = new URL(url).openStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            JSONText = bufferedReader.readLine();
+            bufferedReader.close();
+            inputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return JSONText;
-    }
-
-    public static void main(String[] args){
-        CountryList countryList = new CountryList();
-        for(int i = 0; i < countryList.countries.size(); i++){
-            System.out.println(countryList.countries.get(i).getName());
-        }
     }
 
 
