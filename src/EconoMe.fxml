@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane id="results_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1150.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<Pane id="results_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1150.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.data.EconoMeController">
    <children>
       <VBox id="category_box" prefHeight="600.0" prefWidth="222.0" stylesheets="@style.css">
          <children>
@@ -22,32 +21,32 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="300.0" styleClass="category_button" stylesheets="@style.css" text="Country Name">
+                  <Button fx:id="btnCountryName" mnemonicParsing="false" onAction="#handleCountryNameAction" prefHeight="26.0" prefWidth="300.0" styleClass="category_button" stylesheets="@style.css" text="Country Name">
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
                      </cursor>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="300.0" styleClass="category_button" stylesheets="@style.css" text="Region Name">
+                  <Button fx:id="btnRegionName" mnemonicParsing="false" onAction="#handleRegionNameAction" prefHeight="26.0" prefWidth="300.0" styleClass="category_button" stylesheets="@style.css" text="Region Name">
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
                      </cursor>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="300.0" styleClass="category_button" stylesheets="@style.css" text="Income Level">
+                  <Button fx:id="btnIncomeLevel" mnemonicParsing="false" onAction="#handleIncomeLevelAction" prefHeight="26.0" prefWidth="300.0" styleClass="category_button" stylesheets="@style.css" text="Income Level">
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
                      </cursor>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="300.0" styleClass="category_button" stylesheets="@style.css" text="Lending Type">
+                  <Button fx:id="btnLendingType" mnemonicParsing="false" onAction="#handleLendingTypeAction" prefHeight="26.0" prefWidth="300.0" styleClass="category_button" stylesheets="@style.css" text="Lending Type">
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
                      </cursor>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="300.0" styleClass="category_button" stylesheets="@style.css" text="Capital City">
+                  <Button fx:id="btnCapitalCity" mnemonicParsing="false" onAction="#handleCapitalCityAction" prefHeight="26.0" prefWidth="300.0" styleClass="category_button" stylesheets="@style.css" text="Capital City">
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
                      </cursor>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="300.0" styleClass="category_button" stylesheets="@style.css" text="Indicator">
+                  <Button fx:id="btnIndicator" mnemonicParsing="false" onAction="#handleIndicatorAction" prefHeight="26.0" prefWidth="300.0" styleClass="category_button" stylesheets="@style.css" text="Indicator">
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
                      </cursor>
@@ -59,7 +58,7 @@
             </VBox>
             <VBox prefHeight="128.0" prefWidth="222.0" style="-fx-alignment: center;">
                <children>
-                  <Button id="category_settings" mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" stylesheets="@style.css" text="Settings">
+                  <Button id="category_settings" fx:id="btnSettings" mnemonicParsing="false" onAction="#handleSettingsAction" prefHeight="40.0" prefWidth="300.0" stylesheets="@style.css" text="Settings">
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
                      </cursor>
@@ -80,7 +79,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <ListView id="view_list" prefHeight="504.0" prefWidth="182.0" stylesheets="@style.css" />
+                  <ListView id="view_list" fx:id="listvList" prefHeight="504.0" prefWidth="182.0" stylesheets="@style.css" />
                </children>
                <padding>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
