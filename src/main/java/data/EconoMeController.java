@@ -6,10 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -97,18 +94,18 @@ public class EconoMeController implements Initializable
             }
         }
 
-        final NumberAxis xAxis = new NumberAxis(1970, 2016, 10);
+        final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
 
         yAxis.setMinorTickCount(500);
-        LineChart lineChart = new LineChart<Number,Number>(xAxis,yAxis);
+        LineChart lineChart = new LineChart<>(xAxis,yAxis);
         lineChart.setTitle("GDP_CURRENT_$US");
         xAxis.setLabel("Year");
-        XYChart.Series series = new XYChart.Series();
+        XYChart.Series<String, Double> series = new XYChart.Series();
 
         for(CountryIndicator c: results){
             if(c.getGDP_CURRENT_$US() != 0.0){
-                series.getData().add(new XYChart.Data<>(c.getDate(), c.getGDP_CURRENT_$US()));
+                series.getData().add(new XYChart.Data<>(Integer.toString(c.getDate()), c.getGDP_CURRENT_$US()));
             }
         }
         lineChart.getData().add(series);
