@@ -117,29 +117,16 @@ public class EconoMeController implements Initializable
     public void initialize(URL location, ResourceBundle resources)
     {
         this.countryIndicatorList = new CountryIndicatorList().getCountryIndicators();
-        CountryList list = new CountryList();
-        countryList = list.getCountries();
 
         TreeSet<String> countries = new TreeSet<>();
         TreeSet<String> regions = new TreeSet<>();
         TreeSet<String> levels = new TreeSet<>();
         TreeSet<String> types = new TreeSet<>();
 
-        for (Country c : countryList)
+        for (CountryIndicator c : countryIndicatorList)
         {
-            countries.add(c.getName());
-            regions.add(c.getRegionName());
-            levels.add(c.getIncomeLevel());
-            types.add(c.getLendingType());
+            countries.add(c.getCountryValue());
         }
-
-        ArrayList<String> remove = new ArrayList<>();
-
-        remove.addAll(regions);
-        remove.addAll(levels);
-        remove.addAll(types);
-
-        countries.removeAll(remove);
 
         for (String c : countries)
             System.out.println(c + ",");
