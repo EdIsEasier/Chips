@@ -16,7 +16,7 @@ public class CountryIndicatorList implements DataManager{
     private static final String GDP_PER_CAPITA_CURRENT_$US = "http://api.worldbank.org/countries/all/indicators/NY.GDP.PCAP.CD?format=json&per_page=15050";
     private static final String COUNTRYINDICATOR_PATH = "src/main/resources/indicators/";
 
-    public CountryIndicatorList(){
+    public CountryIndicatorList() {
         storeJSONFromLocalToList();
     }
 
