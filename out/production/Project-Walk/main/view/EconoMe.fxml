@@ -2,24 +2,27 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.data.EconoMeController">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.data.EconoMeController">
    <left>
-      <HBox prefHeight="781.0" prefWidth="387.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="700.0" prefWidth="387.0" BorderPane.alignment="CENTER">
          <children>
             <SplitPane dividerPositions="0.47863247863247865" prefWidth="401.0">
                <items>
-                  <VBox id="category_box" prefHeight="772.0" prefWidth="174.0" stylesheets="@style.css">
+                  <VBox id="category_box" prefHeight="700.0" prefWidth="174.0" stylesheets="@style.css">
                      <children>
-                        <VBox prefHeight="706.0" prefWidth="146.0">
+                        <VBox prefHeight="650.0" prefWidth="146.0">
                            <children>
                               <Label id="category_title" prefHeight="25.0" prefWidth="300.0" style="-fx-alignment: center;" stylesheets="@style.css" text="Select Category" textAlignment="CENTER" textFill="WHITE">
                                  <font>
@@ -79,16 +82,16 @@
                         </Button>
                      </children>
                   </VBox>
-                  <VBox id="list_pane" prefHeight="772.0" prefWidth="186.0" stylesheets="@style.css">
+                  <VBox id="list_pane" prefHeight="700.0" prefWidth="186.0" stylesheets="@style.css">
                      <children>
-                        <VBox id="list_pane" prefHeight="686.0" prefWidth="222.0" spacing="20.0" stylesheets="@style.css">
+                        <VBox id="list_pane" prefWidth="222.0" spacing="20.0" stylesheets="@style.css">
                            <children>
                               <Label id="view_title" prefHeight="25.0" prefWidth="300.0" style="-fx-alignment: center;" stylesheets="@style.css" text="View List" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <ListView id="view_list" fx:id="listView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" onMouseClicked="#handleListAction" prefHeight="682.0" stylesheets="@style.css" />
+                              <ListView id="view_list" fx:id="listView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" onMouseClicked="#handleListAction" prefHeight="605.0" stylesheets="@style.css" />
                            </children>
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -102,6 +105,15 @@
       </HBox>
    </left>
    <center>
-      <VBox prefHeight="781.0" prefWidth="734.0" BorderPane.alignment="CENTER" fx:id="result"/>
+      <TabPane fx:id="tpaneChartTabs" prefHeight="200.0" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab fx:id="tabLineChart" text="Line Chart" />
+          <Tab fx:id="tabPieChart" text="Pie Chart">
+               <content>
+                  <PieChart fx:id="pieChart" />
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
    </center>
 </BorderPane>
