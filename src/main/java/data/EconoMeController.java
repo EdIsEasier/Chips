@@ -22,9 +22,7 @@ import javafx.scene.layout.VBox;
 import java.awt.*;
 import java.lang.reflect.Array;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-import java.util.TreeSet;
+import java.util.*;
 
 public class EconoMeController implements Initializable
 {
@@ -121,23 +119,37 @@ public class EconoMeController implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        this.countryList = new CountryList().getCountries();
         this.countryIndicatorList = new CountryIndicatorList().getCountryIndicators();
+        CountryList list = new CountryList();
+        countryList = list.getCountries();
 
-        TreeSet<String> countryNames = new TreeSet<>();
+        TreeSet<String> countries = new TreeSet<>();
+        TreeSet<String> regions = new TreeSet<>();
+        TreeSet<String> levels = new TreeSet<>();
+        TreeSet<String> types = new TreeSet<>();
 
-        for(CountryIndicator indicator: countryIndicatorList){
-
-            countryNames.add(indicator.getCountryValue());
-        }
         for (Country c : countryList)
         {
-            regionNames.add(c.getRegionName());
-            incomeLevels.add(c.getIncomeLevel());
-            lendingTypes.add(c.getLendingType());
-            capitalCities.add(c.getCapitalCity());
+            countries.add(c.getName());
+            regions.add(c.getRegionName());
+            levels.add(c.getIncomeLevel());
+            types.add(c.getLendingType());
         }
-        this.countryNames = FXCollections.observableSet(countryNames);
 
+        ArrayList<String> remove = new ArrayList<>();
+
+        remove.addAll(regions);
+        remove.addAll(levels);
+        remove.addAll(types);
+
+        countries.removeAll(remove);
+
+        for (String c : countries)
+            System.out.println(c + ",");
+
+        countryNames = FXCollections.observableSet(countries);
+        regionNames = FXCollections.observableSet(regions);
+        incomeLevels = FXCollections.observableSet(levels);
+        lendingTypes = FXCollections.observableSet(types);
     }
 }
