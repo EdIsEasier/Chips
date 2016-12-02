@@ -1,23 +1,34 @@
 package main.java.data;
 
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXListView;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.chart.*;
-import javafx.scene.control.*;
-import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-
 import java.net.URL;
 import java.util.*;
 
-public class EconoMeController implements Initializable
-{
+public class GUIController implements Initializable {
+
     private ObservableList<Country> countryList;
     private ObservableList<CountryIndicator> countryIndicatorList;
     private ObservableSet<String> countryNames = FXCollections.observableSet();
@@ -25,6 +36,18 @@ public class EconoMeController implements Initializable
     private ObservableSet<String> incomeLevels = FXCollections.observableSet();
     private ObservableSet<String> lendingTypes = FXCollections.observableSet();
     private ObservableSet<String> capitalCities = FXCollections.observableSet();
+
+    @FXML
+    private JFXHamburger hamburger;
+    @FXML
+    private JFXDrawer drawer;
+    @FXML
+    private ListView list;
+    @FXML
+    private VBox buttonList;
+    @FXML
+    private StackPane stack;
+
     @FXML
     private PieChart pieChart;
 
@@ -34,18 +57,13 @@ public class EconoMeController implements Initializable
     private Tab tabLineChart;
     @FXML
     private Tab tabPieChart;
-
-    @FXML
-    private Button btnCountryName;
-    @FXML
-    private ListView<String> listView;
     @FXML
     private LineChart<Number, Number> GDP_CURRENT_$US;
 
     @FXML
     private void handleCountryNameAction(ActionEvent event)
     {
-        listView.setItems(FXCollections.observableArrayList(countryNames));
+        list.setItems(FXCollections.observableArrayList(countryNames));
         tabPieChart.setDisable(true);
         tabLineChart.setDisable(false);
     }
@@ -53,7 +71,7 @@ public class EconoMeController implements Initializable
     @FXML
     private void handleRegionNameAction(ActionEvent event)
     {
-        listView.setItems(FXCollections.observableArrayList(regionNames));
+        list.setItems(FXCollections.observableArrayList(regionNames));
         tabPieChart.setDisable(false);
         tabLineChart.setDisable(false);
     }
@@ -61,7 +79,7 @@ public class EconoMeController implements Initializable
     @FXML
     private void handleIncomeLevelAction(ActionEvent event)
     {
-        listView.setItems(FXCollections.observableArrayList(incomeLevels));
+        list.setItems(FXCollections.observableArrayList(incomeLevels));
         tabPieChart.setDisable(false);
         tabLineChart.setDisable(false);
     }
@@ -69,23 +87,9 @@ public class EconoMeController implements Initializable
     @FXML
     private void handleLendingTypeAction(ActionEvent event)
     {
-        listView.setItems(FXCollections.observableArrayList(lendingTypes));
+        list.setItems(FXCollections.observableArrayList(lendingTypes));
         tabPieChart.setDisable(false);
         tabLineChart.setDisable(false);
-    }
-
-    @FXML
-    private void handleCapitalCityAction(ActionEvent event)
-    {
-        listView.setItems(FXCollections.observableArrayList(capitalCities));
-        tabPieChart.setDisable(false);
-        tabLineChart.setDisable(false);
-    }
-
-    @FXML
-    private void handleIndicatorAction(ActionEvent event)
-    {
-
     }
 
     @FXML
@@ -93,11 +97,13 @@ public class EconoMeController implements Initializable
     {
 
     }
+
     @FXML
     private void handleListAction(MouseEvent arg0){
+        System.out.println("CCCCCCCCLICCCCCCCCCCCk");
         if (!tabLineChart.isDisabled())
         {
-            String selectedItem = listView.getSelectionModel().getSelectedItem();
+            String selectedItem = (String) list.getSelectionModel().getSelectedItem();
             ArrayList<CountryIndicator> results = new ArrayList<>();
             for(CountryIndicator c: countryIndicatorList){
                 if(c.getCountryValue().equals(selectedItem)){
@@ -158,9 +164,60 @@ public class EconoMeController implements Initializable
         }
     }
 
+
+
     @Override
-    public void initialize(URL location, ResourceBundle resources)
-    {
+    public void initialize(URL location, ResourceBundle resources) {
+
+        JFXButton countryButton = new JFXButton("COUNTRY");
+        JFXButton regionButton = new JFXButton("REGION");
+        JFXButton incomeLevelButton = new JFXButton("INCOME LEVEL");
+        JFXButton lendingTypeButton = new JFXButton("LENDING TYPE");
+
+        countryButton.setOnAction(event -> handleCountryNameAction(event));
+        regionButton.setOnAction(event -> handleRegionNameAction(event));
+        incomeLevelButton.setOnAction(event -> handleIncomeLevelAction(event));
+        lendingTypeButton.setOnAction(event -> handleLendingTypeAction(event));
+
+        Font font = Font.font("Calibri", FontWeight.BOLD, 24);
+
+        countryButton.setFont(font);
+        regionButton.setFont(font);
+        incomeLevelButton.setFont(font);
+        lendingTypeButton.setFont(font);
+
+        countryButton.setPrefWidth(300);
+        regionButton.setPrefWidth(300);
+        incomeLevelButton.setPrefWidth(300);
+        lendingTypeButton.setPrefWidth(300);
+        buttonList.getChildren().addAll(countryButton, regionButton, incomeLevelButton, lendingTypeButton);
+        drawer.setSidePane(buttonList);
+
+        HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+        transition.setRate(-1);
+        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED,(e)->{
+            transition.setRate(transition.getRate()*-1);
+            transition.play();
+
+            if(drawer.isShown())
+            {
+
+                drawer.close();
+                ObservableList<Node> workingCollection1 = FXCollections.observableArrayList(stack.getChildren());
+                Collections.swap(workingCollection1, 0, 1);
+                stack.getChildren().setAll(workingCollection1);
+
+            }else {
+
+
+                drawer.open();
+                list.setEditable(true);
+                ObservableList<Node> workingCollection = FXCollections.observableArrayList(stack.getChildren());
+                Collections.swap(workingCollection, 1, 0);
+                stack.getChildren().setAll(workingCollection);
+            }
+        });
+
         this.countryIndicatorList = new CountryIndicatorList().getCountryIndicators();
         countryList = new CountryList().getCountries();
         pieChart = new PieChart() {
@@ -197,6 +254,9 @@ public class EconoMeController implements Initializable
 
         tabPieChart.setContent(pieChart);
         tabPieChart.setDisable(true);
-        tabLineChart.setDisable(true);
+        //tabLineChart.setDisable(true);
+        list.setItems(FXCollections.observableArrayList(countryNames));
+
     }
+
 }
