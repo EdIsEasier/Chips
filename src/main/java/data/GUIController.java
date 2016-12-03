@@ -239,13 +239,24 @@ public class GUIController implements Initializable {
         TreeSet<String> levels = new TreeSet<>();
         TreeSet<String> types = new TreeSet<>();
 
-        for (CountryIndicator c : countryIndicatorList)
-        {
-            countries.add(c.getCountryValue());
+        for (int i = 0; i < countryList.size(); ++i) {
+            regions.add(countryList.get(i).getRegionName());
+            levels.add(countryList.get(i).getIncomeLevel());
+            types.add(countryList.get(i).getLendingType());
         }
 
-        for (String c : countries)
-            System.out.println(c + ",");
+        //the next for loop only adds an object to the TreeSet "countries" if it's a country, noncountries are excluded
+        //noncountries: names found in the TreeSets: regions, levels, types and other_noncountries (where names are added manually)
+        TreeSet<String> other_noncountries = new TreeSet<>();
+        other_noncountries.add("Early-demographic dividend"); //add other excluded noncountry names to the check, manually
+        for (CountryIndicator c : countryIndicatorList)
+        {
+            String country_name = c.getCountryValue();
+            if(!regions.contains(country_name) && !levels.contains(country_name) && !types.contains(country_name) && !other_noncountries.contains(country_name)) {
+                countries.add(c.getCountryValue());
+            }
+            else System.out.println(country_name);
+        }
 
         countryNames = FXCollections.observableSet(countries);
         regionNames = FXCollections.observableSet(regions);
