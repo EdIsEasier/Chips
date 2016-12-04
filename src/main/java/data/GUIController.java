@@ -1,17 +1,14 @@
 package main.java.data;
 
-
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.controls.JFXListView;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.chart.*;
@@ -26,6 +23,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.*;
+
 
 public class GUIController implements Initializable {
 
@@ -58,6 +56,8 @@ public class GUIController implements Initializable {
     @FXML
     private Tab tabPieChart;
     @FXML
+    private Tab tabBarChart;
+    @FXML
     private LineChart<Number, Number> GDP_CURRENT_$US;
 
     @FXML
@@ -66,6 +66,7 @@ public class GUIController implements Initializable {
         list.setItems(FXCollections.observableArrayList(countryNames));
         tabPieChart.setDisable(true);
         tabLineChart.setDisable(false);
+        tabBarChart.setDisable(false);
     }
 
     @FXML
@@ -74,6 +75,7 @@ public class GUIController implements Initializable {
         list.setItems(FXCollections.observableArrayList(regionNames));
         tabPieChart.setDisable(false);
         tabLineChart.setDisable(false);
+        tabBarChart.setDisable(false);
     }
 
     @FXML
@@ -82,6 +84,7 @@ public class GUIController implements Initializable {
         list.setItems(FXCollections.observableArrayList(incomeLevels));
         tabPieChart.setDisable(false);
         tabLineChart.setDisable(false);
+        tabBarChart.setDisable(false);
     }
 
     @FXML
@@ -90,6 +93,7 @@ public class GUIController implements Initializable {
         list.setItems(FXCollections.observableArrayList(lendingTypes));
         tabPieChart.setDisable(false);
         tabLineChart.setDisable(false);
+        tabBarChart.setDisable(false);
     }
 
     @FXML
@@ -162,6 +166,40 @@ public class GUIController implements Initializable {
             pieChart.setData(pieChartData);
             pieChart.setTitle("Income Levels of All Countries");
         }
+
+        if (!tabBarChart.isDisabled())
+        {
+            String selectedItem = (String) list.getSelectionModel().getSelectedItem();
+            ArrayList<CountryIndicator> results = new ArrayList<>();
+            for(CountryIndicator c: countryIndicatorList){
+                if(c.getCountryValue().equals(selectedItem)){
+                    results.add(c);
+                }
+            }
+
+            //prepare the data
+            CategoryAxis xAxis = new CategoryAxis();
+            NumberAxis yAxis = new NumberAxis();
+
+            xAxis.setLabel("Year");
+
+            XYChart.Series<String, Double> series = new XYChart.Series<>();
+            series.setName("data");
+            for(CountryIndicator c: results){
+                if(c.getGDP_CURRENT_$US() != 0.0){
+                    series.getData().add(new XYChart.Data<>(Integer.toString(c.getDate()), c.getGDP_CURRENT_$US()));
+                }
+            }
+
+            BarChart barChart = new BarChart<String,Number>(xAxis,yAxis);
+            barChart.setTitle("GDP in US dollars");
+            barChart.getData().add(series);
+            barChart.setCategoryGap(0);
+            barChart.setBarGap(0.5);
+            tabBarChart.setContent(barChart);
+            // System.out.println("TEST");
+        }
+
     }
 
 
