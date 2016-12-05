@@ -128,5 +128,7 @@ public class CountryList{
         return JSONText;
     }
 
-
+    public ObservableList<Country> getCountries(){
+        return countries;
+    }
 }
