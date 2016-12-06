@@ -3,18 +3,23 @@ package main.java.data;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.chart.*;
-import javafx.scene.control.*;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Optional;
+import java.util.ResourceBundle;
+import java.util.TreeSet;
 
 public class EconoMeController implements Initializable
 {

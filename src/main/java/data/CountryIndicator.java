@@ -11,15 +11,19 @@ public class CountryIndicator{
     private IntegerProperty date;
     private DoubleProperty GDP_CURRENT_$US;
     private DoubleProperty GDP_PER_CAPITA_CURRENT_$US;
+    private DoubleProperty INFLATION_CONSUMER_PRICES;
+    private DoubleProperty UNEMPLOYMENT_RATE;
 
     public CountryIndicator(){
         indicatorID = new SimpleStringProperty("indicatorID");
         indicatorValue = new SimpleStringProperty("indicatorValue");
         countryID = new SimpleStringProperty("countryID");
         countryValue = new SimpleStringProperty("countryValue");
+        date = new SimpleIntegerProperty(0000);
         GDP_CURRENT_$US = new SimpleDoubleProperty(0.0);
         GDP_PER_CAPITA_CURRENT_$US = new SimpleDoubleProperty(0.0);
-        date = new SimpleIntegerProperty(0000);
+        INFLATION_CONSUMER_PRICES = new SimpleDoubleProperty(0.0);
+        UNEMPLOYMENT_RATE = new SimpleDoubleProperty(0.0);
     }
 
     public CountryIndicator(String indicatorID, String indicatorValue, String countryID, String countryValue, int date){
@@ -30,6 +34,20 @@ public class CountryIndicator{
         this.date = new SimpleIntegerProperty(date);
         GDP_CURRENT_$US = new SimpleDoubleProperty(0.0);
         GDP_PER_CAPITA_CURRENT_$US = new SimpleDoubleProperty(0.0);
+        INFLATION_CONSUMER_PRICES = new SimpleDoubleProperty(0.0);
+        UNEMPLOYMENT_RATE = new SimpleDoubleProperty(0.0);
+    }
+
+    public double getUNEMPLOYMENT_RATE() {
+        return UNEMPLOYMENT_RATE.get();
+    }
+
+    public DoubleProperty UNEMPLOYMENT_RATEProperty() {
+        return UNEMPLOYMENT_RATE;
+    }
+
+    public void setUNEMPLOYMENT_RATE(double UNEMPLOYMENT_RATE) {
+        this.UNEMPLOYMENT_RATE.set(UNEMPLOYMENT_RATE);
     }
 
     public double getGDP_PER_CAPITA_CURRENT_$US() {
@@ -42,6 +60,18 @@ public class CountryIndicator{
 
     public void setGDP_PER_CAPITA_CURRENT_$US(double GDP__PER_CAPITA_CURRENT_$US) {
         this.GDP_PER_CAPITA_CURRENT_$US.set(GDP__PER_CAPITA_CURRENT_$US);
+    }
+
+    public double getINFLATION_CONSUMER_PRICES() {
+        return INFLATION_CONSUMER_PRICES.get();
+    }
+
+    public DoubleProperty INFLATION_CONSUMER_PRICESProperty() {
+        return INFLATION_CONSUMER_PRICES;
+    }
+
+    public void setINFLATION_CONSUMER_PRICES(double INFLATION_CONSUMER_PRICES) {
+        this.INFLATION_CONSUMER_PRICES.set(INFLATION_CONSUMER_PRICES);
     }
 
     public String getIndicatorID() {

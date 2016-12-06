@@ -5,11 +5,8 @@ import javafx.collections.ObservableList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
-import java.io.*;
-import java.net.URL;
 
-public class IndicatorList implements DataManager{
+public class IndicatorList implements DataManager {
 
     private ObservableList<Indicator> indicators = FXCollections.observableArrayList();
     private static final String INDICATOR_API = "http://api.worldbank.org/topic/3/indicator?format=json&per_page=300";

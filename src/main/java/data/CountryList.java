@@ -5,9 +5,6 @@ import javafx.collections.ObservableList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
-import java.io.*;
-import java.net.URL;
 
 /**
  * A class to represent the list of countries from the WorldBank API
@@ -28,7 +25,7 @@ public class CountryList implements DataManager{
 
     @Override
     public void storeJSONFromURLToList() {
-        String json = getJSONFromFile(COUNTRY_FILE);
+        String json = getJSONFromURL(COUNTRY_API);
         try {
             JSONArray jsonArray = new JSONArray(json).getJSONArray(1);
             for(int i = 0; i < jsonArray.length(); ++i){
@@ -44,7 +41,8 @@ public class CountryList implements DataManager{
 
     @Override
     public void storeJSONFromLocalToList() {
-        String json = getJSONFromURL(COUNTRY_API);
+        String json = getJSONFromFile(COUNTRY_FILE);
+
         try {
             JSONArray jsonArray = new JSONArray(json).getJSONArray(1);
             for(int i = 0; i < jsonArray.length(); ++i){
