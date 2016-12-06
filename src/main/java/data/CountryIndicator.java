@@ -11,7 +11,7 @@ public class CountryIndicator{
     private IntegerProperty date;
     private DoubleProperty GDP_CURRENT_$US;
     private DoubleProperty GDP_PER_CAPITA_CURRENT_$US;
-    private DoubleProperty INFLATION_CONSUMER_PRICES;
+    private DoubleProperty INFLATION_RATE;
     private DoubleProperty UNEMPLOYMENT_RATE;
 
     public CountryIndicator(){
@@ -22,7 +22,7 @@ public class CountryIndicator{
         date = new SimpleIntegerProperty(0000);
         GDP_CURRENT_$US = new SimpleDoubleProperty(0.0);
         GDP_PER_CAPITA_CURRENT_$US = new SimpleDoubleProperty(0.0);
-        INFLATION_CONSUMER_PRICES = new SimpleDoubleProperty(0.0);
+        INFLATION_RATE = new SimpleDoubleProperty(0.0);
         UNEMPLOYMENT_RATE = new SimpleDoubleProperty(0.0);
     }
 
@@ -34,7 +34,7 @@ public class CountryIndicator{
         this.date = new SimpleIntegerProperty(date);
         GDP_CURRENT_$US = new SimpleDoubleProperty(0.0);
         GDP_PER_CAPITA_CURRENT_$US = new SimpleDoubleProperty(0.0);
-        INFLATION_CONSUMER_PRICES = new SimpleDoubleProperty(0.0);
+        INFLATION_RATE = new SimpleDoubleProperty(0.0);
         UNEMPLOYMENT_RATE = new SimpleDoubleProperty(0.0);
     }
 
@@ -62,17 +62,7 @@ public class CountryIndicator{
         this.GDP_PER_CAPITA_CURRENT_$US.set(GDP__PER_CAPITA_CURRENT_$US);
     }
 
-    public double getINFLATION_CONSUMER_PRICES() {
-        return INFLATION_CONSUMER_PRICES.get();
-    }
 
-    public DoubleProperty INFLATION_CONSUMER_PRICESProperty() {
-        return INFLATION_CONSUMER_PRICES;
-    }
-
-    public void setINFLATION_CONSUMER_PRICES(double INFLATION_CONSUMER_PRICES) {
-        this.INFLATION_CONSUMER_PRICES.set(INFLATION_CONSUMER_PRICES);
-    }
 
     public String getIndicatorID() {
         return indicatorID.get();
@@ -144,5 +134,17 @@ public class CountryIndicator{
 
     public void setDate(int date) {
         this.date.set(date);
+    }
+
+    public double getINFLATION_RATE() {
+        return INFLATION_RATE.get();
+    }
+
+    public DoubleProperty INFLATION_RATEProperty() {
+        return INFLATION_RATE;
+    }
+
+    public void setINFLATION_RATE(double INFLATION_RATE) {
+        this.INFLATION_RATE.set(INFLATION_RATE);
     }
 }
