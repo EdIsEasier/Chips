@@ -153,7 +153,7 @@ public class GUIController implements Initializable {
                     String date = Integer.toString(c.getDate());
                     double GDP = c.getGDP_CURRENT_$US();
                     double GDPPerCapita = c.getGDP_PER_CAPITA_CURRENT_$US();
-                    double inflation = c.getINFLATION_CONSUMER_PRICES();
+                    double inflation = c.getINFLATION_RATE();
                     double unemploymentRate = c.getUNEMPLOYMENT_RATE();
                     GDPSeries.getData().add(new XYChart.Data<>(date, GDP));
                     GDPPerCapitaSeries.getData().add(new XYChart.Data<>(date, GDPPerCapita));
