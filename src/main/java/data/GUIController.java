@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.chart.*;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.MouseEvent;
@@ -34,13 +35,14 @@ public class GUIController implements Initializable {
     private ObservableSet<String> incomeLevels = FXCollections.observableSet();
     private ObservableSet<String> lendingTypes = FXCollections.observableSet();
     private ObservableSet<String> capitalCities = FXCollections.observableSet();
+    private ArrayList<String> selectedItems = new ArrayList<>();
 
     @FXML
     private JFXHamburger hamburger;
     @FXML
     private JFXDrawer drawer;
     @FXML
-    private ListView list;
+    private ListView<String> list;
     @FXML
     private VBox buttonList;
     @FXML
@@ -48,6 +50,12 @@ public class GUIController implements Initializable {
 
     @FXML
     private PieChart pieChart;
+    @FXML
+    private LineChart<String, Double> lineChart;
+    @FXML
+    private CategoryAxis xAxis;
+    @FXML
+    private NumberAxis yAxis;
 
     @FXML
     private TabPane tpaneChartTabs;
@@ -102,35 +110,51 @@ public class GUIController implements Initializable {
 
     }
 
+    private ArrayList<CountryIndicator> getIndicatorsByCountry(String strCountry)
+    {
+        ArrayList<CountryIndicator> country = new ArrayList<>();
+        for(CountryIndicator c : countryIndicatorList)
+            if(c.getCountryValue().equals(strCountry))
+                country.add(c);
+
+        return country;
+    }
+
     @FXML
     private void handleListAction(MouseEvent arg0){
         System.out.println("CCCCCCCCLICCCCCCCCCCCk");
+
         if (!tabLineChart.isDisabled())
         {
-            String selectedItem = (String) list.getSelectionModel().getSelectedItem();
-            ArrayList<CountryIndicator> results = new ArrayList<>();
-            for(CountryIndicator c: countryIndicatorList){
-                if(c.getCountryValue().equals(selectedItem)){
-                    results.add(c);
+            ArrayList<String> remove = new ArrayList<>(selectedItems); // list of countries to remove from chart
+            remove.removeAll(list.getSelectionModel().getSelectedItems()); // remove all those that were selected before but aren't now
+            System.out.println(remove);
+            for (String r : remove) // remove each one
+                lineChart.getData().removeIf(s -> s.getName().equals(r));
+            selectedItems.clear(); // clear the list of previously selected countries
+            selectedItems.addAll(list.getSelectionModel().getSelectedItems()); // add currently selected countries for the next click
+
+            ArrayList<ArrayList<CountryIndicator>> results = new ArrayList<>();
+            if (remove.isEmpty()) // if there's nothing to remove or if we've only selected one country
+                results.add(getIndicatorsByCountry(list.getSelectionModel().getSelectedItem())); // get selected country and add it
+
+            ArrayList<XYChart.Series<String, Double>> dataSeries = new ArrayList<>();
+
+            for(ArrayList<CountryIndicator> a : results)
+            {
+                XYChart.Series<String, Double> series = new XYChart.Series<>();
+                series.setName(list.getSelectionModel().getSelectedItem());
+                for (CountryIndicator c : a)
+                {
+                    if(c.getGDP_CURRENT_$US() != 0.0)
+                    {
+                        series.getData().add(new XYChart.Data<>(Integer.toString(c.getDate()), c.getGDP_CURRENT_$US()));
+                    }
                 }
+                dataSeries.add(series);
             }
 
-            final CategoryAxis xAxis = new CategoryAxis();
-            final NumberAxis yAxis = new NumberAxis();
-
-            yAxis.setMinorTickCount(500);
-            LineChart lineChart = new LineChart<>(xAxis,yAxis);
-            lineChart.setTitle("GDP_CURRENT_$US");
-            xAxis.setLabel("Year");
-            XYChart.Series<String, Double> series = new XYChart.Series();
-
-            for(CountryIndicator c: results){
-                if(c.getGDP_CURRENT_$US() != 0.0){
-                    series.getData().add(new XYChart.Data<>(Integer.toString(c.getDate()), c.getGDP_CURRENT_$US()));
-                }
-            }
-            lineChart.getData().add(series);
-            tabLineChart.setContent(lineChart);
+            lineChart.getData().addAll(dataSeries);
         }
 
         if (!tabPieChart.isDisabled())
@@ -301,11 +325,14 @@ public class GUIController implements Initializable {
         incomeLevels = FXCollections.observableSet(levels);
         lendingTypes = FXCollections.observableSet(types);
 
-        tabPieChart.setContent(pieChart);
-        tabPieChart.setDisable(true);
-        //tabLineChart.setDisable(true);
         list.setItems(FXCollections.observableArrayList(countryNames));
+        list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE); // allows multiple selection while holding CTRL
 
+        tabPieChart.setContent(pieChart);
+        lineChart.setTitle("GDP_CURRENT_$US");
+        lineChart.setCreateSymbols(false);
+        yAxis.setMinorTickCount(500);
+        xAxis.setLabel("Year");
+        tabLineChart.setContent(lineChart);
     }
-
 }
