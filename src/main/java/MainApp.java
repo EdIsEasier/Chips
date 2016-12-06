@@ -1,4 +1,4 @@
-package main.java.data;
+package main.java;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,8 +10,7 @@ import javafx.stage.Stage;
 public class MainApp extends Application{
     @Override
     public void start(Stage stage) throws Exception{
-        //Parent root = (Pane)FXMLLoader.load(getClass().getClassLoader().getResource("main/view/EconoMe.fxml"));
-        Parent root = (Pane)FXMLLoader.load(getClass().getClassLoader().getResource("main/view/GUI.fxml"));
+        Parent root = (Pane)FXMLLoader.load(getClass().getClassLoader().getResource("main/java/view/EconoMe.fxml"));
 
         Scene scene = new Scene(root);
 

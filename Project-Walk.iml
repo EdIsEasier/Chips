@@ -7,10 +7,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://C:/JSON/org.json-20120521.jar!/" />
+          <root url="jar://$MODULE_DIR$/jfoenix.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -19,7 +19,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://C:/JFoenix/jfoenix.jar!/" />
+          <root url="jar://$MODULE_DIR$/org.json-20120521.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

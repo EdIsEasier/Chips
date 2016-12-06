@@ -1,34 +1,39 @@
-package main.java.data;
+package main.java.controller;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import java.io.IOException;
+import java.net.URL;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.chart.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import main.java.data.Country;
+import main.java.data.CountryIndicator;
+import main.java.data.CountryIndicatorList;
+import main.java.data.CountryList;
 
-import java.net.URL;
-import java.util.*;
-
-
-public class GUIController implements Initializable {
+public class FXMLDocumentController implements Initializable {
 
     private ObservableList<Country> countryList;
     private ObservableList<CountryIndicator> countryIndicatorList;
@@ -39,17 +44,19 @@ public class GUIController implements Initializable {
     private ObservableSet<String> capitalCities = FXCollections.observableSet();
 
     @FXML
-    private GridPane diagrams;
+    private StackPane stack;
     @FXML
-    private JFXHamburger hamburger;
+    protected JFXButton exit;
     @FXML
     private JFXDrawer drawer;
     @FXML
+    private JFXHamburger hamburger;
+    @FXML
+    private AnchorPane root;
+    @FXML
+    public static AnchorPane rootP;
+    @FXML
     private ListView list;
-    @FXML
-    private VBox buttonList;
-    @FXML
-    private StackPane stack;
 
     @FXML
     private PieChart pieChart;
@@ -62,8 +69,7 @@ public class GUIController implements Initializable {
     private Tab tabPieChart;
     @FXML
     private Tab tabBarChart;
-    @FXML
-    private LineChart<Number, Number> GDP_CURRENT_$US;
+
 
     @FXML
     private void handleCountryNameAction(ActionEvent event)
@@ -72,6 +78,7 @@ public class GUIController implements Initializable {
         tabPieChart.setDisable(true);
         tabLineChart.setDisable(false);
         tabBarChart.setDisable(false);
+
     }
 
     @FXML
@@ -102,15 +109,8 @@ public class GUIController implements Initializable {
     }
 
     @FXML
-    private void handleSettingsAction(ActionEvent event)
-    {
-
-    }
-
-    @FXML
     private void handleListAction(MouseEvent arg0){
         System.out.println("CCCCCCCCLICCCCCCCCCCCk");
-        diagrams.getChildren().clear();
         if (!tabLineChart.isDisabled())
         {
             String selectedItem = (String) list.getSelectionModel().getSelectedItem();
@@ -123,73 +123,20 @@ public class GUIController implements Initializable {
 
             final CategoryAxis xAxis = new CategoryAxis();
             final NumberAxis yAxis = new NumberAxis();
-            final CategoryAxis GDPPerCapitaXAxis = new CategoryAxis();
-            final NumberAxis GDPPerCapitaYAxis = new NumberAxis();
 
             yAxis.setMinorTickCount(500);
+            LineChart lineChart = new LineChart<>(xAxis,yAxis);
+            lineChart.setTitle("GDP_CURRENT_$US");
             xAxis.setLabel("Year");
-            GDPPerCapitaYAxis.setMinorTickCount(500);
-            GDPPerCapitaXAxis.setLabel("Year");
-
-            LineChart GDPLineChart = new LineChart<>(xAxis,yAxis);
-            LineChart GDPPerCapitaLineChart = new LineChart<>(GDPPerCapitaXAxis, GDPPerCapitaYAxis);
-            LineChart inflationLineChart = new LineChart<>(xAxis, yAxis);
-            LineChart unemploymentRateLineChart = new LineChart<>(xAxis, yAxis);
-
-
-            GDPPerCapitaLineChart.setTitle("GDP Per Capita");
-            GDPLineChart.setTitle("GDP");
-            inflationLineChart.setTitle("Inflation rate");
-            unemploymentRateLineChart.setTitle("Unemployment rate");
-
-            XYChart.Series<String, Double> GDPSeries = new XYChart.Series();
-            XYChart.Series<String, Double> GDPPerCapitaSeries = new XYChart.Series();
-            XYChart.Series<String, Double> inflationSeries = new XYChart.Series();
-            XYChart.Series<String, Double> unemploymentRateSeries = new XYChart.Series();
-            GDPLineChart.setLegendVisible(false);
+            XYChart.Series<String, Double> series = new XYChart.Series();
 
             for(CountryIndicator c: results){
                 if(c.getGDP_CURRENT_$US() != 0.0){
-                    String date = Integer.toString(c.getDate());
-                    double GDP = c.getGDP_CURRENT_$US();
-                    double GDPPerCapita = c.getGDP_PER_CAPITA_CURRENT_$US();
-                    double inflation = c.getINFLATION_CONSUMER_PRICES();
-                    double unemploymentRate = c.getUNEMPLOYMENT_RATE();
-                    GDPSeries.getData().add(new XYChart.Data<>(date, GDP));
-                    GDPPerCapitaSeries.getData().add(new XYChart.Data<>(date, GDPPerCapita));
-                    inflationSeries.getData().add(new XYChart.Data<>(date, inflation));
-                    unemploymentRateSeries.getData().add(new XYChart.Data<>(date, unemploymentRate));
+                    series.getData().add(new XYChart.Data<>(Integer.toString(c.getDate()), c.getGDP_CURRENT_$US()));
                 }
             }
-//            lineChart1.getXAxis().setTickLabelsVisible(false);
-//            lineChart1.getYAxis().setTickLabelsVisible(false);
-//            GDP_Line_Chart.getXAxis().setTickLabelsVisible(false);
-//            GDP_Line_Chart.getYAxis().setTickLabelsVisible(false);
-
-            GDPLineChart.getData().add(GDPSeries);
-            GDPPerCapitaLineChart.getData().add(GDPPerCapitaSeries);
-            inflationLineChart.getData().add(inflationSeries);
-            unemploymentRateLineChart.getData().add(unemploymentRateSeries);
-//            GDP_Line_Chart.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//                @Override
-//                public void handle(MouseEvent event) {
-//                    LineChart newChart = new LineChart(xAxis, yAxis);
-//                    newChart.getData().add(series);
-//
-//
-//                    Stage dialog = new Stage();
-//                    BorderPane borderPane = new BorderPane();
-//                    borderPane.setCenter(newChart);
-//                    Scene scene = new Scene(borderPane);
-//                    dialog.setScene(scene);
-//                    dialog.show();
-//                }
-//            });
-            diagrams.add(GDPLineChart, 0, 0);
-            diagrams.add(GDPPerCapitaLineChart, 1, 0);
-            diagrams.add(inflationLineChart, 0, 1);
-            diagrams.add(unemploymentRateLineChart, 1, 1);
-
+            lineChart.getData().add(series);
+            tabLineChart.setContent(lineChart);
         }
 
         if (!tabPieChart.isDisabled())
@@ -261,69 +208,38 @@ public class GUIController implements Initializable {
 
     }
 
-
+    @FXML
+    private void changeColor(ActionEvent event) {
+        JFXButton btn = (JFXButton) event.getSource();
+        System.out.println(btn.getText());
+        switch(btn.getText())
+        {
+            case "Color 1":FXMLDocumentController.rootP.setStyle("-fx-background-color:#00FF00");
+                break;
+            case "Color 2":FXMLDocumentController.rootP.setStyle("-fx-background-color:#0000FF");
+                break;
+            case "Color 3":FXMLDocumentController.rootP.setStyle("-fx-background-color:#FF0000");
+                break;
+        }
+    }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL url, ResourceBundle rb) {
+        rootP = root;
 
-        JFXButton countryButton = new JFXButton("COUNTRY");
-        JFXButton regionButton = new JFXButton("REGION");
-        JFXButton incomeLevelButton = new JFXButton("INCOME LEVEL");
-        JFXButton lendingTypeButton = new JFXButton("LENDING TYPE");
-        ObservableList<String > s = FXCollections.observableArrayList();
-        s.add("LOW");
-        s.add("HIGH");
-        s.add("MEDIUM");
-        JFXComboBox<String> comboBox = new JFXComboBox<String>(s);
-        comboBox.setPromptText("INCOME LEVEL");
-        comboBox.setStyle("-fx-font: 30px \"Serif\";");
-        comboBox.setPrefWidth(300);
+        try {
+            VBox box = FXMLLoader.load(getClass().getClassLoader().getResource("main/java/view/SidePanelContent.fxml"));
+            Button countryButton = (Button) box.getChildren().get(1);
+            Button regionButton = (Button) box.getChildren().get(2);
+            Button incomeLevelButton = (Button) box.getChildren().get(3);
+            countryButton.setOnAction(event -> handleCountryNameAction(event));
+            regionButton.setOnAction(event -> handleRegionNameAction(event));
+            incomeLevelButton.setOnAction(event -> handleIncomeLevelAction(event));
+            drawer.getChildren().add(box);
 
-
-
-        countryButton.setOnAction(event -> handleCountryNameAction(event));
-        regionButton.setOnAction(event -> handleRegionNameAction(event));
-        incomeLevelButton.setOnAction(event -> handleIncomeLevelAction(event));
-        lendingTypeButton.setOnAction(event -> handleLendingTypeAction(event));
-
-        Font font = Font.font("Calibri", FontWeight.BOLD, 24);
-
-        countryButton.setFont(font);
-        regionButton.setFont(font);
-        incomeLevelButton.setFont(font);
-        lendingTypeButton.setFont(font);
-
-        countryButton.setPrefWidth(300);
-        regionButton.setPrefWidth(300);
-        incomeLevelButton.setPrefWidth(300);
-        lendingTypeButton.setPrefWidth(300);
-        buttonList.getChildren().addAll(countryButton, regionButton, incomeLevelButton, lendingTypeButton, comboBox);
-        drawer.setSidePane(buttonList);
-
-        HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
-        transition.setRate(-1);
-        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED,(e)->{
-            transition.setRate(transition.getRate()*-1);
-            transition.play();
-
-            if(drawer.isShown())
-            {
-
-                drawer.close();
-                ObservableList<Node> workingCollection1 = FXCollections.observableArrayList(stack.getChildren());
-                Collections.swap(workingCollection1, 0, 1);
-                stack.getChildren().setAll(workingCollection1);
-
-            }else {
-
-
-                drawer.open();
-                list.setEditable(true);
-                ObservableList<Node> workingCollection = FXCollections.observableArrayList(stack.getChildren());
-                Collections.swap(workingCollection, 1, 0);
-                stack.getChildren().setAll(workingCollection);
-            }
-        });
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         this.countryIndicatorList = new CountryIndicatorList().getCountryIndicators();
         countryList = new CountryList().getCountries();
@@ -373,6 +289,31 @@ public class GUIController implements Initializable {
         tabPieChart.setContent(pieChart);
         tabPieChart.setDisable(true);
         //tabLineChart.setDisable(true);
+        //list.setItems(FXCollections.observableArrayList(countryNames));
+        //System.out.println(drawer.getChildren().get(0).getId());
+        HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+        transition.setRate(-1);
+        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED,(e)->{
+
+            transition.setRate(transition.getRate()*-1);
+            transition.play();
+
+            if(drawer.isShown()){
+
+                drawer.close();
+                ObservableList<Node> workingCollection1 = FXCollections.observableArrayList(stack.getChildren());
+                Collections.swap(workingCollection1, 0, 1);
+                stack.getChildren().setAll(workingCollection1);
+
+
+            }else{
+                //drawer.open();
+                list.setEditable(true);
+                ObservableList<Node> workingCollection = FXCollections.observableArrayList(stack.getChildren());
+                Collections.swap(workingCollection, 1, 0);
+                stack.getChildren().setAll(workingCollection);
+            }
+        });
         list.setItems(FXCollections.observableArrayList(countryNames));
 
     }
