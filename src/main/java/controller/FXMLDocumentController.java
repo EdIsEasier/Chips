@@ -239,8 +239,7 @@ public class FXMLDocumentController implements Initializable {
             results.add(getIndicatorsByCountry(list.getSelectionModel().getSelectedItem())); // get selected country and add it
             System.out.println("CHECK");
         }
-        System.out.println(list.getSelectionModel().getSelectedItems().size());
-        if (list.getSelectionModel().getSelectedItems().size() == 1){
+        else if (list.getSelectionModel().getSelectedItems().size() == 1){
             results.add(getIndicatorsByCountry(list.getSelectionModel().getSelectedItem())); // get selected country and add it
         }
         if (!tabCurrGDP.isDisabled())
