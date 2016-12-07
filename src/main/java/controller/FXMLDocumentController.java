@@ -211,12 +211,23 @@ public class FXMLDocumentController implements Initializable {
         chart.getData().addAll(dataSeries);
     }
 
+    private boolean doesCountryExist(LineChart<String, Double> chart, String countryName)
+    {
+        for (XYChart.Series<String, Double> a : chart.getData())
+            if (a.getName().equals(countryName))
+                return true;
+        return false;
+    }
+
     @FXML
     private void handleListAction(MouseEvent arg0){
         System.out.println("CCCCCCCCLICCCCCCCCCCCk");
 
         ArrayList<String> toRemove = chartDataToRemove();
         removeOldChartData(toRemove, lineChartCurrGDP, lineChartGDPCapita, lineChartInflation, lineChartUnemployment);
+
+        if (doesCountryExist(lineChartCurrGDP, list.getSelectionModel().getSelectedItem()) || list.getSelectionModel().getSelectedItem() == null)
+            return;
 
         ArrayList<ArrayList<CountryIndicator>> results = new ArrayList<>();
         if (toRemove.isEmpty()) // if there's nothing to remove or if we've only selected one country
