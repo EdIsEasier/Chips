@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.*;
 import java.util.function.Predicate;
@@ -351,7 +352,6 @@ public class FXMLDocumentController implements Initializable {
                 super.layoutChartChildren(top, left, contentWidth, contentHeight);
             }};
 
-        TreeSet<String> countries = new TreeSet<>();
         TreeSet<String> regions = new TreeSet<>();
         TreeSet<String> levels = new TreeSet<>();
         TreeSet<String> types = new TreeSet<>();
@@ -362,18 +362,8 @@ public class FXMLDocumentController implements Initializable {
             types.add(countryList.get(i).getLendingType());
         }
 
-        //the next for loop only adds an object to the TreeSet "countries" if it's a country, noncountries are excluded
-        //noncountries: names found in the TreeSets: regions, levels, types and other_noncountries (where names are added manually)
-        TreeSet<String> other_noncountries = new TreeSet<>();
-        other_noncountries.add("Early-demographic dividend"); //add other excluded noncountry names to the check, manually
-        for (CountryIndicator c : countryIndicatorList)
-        {
-            String country_name = c.getCountryValue();
-            if(!regions.contains(country_name) && !levels.contains(country_name) && !types.contains(country_name) && !other_noncountries.contains(country_name)) {
-                countries.add(c.getCountryValue());
-            }
-            else System.out.println(country_name);
-        }
+
+        ObservableSet<String> countries = FXCollections.observableSet("United Kingdom", "United States", "Turkey","United Arab Emirates", "Chile", "China", "Australia", "Austria", "Belgium", "Brazil", "Denmark", "Czech Republic", "Thailand", "Sweden", "Switzerland", "Spain", "Singapore", "Romania", "Russian Federation", "Poland", "Portugal", "Canada", "Finland", "Greece", "Vietnam", "Bangladesh", "Colombia", "South Africa", "Pakistan", "Malaysia", "Ireland", "Israel", "Italy", "Iran, Islamic Rep.", "India", "Indonesia", "Philippines", "Hong Kong SAR, China", "Japan", "Venezuela, RB", "Egypt, Arab Rep.", "Norway", "Nigeria", "Argentina", "Germany", "France", "Korea, Rep.", "Mexico", "Netherlands", "Saudi Arabia");
 
         countryNames = FXCollections.observableSet(countries);
         regionNames = FXCollections.observableSet(regions);
