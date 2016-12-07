@@ -23,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -220,10 +221,11 @@ public class FXMLDocumentController implements Initializable {
         return false;
     }
 
-    @FXML
-    private void handleListAction(MouseEvent arg0){
-        System.out.println("CCCCCCCCLICCCCCCCCCCCk");
+    private final void updateCharts() {
 
+
+        System.out.println("CCCCCCCCLICCCCCCCCCCCk");
+        //System.out.println(selectedItems);
         ArrayList<String> toRemove = chartDataToRemove();
         removeOldChartData(toRemove, lineChartCurrGDP, lineChartGDPCapita, lineChartInflation, lineChartUnemployment);
 
@@ -231,9 +233,16 @@ public class FXMLDocumentController implements Initializable {
             return;
 
         ArrayList<ArrayList<CountryIndicator>> results = new ArrayList<>();
+        //this
         if (toRemove.isEmpty()) // if there's nothing to remove or if we've only selected one country
+        {
             results.add(getIndicatorsByCountry(list.getSelectionModel().getSelectedItem())); // get selected country and add it
-
+            System.out.println("CHECK");
+        }
+        System.out.println(list.getSelectionModel().getSelectedItems().size());
+        if (list.getSelectionModel().getSelectedItems().size() == 1){
+            results.add(getIndicatorsByCountry(list.getSelectionModel().getSelectedItem())); // get selected country and add it
+        }
         if (!tabCurrGDP.isDisabled())
             updateChart(lineChartCurrGDP, results, IndicatorType.GDP, false);
 
@@ -312,7 +321,14 @@ public class FXMLDocumentController implements Initializable {
             tabBarChart.setContent(barChart);
             // System.out.println("TEST");
         }
+    }
 
+    @FXML
+    private void handleListAction(MouseEvent arg0){
+        System.out.println(arg0.getButton());
+        if (arg0.getButton() == MouseButton.PRIMARY) {
+            updateCharts();
+        }
     }
 
     @FXML
