@@ -1,6 +1,7 @@
 package main.java.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
@@ -335,12 +336,16 @@ public class FXMLDocumentController implements Initializable {
 
         try {
             VBox box = FXMLLoader.load(getClass().getClassLoader().getResource("main/java/view/SidePanelContent.fxml"));
-            Button countryButton = (Button) box.getChildren().get(1);
-            Button regionButton = (Button) box.getChildren().get(2);
-            Button incomeLevelButton = (Button) box.getChildren().get(3);
+            Button countryButton = (Button) box.getChildren().get(0);
+            Button regionButton = (Button) box.getChildren().get(1);
+            //Button incomeLevelButton = (Button) box.getChildren().get(3);
+            ComboBox<String> incomeLevelList = (ComboBox<String>) box.getChildren().get(2);
+            incomeLevelList.setPromptText("Income Level");
+            incomeLevelList.getItems().addAll("High Income", "Low Income", "Lower Middle Income", "Upper Middle Income");
+
             countryButton.setOnAction(event -> handleCountryNameAction(event));
             regionButton.setOnAction(event -> handleRegionNameAction(event));
-            incomeLevelButton.setOnAction(event -> handleIncomeLevelAction(event));
+            incomeLevelList.setOnAction(event -> handleIncomeLevelAction(event));
             drawer.getChildren().add(box);
 
         } catch (IOException ex) {
