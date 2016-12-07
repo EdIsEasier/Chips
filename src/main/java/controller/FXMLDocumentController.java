@@ -7,6 +7,7 @@ import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -40,6 +41,7 @@ public class FXMLDocumentController implements Initializable {
     private ObservableSet<String> lendingTypes = FXCollections.observableSet();
     private ObservableSet<String> capitalCities = FXCollections.observableSet();
     private ArrayList<String> selectedItems = new ArrayList<>();
+    private enum IndicatorType { GDP, GDPPERCAPITA, INFLATION, UNEMPLOYMENT }
 
     @FXML
     private StackPane stack;
@@ -59,16 +61,41 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private PieChart pieChart;
     @FXML
-    private LineChart<String, Double> lineChart;
+    private LineChart<String, Double> lineChartCurrGDP;
     @FXML
-    private CategoryAxis xAxis;
+    private CategoryAxis xAxisCurrGDP;
     @FXML
-    private NumberAxis yAxis;
+    private NumberAxis yAxisCurrGDP;
+    @FXML
+    private LineChart<String, Double> lineChartGDPCapita;
+    @FXML
+    private CategoryAxis xAxisGDPCapita;
+    @FXML
+    private NumberAxis yAxisGDPCapita;
+    @FXML
+    private LineChart<String, Double> lineChartInflation;
+    @FXML
+    private CategoryAxis xAxisInflation;
+    @FXML
+    private NumberAxis yAxisInflation;
+    @FXML
+    private LineChart<String, Double> lineChartUnemployment;
+    @FXML
+    private CategoryAxis xAxisUnemployment;
+    @FXML
+    private NumberAxis yAxisUnemployment;
+
 
     @FXML
     private TabPane tpaneChartTabs;
     @FXML
-    private Tab tabLineChart;
+    private Tab tabCurrGDP;
+    @FXML
+    private Tab tabGDPCapita;
+    @FXML
+    private Tab tabInflation;
+    @FXML
+    private Tab tabUnemployment;
     @FXML
     private Tab tabPieChart;
     @FXML
@@ -80,7 +107,7 @@ public class FXMLDocumentController implements Initializable {
     {
         list.setItems(FXCollections.observableArrayList(countryNames));
         tabPieChart.setDisable(false);
-        tabLineChart.setDisable(false);
+        tabCurrGDP.setDisable(false);
         tabBarChart.setDisable(false);
 
     }
@@ -90,7 +117,7 @@ public class FXMLDocumentController implements Initializable {
     {
         list.setItems(FXCollections.observableArrayList(regionNames));
         tabPieChart.setDisable(false);
-        tabLineChart.setDisable(false);
+        tabCurrGDP.setDisable(false);
         tabBarChart.setDisable(false);
     }
 
@@ -99,7 +126,7 @@ public class FXMLDocumentController implements Initializable {
     {
         list.setItems(FXCollections.observableArrayList(incomeLevels));
         tabPieChart.setDisable(false);
-        tabLineChart.setDisable(false);
+        tabCurrGDP.setDisable(false);
         tabBarChart.setDisable(false);
     }
 
@@ -108,7 +135,7 @@ public class FXMLDocumentController implements Initializable {
     {
         list.setItems(FXCollections.observableArrayList(lendingTypes));
         tabPieChart.setDisable(false);
-        tabLineChart.setDisable(false);
+        tabCurrGDP.setDisable(false);
         tabBarChart.setDisable(false);
     }
 
@@ -122,41 +149,89 @@ public class FXMLDocumentController implements Initializable {
         return country;
     }
 
+    private ArrayList<String> chartDataToRemove()
+    {
+        ArrayList<String> remove = new ArrayList<>(selectedItems); // list of countries to remove from chart
+        remove.removeAll(list.getSelectionModel().getSelectedItems()); // remove all those that were selected before but aren't now
+        System.out.println(remove);
+        selectedItems.clear(); // clear the list of previously selected countries
+        selectedItems.addAll(list.getSelectionModel().getSelectedItems()); // add currently selected countries for the next click
+        return remove;
+    }
+
+    @SafeVarargs
+    private final void removeOldChartData(ArrayList<String> toRemove, LineChart<String, Double>... charts)
+    {
+        for (String r : toRemove)
+            for (LineChart<String, Double> c : charts)
+                c.getData().removeIf(s -> s.getName().equals(r));
+    }
+
+    private void updateChart(LineChart<String, Double> chart, ArrayList<ArrayList<CountryIndicator>> data, IndicatorType indicator, boolean showZeroes)
+    {
+        ArrayList<XYChart.Series<String, Double>> dataSeries = new ArrayList<>();
+        for(ArrayList<CountryIndicator> a : data)
+        {
+            XYChart.Series<String, Double> series = new XYChart.Series<>();
+            series.setName(list.getSelectionModel().getSelectedItem());
+            for (CountryIndicator c : a)
+            {
+                double value;
+                switch (indicator)
+                {
+                    case GDP:
+                        value = c.getGDP_CURRENT_$US();
+                        if (!showZeroes)
+                            if (value == 0.0) continue;
+                        series.getData().add(new XYChart.Data<>(Integer.toString(c.getDate()), value));
+                        break;
+                    case GDPPERCAPITA:
+                        value = c.getGDP_PER_CAPITA_CURRENT_$US();
+                        if (!showZeroes)
+                            if (value == 0.0) continue;
+                        series.getData().add(new XYChart.Data<>(Integer.toString(c.getDate()), value));
+                        break;
+                    case INFLATION:
+                        value = c.getINFLATION_RATE();
+                        if (!showZeroes)
+                            if (value == 0.0) continue;
+                        series.getData().add(new XYChart.Data<>(Integer.toString(c.getDate()), value));
+                        break;
+                    case UNEMPLOYMENT:
+                        value = c.getUNEMPLOYMENT_RATE();
+                        if (!showZeroes)
+                            if (value == 0.0) continue;
+                        series.getData().add(new XYChart.Data<>(Integer.toString(c.getDate()), value));
+                        break;
+                }
+            }
+            dataSeries.add(series);
+        }
+        chart.getData().addAll(dataSeries);
+    }
+
     @FXML
     private void handleListAction(MouseEvent arg0){
         System.out.println("CCCCCCCCLICCCCCCCCCCCk");
-        if (!tabLineChart.isDisabled())
-        {
-            ArrayList<String> remove = new ArrayList<>(selectedItems); // list of countries to remove from chart
-            remove.removeAll(list.getSelectionModel().getSelectedItems()); // remove all those that were selected before but aren't now
-            System.out.println(remove);
-            for (String r : remove) // remove each one
-                lineChart.getData().removeIf(s -> s.getName().equals(r));
-            selectedItems.clear(); // clear the list of previously selected countries
-            selectedItems.addAll(list.getSelectionModel().getSelectedItems()); // add currently selected countries for the next click
 
-            ArrayList<ArrayList<CountryIndicator>> results = new ArrayList<>();
-            if (remove.isEmpty()) // if there's nothing to remove or if we've only selected one country
-                results.add(getIndicatorsByCountry(list.getSelectionModel().getSelectedItem())); // get selected country and add it
+        ArrayList<String> toRemove = chartDataToRemove();
+        removeOldChartData(toRemove, lineChartCurrGDP, lineChartGDPCapita, lineChartInflation, lineChartUnemployment);
 
-            ArrayList<XYChart.Series<String, Double>> dataSeries = new ArrayList<>();
+        ArrayList<ArrayList<CountryIndicator>> results = new ArrayList<>();
+        if (toRemove.isEmpty()) // if there's nothing to remove or if we've only selected one country
+            results.add(getIndicatorsByCountry(list.getSelectionModel().getSelectedItem())); // get selected country and add it
 
-            for(ArrayList<CountryIndicator> a : results)
-            {
-                XYChart.Series<String, Double> series = new XYChart.Series<>();
-                series.setName(list.getSelectionModel().getSelectedItem());
-                for (CountryIndicator c : a)
-                {
-                    if(c.getGDP_CURRENT_$US() != 0.0)
-                    {
-                        series.getData().add(new XYChart.Data<>(Integer.toString(c.getDate()), c.getGDP_CURRENT_$US()));
-                    }
-                }
-                dataSeries.add(series);
-            }
+        if (!tabCurrGDP.isDisabled())
+            updateChart(lineChartCurrGDP, results, IndicatorType.GDP, false);
 
-            lineChart.getData().addAll(dataSeries);
-        }
+        if (!tabGDPCapita.isDisabled())
+            updateChart(lineChartGDPCapita, results, IndicatorType.GDPPERCAPITA, false);
+
+        if (!tabInflation.isDisabled())
+            updateChart(lineChartInflation, results, IndicatorType.INFLATION, true);
+
+        if (!tabUnemployment.isDisabled())
+            updateChart(lineChartUnemployment, results, IndicatorType.UNEMPLOYMENT, false);
 
         if (!tabPieChart.isDisabled())
         {
@@ -195,10 +270,10 @@ public class FXMLDocumentController implements Initializable {
         if (!tabBarChart.isDisabled())
         {
             String selectedItem = (String) list.getSelectionModel().getSelectedItem();
-            ArrayList<CountryIndicator> results = new ArrayList<>();
+            ArrayList<CountryIndicator> results2 = new ArrayList<>();
             for(CountryIndicator c: countryIndicatorList){
                 if(c.getCountryValue().equals(selectedItem)){
-                    results.add(c);
+                    results2.add(c);
                 }
             }
 
@@ -210,7 +285,7 @@ public class FXMLDocumentController implements Initializable {
 
             XYChart.Series<String, Double> series = new XYChart.Series<>();
             series.setName("data");
-            for(CountryIndicator c: results){
+            for(CountryIndicator c: results2){
                 if(c.getGDP_CURRENT_$US() != 0.0){
                     series.getData().add(new XYChart.Data<>(Integer.toString(c.getDate()), c.getGDP_CURRENT_$US()));
                 }
@@ -335,12 +410,29 @@ public class FXMLDocumentController implements Initializable {
 
         list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE); // allows multiple selection while holding CTRL
 
-        lineChart.setTitle("GDP_CURRENT_$US");
-        lineChart.setCreateSymbols(false);
-        yAxis.setMinorTickCount(500);
-        xAxis.setLabel("Year");
-        tabLineChart.setContent(lineChart);
+        lineChartCurrGDP.setTitle("Current GDP in US$");
+        lineChartCurrGDP.setCreateSymbols(false);
+        yAxisCurrGDP.setMinorTickCount(500);
+        xAxisCurrGDP.setLabel("Year");
+        tabCurrGDP.setContent(lineChartCurrGDP);
 
+        lineChartGDPCapita.setTitle("GDP Per Capita in US$");
+        lineChartGDPCapita.setCreateSymbols(false);
+        yAxisGDPCapita.setMinorTickCount(500);
+        xAxisGDPCapita.setLabel("Year");
+        tabGDPCapita.setContent(lineChartGDPCapita);
+
+        lineChartInflation.setTitle("Inflation Rate");
+        lineChartInflation.setCreateSymbols(false);
+        yAxisInflation.setMinorTickCount(500);
+        xAxisInflation.setLabel("Year");
+        tabInflation.setContent(lineChartInflation);
+
+        lineChartUnemployment.setTitle("Unemployment Rate");
+        lineChartUnemployment.setCreateSymbols(false);
+        yAxisUnemployment.setMinorTickCount(500);
+        xAxisUnemployment.setLabel("Year");
+        tabUnemployment.setContent(lineChartUnemployment);
     }
 
 }
