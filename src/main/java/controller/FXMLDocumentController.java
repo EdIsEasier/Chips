@@ -5,6 +5,8 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.URL;
@@ -23,6 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -323,12 +326,20 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void handleListAction(MouseEvent arg0){
-        System.out.println(arg0.getButton());
+    private void handleListAction(MouseEvent arg0) {
         if (arg0.getButton() == MouseButton.PRIMARY) {
             updateCharts();
         }
     }
+
+    @FXML
+    private void handleListAction2(javafx.scene.input.KeyEvent arg0 ) {
+        //can navigate through the list with arrow keys and ENTER, enter selects the item
+        if (arg0.getCode() == KeyCode.ENTER) {
+            updateCharts();
+        }
+    }
+
 
     @FXML
     private void changeColor(ActionEvent event) {
