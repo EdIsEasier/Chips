@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="box" minHeight="74.0" minWidth="213.0" prefHeight="700.0" prefWidth="213.0" styleClass="pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.71" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.SidePanelContentController">
+<VBox fx:id="box" minHeight="74.0" minWidth="255.0" prefHeight="700.0" prefWidth="255.0" styleClass="pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.71" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.SidePanelContentController">
    <children>
-      <Label id="category_title" alignment="CENTER" minWidth="213.0" prefHeight="71.0" prefWidth="236.0" text="Select a Category" />
-      <JFXButton fx:id="b1" buttonType="RAISED" prefHeight="72.0" prefWidth="218.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Country Name" />
-      <JFXButton fx:id="b2" buttonType="RAISED" layoutX="10.0" layoutY="123.0" prefHeight="74.0" prefWidth="213.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Region Name" />
-      <JFXButton fx:id="b3" buttonType="RAISED" layoutX="10.0" layoutY="197.0" minHeight="74.0" minWidth="213.0" prefHeight="74.0" prefWidth="213.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Income Level" />
-      <JFXButton fx:id="exit" buttonType="RAISED" layoutX="10.0" layoutY="271.0" prefHeight="74.0" prefWidth="213.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Lending Type" />
-      <JFXButton mnemonicParsing="false" prefHeight="74.0" prefWidth="213.0" style="-fx-background-color: #f1f1f1;" text="Capital City" />
-      <JFXButton mnemonicParsing="false" prefHeight="74.0" prefWidth="213.0" style="-fx-background-color: #f1f1f1;" text="Indicator" />
-      <Pane prefHeight="200.0" prefWidth="200.0">
+      <JFXButton fx:id="b1" buttonType="RAISED" minWidth="254.0" prefHeight="72.0" prefWidth="254.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Country Name" />
+      <JFXButton fx:id="b2" buttonType="RAISED" layoutX="10.0" layoutY="123.0" minWidth="254.0" prefHeight="74.0" prefWidth="254.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Region Name" />
+      <JFXButton fx:id="b3" buttonType="RAISED" layoutX="10.0" layoutY="197.0" minHeight="74.0" minWidth="254.0" prefHeight="74.0" prefWidth="254.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Income Level" />
+      <JFXButton fx:id="exit" buttonType="RAISED" layoutX="10.0" layoutY="271.0" minWidth="254.0" prefHeight="74.0" prefWidth="254.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Lending Type" />
+      <JFXButton buttonType="RAISED" minWidth="254.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="254.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Capital City" />
+      <JFXButton buttonType="RAISED" minWidth="254.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="254.0" ripplerFill="RED" style="-fx-background-color: #f1f1f1;" text="Indicator" />
+      <Pane minWidth="254.0" prefHeight="200.0" prefWidth="254.0">
          <children>
-            <JFXButton layoutY="118.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="178.0" text="Settings" />
+            <JFXButton buttonType="RAISED" layoutY="118.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="254.0" ripplerFill="#fc0000" text="Settings" />
          </children>
       </Pane>
    </children>

@@ -2,72 +2,115 @@
 
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.FXMLDocumentController">
+<BorderPane prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.71" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.FXMLDocumentController">
    <left>
       <HBox prefHeight="680.0" prefWidth="255.0" BorderPane.alignment="CENTER">
          <children>
-            <SplitPane dividerPositions="0.8221476510067114" minWidth="300.0" prefWidth="350.0">
-               <items>
-                  <StackPane fx:id="stack">
+            <VBox prefHeight="680.0" prefWidth="310.0">
+               <children>
+                  <Pane minHeight="51.0" minWidth="72.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="51.0" prefWidth="218.0" scaleShape="false">
                      <children>
-                        <JFXDrawer fx:id="drawer" defaultDrawerSize="200.0" prefWidth="213.0" />
-                        <VBox id="listID" minWidth="213.0" prefWidth="100.0">
+                        <VBox minWidth="50.0" prefWidth="63.0" />
+                        <JFXHamburger fx:id="hamburger" layoutX="210.0" layoutY="2.0" prefHeight="47.0" prefWidth="45.0" />
+                        <Label layoutX="-2.0" layoutY="-1.0" prefHeight="57.0" prefWidth="176.0" text="Choose an option...">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <StackPane fx:id="stack" VBox.vgrow="ALWAYS">
+                     <children>
+                        <JFXDrawer fx:id="drawer" defaultDrawerSize="200.0" prefHeight="610.0" prefWidth="218.0" />
+                        <VBox id="listID" minWidth="213.0" prefHeight="645.0" prefWidth="218.0">
                            <children>
-                              <Label text="View List..." />
-                              <ListView fx:id="list" onMouseClicked="#handleListAction" prefHeight="680.0" prefWidth="213.0" />
+                              <ListView fx:id="list" onMouseClicked="#handleListAction" prefHeight="680.0" prefWidth="255.0" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
                      </children>
                   </StackPane>
-                  <Pane minHeight="72.0" minWidth="72.0" nodeOrientation="LEFT_TO_RIGHT" prefWidth="66.0" scaleShape="false">
-                     <children>
-                        <VBox minWidth="50.0" prefWidth="63.0">
-                           <children>
-                              <JFXHamburger fx:id="hamburger" prefHeight="47.0" prefWidth="45.0" />
-                           </children></VBox>
-                     </children></Pane>
-               </items>
-            </SplitPane>
+               </children>
+            </VBox>
          </children>
       </HBox>
    </left>
    <center>
-      <TabPane fx:id="tpaneChartTabs" prefHeight="500.0" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <JFXTabPane fx:id="tpaneChartTabs" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" tabMinHeight="50.0" BorderPane.alignment="CENTER">
          <tabs>
-            <Tab fx:id="tabLineChart" text="Line Chart">
+            <Tab fx:id="tabCurrGDP" text="Current GDP">
                <content>
-                  <LineChart fx:id="lineChart">
+                  <LineChart fx:id="lineChartCurrGDP">
                      <xAxis>
-                        <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+                        <CategoryAxis side="BOTTOM" fx:id="xAxisCurrGDP" />
                      </xAxis>
                      <yAxis>
-                        <NumberAxis fx:id="yAxis" side="LEFT" />
+                        <NumberAxis fx:id="yAxisCurrGDP" side="LEFT" />
                      </yAxis>
                   </LineChart>
                </content>
+            </Tab>
+            <Tab fx:id="tabGDPCapita" text="GDP Per Capita">
+              <content>
+                 <LineChart fx:id="lineChartGDPCapita">
+                    <xAxis>
+                       <CategoryAxis side="BOTTOM" fx:id="xAxisGDPCapita" />
+                    </xAxis>
+                    <yAxis>
+                       <NumberAxis fx:id="yAxisGDPCapita" side="LEFT" />
+                    </yAxis>
+                 </LineChart>
+              </content>
+            </Tab>
+            <Tab fx:id="tabInflation" text="Inflation">
+              <content>
+                 <LineChart fx:id="lineChartInflation">
+                    <xAxis>
+                       <CategoryAxis side="BOTTOM" fx:id="xAxisInflation" />
+                    </xAxis>
+                    <yAxis>
+                       <NumberAxis fx:id="yAxisInflation" side="LEFT" />
+                    </yAxis>
+                 </LineChart>
+              </content>
+            </Tab>
+            <Tab fx:id="tabUnemployment" text="Unemployment">
+              <content>
+                 <LineChart fx:id="lineChartUnemployment">
+                    <xAxis>
+                       <CategoryAxis side="BOTTOM" fx:id="xAxisUnemployment" />
+                    </xAxis>
+                    <yAxis>
+                       <NumberAxis fx:id="yAxisUnemployment" side="LEFT" />
+                    </yAxis>
+                 </LineChart>
+              </content>
             </Tab>
             <Tab fx:id="tabPieChart" text="Pie Chart">
                <content>
                   <PieChart fx:id="pieChart" />
                </content>
             </Tab>
-            <Tab fx:id="tabBarChart" text="Bar Chart" />
+            <Tab fx:id="tabBarChart" text="Bar Chart (Current GDP)" />
          </tabs>
-      </TabPane>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+      </JFXTabPane>
    </center>
 </BorderPane>
