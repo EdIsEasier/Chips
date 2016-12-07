@@ -14,7 +14,7 @@
       <JFXButton buttonType="RAISED" minWidth="254.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="254.0" ripplerFill="RED" style="-fx-background-color: #f1f1f1;" text="Indicator" />
       <Pane minWidth="254.0" prefHeight="200.0" prefWidth="254.0">
          <children>
-            <JFXButton buttonType="RAISED" layoutY="118.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="254.0" text="Settings" />
+            <JFXButton buttonType="RAISED" layoutY="118.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="254.0" ripplerFill="#fc0000" text="Settings" />
          </children>
       </Pane>
    </children>
