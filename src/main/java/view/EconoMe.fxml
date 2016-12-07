@@ -11,6 +11,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -47,26 +48,62 @@
       </HBox>
    </left>
    <center>
-      <TabPane fx:id="tpaneChartTabs" prefHeight="500.0" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane fx:id="tpaneChartTabs" prefHeight="500.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
          <tabs>
-            <Tab fx:id="tabLineChart" text="Line Chart">
+            <Tab fx:id="tabCurrGDP" text="Current GDP">
                <content>
-                  <LineChart fx:id="lineChart">
+                  <LineChart fx:id="lineChartCurrGDP">
                      <xAxis>
-                        <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+                        <CategoryAxis side="BOTTOM" fx:id="xAxisCurrGDP" />
                      </xAxis>
                      <yAxis>
-                        <NumberAxis fx:id="yAxis" side="LEFT" />
+                        <NumberAxis fx:id="yAxisCurrGDP" side="LEFT" />
                      </yAxis>
                   </LineChart>
                </content>
+            </Tab>
+            <Tab fx:id="tabGDPCapita" text="GDP Per Capita">
+              <content>
+                 <LineChart fx:id="lineChartGDPCapita">
+                    <xAxis>
+                       <CategoryAxis side="BOTTOM" fx:id="xAxisGDPCapita" />
+                    </xAxis>
+                    <yAxis>
+                       <NumberAxis fx:id="yAxisGDPCapita" side="LEFT" />
+                    </yAxis>
+                 </LineChart>
+              </content>
+            </Tab>
+            <Tab fx:id="tabInflation" text="Inflation">
+              <content>
+                 <LineChart fx:id="lineChartInflation">
+                    <xAxis>
+                       <CategoryAxis side="BOTTOM" fx:id="xAxisInflation" />
+                    </xAxis>
+                    <yAxis>
+                       <NumberAxis fx:id="yAxisInflation" side="LEFT" />
+                    </yAxis>
+                 </LineChart>
+              </content>
+            </Tab>
+            <Tab fx:id="tabUnemployment" text="Unemployment">
+              <content>
+                 <LineChart fx:id="lineChartUnemployment">
+                    <xAxis>
+                       <CategoryAxis side="BOTTOM" fx:id="xAxisUnemployment" />
+                    </xAxis>
+                    <yAxis>
+                       <NumberAxis fx:id="yAxisUnemployment" side="LEFT" />
+                    </yAxis>
+                 </LineChart>
+              </content>
             </Tab>
             <Tab fx:id="tabPieChart" text="Pie Chart">
                <content>
                   <PieChart fx:id="pieChart" />
                </content>
             </Tab>
-            <Tab fx:id="tabBarChart" text="Bar Chart" />
+            <Tab fx:id="tabBarChart" text="Bar Chart (Current GDP)" />
          </tabs>
       </TabPane>
    </center>
