@@ -12,13 +12,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.FXMLDocumentController">
+<BorderPane prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.FXMLDocumentController">
    <left>
       <HBox prefHeight="680.0" prefWidth="255.0" BorderPane.alignment="CENTER">
          <children>
@@ -26,9 +27,8 @@
                <children>
                   <Pane minHeight="51.0" minWidth="72.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="51.0" prefWidth="218.0" scaleShape="false">
                      <children>
-                        <VBox minWidth="50.0" prefWidth="63.0" />
                         <JFXHamburger fx:id="hamburger" layoutX="210.0" layoutY="2.0" prefHeight="47.0" prefWidth="45.0" />
-                        <Label layoutX="-2.0" layoutY="-1.0" prefHeight="57.0" prefWidth="176.0" text="Choose an option...">
+                        <Label fx:id="mainLabel" layoutX="-2.0" layoutY="-1.0" prefHeight="57.0" prefWidth="176.0" text="Choose an option...">
                            <padding>
                               <Insets left="10.0" />
                            </padding>
@@ -51,7 +51,10 @@
       </HBox>
    </left>
    <center>
-      <JFXTabPane fx:id="tpaneChartTabs" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" tabMinHeight="50.0" BorderPane.alignment="CENTER">
+      <JFXTabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" tabMinHeight="50.0" BorderPane.alignment="CENTER">
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
          <tabs>
             <Tab fx:id="tabCurrGDP" text="Current GDP">
                <content>
@@ -107,10 +110,22 @@
                </content>
             </Tab>
             <Tab fx:id="tabBarChart" text="Bar Chart (Current GDP)" />
+          <Tab text="Details">
+               <content>
+                  <TableView fx:id="detailTable" prefHeight="200.0" prefWidth="200.0">
+                     <!--
+                    <columns>
+                      <TableColumn prefWidth="137.0" text="Country" />
+                      <TableColumn prefWidth="91.0" text="Year" />
+                        <TableColumn minWidth="0.0" prefWidth="185.0" text="GDP ($)" />
+                        <TableColumn prefWidth="191.0" text="GDP Per Capita ($)" />
+                        <TableColumn prefWidth="142.0" text="Inflation Rate (%)" />
+                        <TableColumn prefWidth="186.0" text="Unemployment Rate (%)" />
+                    </columns>
+                    -->
+                  </TableView>
+               </content></Tab>
          </tabs>
-         <cursor>
-            <Cursor fx:constant="OPEN_HAND" />
-         </cursor>
       </JFXTabPane>
    </center>
 </BorderPane>

@@ -97,16 +97,4 @@ public class CountryIndicatorList implements DataManager{
         return countryIndicators;
     }
 
-//    public static void main(String[] args){
-//        CountryIndicatorList c = new CountryIndicatorList();
-//        c.storeJSONToFile(INFLATION_RATE, COUNTRYINDICATOR_PATH + "INFLATION_RATE.json");
-//    }
-
-//    public static void main(String[] args){
-//        ObservableList<CountryIndicator> list = new CountryIndicatorList().getCountryIndicators();
-//        for(CountryIndicator c: list){
-//            System.out.println(c.getCountryValue() + " - " + c.getDate() + " - " + c.getGDP_CURRENT_$US() + " - " +
-//            c.getGDP_PER_CAPITA_CURRENT_$US() + " - " + c.getINFLATION_RATE() + " - " + c.getUNEMPLOYMENT_RATE());
-//        }
-//    }
 }

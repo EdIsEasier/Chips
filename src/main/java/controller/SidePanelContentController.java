@@ -24,20 +24,20 @@ public class SidePanelContentController implements Initializable {
         
     }
 
-    @FXML
-    private void changeColor(ActionEvent event) {
-        JFXButton btn = (JFXButton) event.getSource();
-        System.out.println(btn.getText());
-        switch(btn.getText())
-        {
-            case "Color 1":FXMLDocumentController.rootP.setStyle("-fx-background-color:#00FF00");
-                break;
-            case "Color 2":FXMLDocumentController.rootP.setStyle("-fx-background-color:#0000FF");
-                break;
-            case "Color 3":FXMLDocumentController.rootP.setStyle("-fx-background-color:#FF0000");
-                break;
-        }
-    }
+//    @FXML
+//    private void changeColor(ActionEvent event) {
+//        JFXButton btn = (JFXButton) event.getSource();
+//        System.out.println(btn.getText());
+//        switch(btn.getText())
+//        {
+//            case "Color 1":FXMLDocumentController.rootP.setStyle("-fx-background-color:#00FF00");
+//                break;
+//            case "Color 2":FXMLDocumentController.rootP.setStyle("-fx-background-color:#0000FF");
+//                break;
+//            case "Color 3":FXMLDocumentController.rootP.setStyle("-fx-background-color:#FF0000");
+//                break;
+//        }
+//    }
 
     @FXML
     private void exit(ActionEvent event) {
