@@ -10,6 +10,7 @@ public class Country{
 
     private StringProperty id, iso2Code, name, regionID, regionName, incomeLevel, lendingType, capitalCity, longitude, latitude;
 
+
     /**
      * Constructs a Country with a default property
      */
@@ -53,6 +54,18 @@ public class Country{
         this.longitude = new SimpleStringProperty(longitude);
         this.latitude = new SimpleStringProperty(latitude);
 
+    }
+
+    public String getId() {
+        return id.get();
+    }
+
+    public StringProperty idProperty() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id.set(id);
     }
 
     public String getName() {

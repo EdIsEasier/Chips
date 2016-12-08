@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="box" minHeight="74.0" minWidth="255.0" prefHeight="700.0" prefWidth="255.0" styleClass="pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.71" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.SidePanelContentController">
+<VBox fx:id="box" minHeight="74.0" minWidth="255.0" prefHeight="700.0" prefWidth="255.0" styleClass="pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.SidePanelContentController">
    <children>
-      <JFXButton fx:id="btnCountry" buttonType="RAISED" minWidth="254.0" prefHeight="72.0" prefWidth="254.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Country Name" VBox.vgrow="ALWAYS" />
-      <JFXButton fx:id="btnRegion" buttonType="RAISED" layoutX="10.0" layoutY="123.0" minWidth="254.0" prefHeight="74.0" prefWidth="254.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Region Name" VBox.vgrow="ALWAYS" />
-      <JFXComboBox minWidth="254.0" prefHeight="74.0" prefWidth="254.0" promptText="Income Level" styleClass="pane" stylesheets="@style.css" VBox.vgrow="ALWAYS" />
-      <JFXButton buttonType="RAISED" minWidth="254.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="254.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Capital City" VBox.vgrow="ALWAYS" />
-      <JFXButton buttonType="RAISED" minWidth="254.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="254.0" ripplerFill="RED" style="-fx-background-color: #f1f1f1;" text="Indicator" VBox.vgrow="ALWAYS" />
-      <Pane minWidth="254.0" prefHeight="200.0" prefWidth="254.0" VBox.vgrow="ALWAYS">
+      <VBox prefHeight="618.0" prefWidth="255.0" VBox.vgrow="ALWAYS">
          <children>
-            <JFXButton buttonType="RAISED" layoutY="118.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="254.0" ripplerFill="#fc0000" text="Settings" />
+            <JFXButton fx:id="btnCountry" minWidth="254.0" prefHeight="72.0" prefWidth="254.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Country Name" />
+            <JFXButton fx:id="incomeLevel" minWidth="254.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="254.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Income Level" />
+            <JFXButton fx:id="btnRegion" minWidth="254.0" prefHeight="74.0" prefWidth="254.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Region Name" />
          </children>
-      </Pane>
+      </VBox>
+      <JFXButton buttonType="RAISED" mnemonicParsing="false" prefHeight="89.0" prefWidth="254.0" ripplerFill="#fc0000" text="Settings" />
    </children>
 </VBox>

@@ -1,9 +1,6 @@
 package main.java.controller;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDrawer;
-import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 
 import java.awt.event.KeyEvent;
@@ -25,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -44,26 +42,22 @@ public class FXMLDocumentController implements Initializable {
     private ObservableSet<String> countryNames = FXCollections.observableSet();
     private ObservableSet<String> regionNames = FXCollections.observableSet();
     private ObservableSet<String> incomeLevels = FXCollections.observableSet();
-    private ObservableSet<String> lendingTypes = FXCollections.observableSet();
-    private ObservableSet<String> capitalCities = FXCollections.observableSet();
     private ArrayList<String> selectedItems = new ArrayList<>();
+    private String currentSelectedCategory;
     private enum IndicatorType { GDP, GDPPERCAPITA, INFLATION, UNEMPLOYMENT }
 
     @FXML
-    private StackPane stack;
+    private TableView detailTable;
     @FXML
-    protected JFXButton exit;
+    private StackPane stack;
     @FXML
     private JFXDrawer drawer;
     @FXML
     private JFXHamburger hamburger;
     @FXML
-    private AnchorPane root;
-    @FXML
-    public static AnchorPane rootP;
+    private JFXTabPane tabPane;
     @FXML
     private ListView<String> list;
-
     @FXML
     private PieChart pieChart;
     @FXML
@@ -90,10 +84,6 @@ public class FXMLDocumentController implements Initializable {
     private CategoryAxis xAxisUnemployment;
     @FXML
     private NumberAxis yAxisUnemployment;
-
-
-    @FXML
-    private TabPane tpaneChartTabs;
     @FXML
     private Tab tabCurrGDP;
     @FXML
@@ -136,15 +126,6 @@ public class FXMLDocumentController implements Initializable {
         tabBarChart.setDisable(false);
     }
 
-    @FXML
-    private void handleLendingTypeAction(ActionEvent event)
-    {
-        list.setItems(FXCollections.observableArrayList(lendingTypes));
-        tabPieChart.setDisable(false);
-        tabCurrGDP.setDisable(false);
-        tabBarChart.setDisable(false);
-    }
-
     private ArrayList<CountryIndicator> getIndicatorsByCountry(String strCountry)
     {
         ArrayList<CountryIndicator> country = new ArrayList<>();
@@ -171,6 +152,35 @@ public class FXMLDocumentController implements Initializable {
         for (String r : toRemove)
             for (LineChart<String, Double> c : charts)
                 c.getData().removeIf(s -> s.getName().equals(r));
+    }
+
+    private void updateTable(){
+
+        String selectedItem = list.getSelectionModel().getSelectedItem();
+        ObservableList<CountryIndicator> results = FXCollections.observableArrayList();
+        for(CountryIndicator c: countryIndicatorList){
+            if(c.getCountryValue().equals(selectedItem)){
+                results.add(c);
+            }
+        }
+
+        TableColumn<CountryIndicator, String> country = new TableColumn<>("Country");
+        TableColumn<CountryIndicator, Number> year = new TableColumn<>("Year");
+        TableColumn<CountryIndicator, Number> gdp = new TableColumn<>("GDP ($)");
+        TableColumn<CountryIndicator, Number> gdpPerCapita = new TableColumn<>("GDP Per Capita ($)");
+        TableColumn<CountryIndicator, Number> inflationRate = new TableColumn<>("Inflation Rate (%)");
+        TableColumn<CountryIndicator, Number> unemploymentRate = new TableColumn<>("Unemployment Rate (%)");
+
+        country.setCellValueFactory(cellData -> cellData.getValue().countryValueProperty());
+        year.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
+        gdp.setCellValueFactory(cellData -> cellData.getValue().GDP_CURRENT_$USProperty());
+        gdpPerCapita.setCellValueFactory(cellData -> cellData.getValue().GDP_PER_CAPITA_CURRENT_$USProperty());
+        inflationRate.setCellValueFactory(cellData -> cellData.getValue().INFLATION_RATEProperty());
+        unemploymentRate.setCellValueFactory(cellData -> cellData.getValue().UNEMPLOYMENT_RATEProperty());
+        detailTable.getColumns().clear();
+        detailTable.getColumns().addAll(country, year, gdp, gdpPerCapita, inflationRate, unemploymentRate);
+        detailTable.setItems(results);
+
     }
 
     private void updateChart(LineChart<String, Double> chart, ArrayList<ArrayList<CountryIndicator>> data, IndicatorType indicator, boolean showZeroes)
@@ -224,11 +234,10 @@ public class FXMLDocumentController implements Initializable {
         return false;
     }
 
+
+
     private final void updateCharts() {
 
-
-        System.out.println("CCCCCCCCLICCCCCCCCCCCk");
-        //System.out.println(selectedItems);
         ArrayList<String> toRemove = chartDataToRemove();
         removeOldChartData(toRemove, lineChartCurrGDP, lineChartGDPCapita, lineChartInflation, lineChartUnemployment);
 
@@ -279,6 +288,7 @@ public class FXMLDocumentController implements Initializable {
                     aggregates++;
             }
 
+
             ObservableList<PieChart.Data> pieChartData =
                     FXCollections.observableArrayList(
                             new PieChart.Data("Low Income", lowIncome),
@@ -321,15 +331,17 @@ public class FXMLDocumentController implements Initializable {
             barChart.setCategoryGap(0);
             barChart.setBarGap(0.5);
             tabBarChart.setContent(barChart);
-            // System.out.println("TEST");
         }
     }
+
 
     @FXML
     private void handleListAction(MouseEvent arg0) {
         if (arg0.getButton() == MouseButton.PRIMARY) {
             updateCharts();
+            updateTable();
         }
+
     }
 
     @FXML
@@ -337,42 +349,29 @@ public class FXMLDocumentController implements Initializable {
         //can navigate through the list with arrow keys and ENTER, enter selects the item
         if (arg0.getCode() == KeyCode.ENTER) {
             updateCharts();
+            updateTable();
         }
     }
 
-
-    @FXML
-    private void changeColor(ActionEvent event) {
-        JFXButton btn = (JFXButton) event.getSource();
-        System.out.println(btn.getText());
-        switch(btn.getText())
-        {
-            case "Color 1":FXMLDocumentController.rootP.setStyle("-fx-background-color:#00FF00");
-                break;
-            case "Color 2":FXMLDocumentController.rootP.setStyle("-fx-background-color:#0000FF");
-                break;
-            case "Color 3":FXMLDocumentController.rootP.setStyle("-fx-background-color:#FF0000");
-                break;
-        }
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        rootP = root;
 
         try {
-            VBox box = FXMLLoader.load(getClass().getClassLoader().getResource("main/java/view/SidePanelContent.fxml"));
+
+            VBox drawerContainer = FXMLLoader.load(getClass().getClassLoader().getResource("main/java/view/SidePanelContent.fxml"));
+            VBox box = (VBox) drawerContainer.getChildren().get(0);
             Button countryButton = (Button) box.getChildren().get(0);
-            Button regionButton = (Button) box.getChildren().get(1);
-            //Button incomeLevelButton = (Button) box.getChildren().get(3);
-            ComboBox<String> incomeLevelList = (ComboBox<String>) box.getChildren().get(2);
-            incomeLevelList.setPromptText("Income Level");
-            incomeLevelList.getItems().addAll("High Income", "Low Income", "Lower Middle Income", "Upper Middle Income");
+            Button incomeLevelButton = (Button) box.getChildren().get(1);
+            Button regionNameButton = (Button) box.getChildren().get(2);
+//            ComboBox<String> incomeLevelList = (ComboBox<String>) box.getChildren().get(2);
+//            incomeLevelList.setPromptText("Income Level");
+//            incomeLevelList.getItems().addAll("High Income", "Low Income", "Lower Middle Income", "Upper Middle Income");
 
             countryButton.setOnAction(event -> handleCountryNameAction(event));
-            regionButton.setOnAction(event -> handleRegionNameAction(event));
-            incomeLevelList.setOnAction(event -> handleIncomeLevelAction(event));
-            drawer.getChildren().add(box);
+            incomeLevelButton.setOnAction(event -> handleIncomeLevelAction(event));
+            regionNameButton.setOnAction(event -> handleRegionNameAction(event));
+            drawer.getChildren().add(drawerContainer);
 
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
@@ -410,11 +409,8 @@ public class FXMLDocumentController implements Initializable {
         countryNames = FXCollections.observableSet(countries);
         regionNames = FXCollections.observableSet(regions);
         incomeLevels = FXCollections.observableSet(levels);
-        lendingTypes = FXCollections.observableSet(types);
-
         tabPieChart.setContent(pieChart);
 
-        //System.out.println(drawer.getChildren().get(0).getId());
         HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
         transition.setRate(-1);
         hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED,(e)->{
@@ -428,7 +424,6 @@ public class FXMLDocumentController implements Initializable {
                 ObservableList<Node> workingCollection1 = FXCollections.observableArrayList(stack.getChildren());
                 Collections.swap(workingCollection1, 0, 1);
                 stack.getChildren().setAll(workingCollection1);
-
 
             }else{
                 //drawer.open();
@@ -465,6 +460,7 @@ public class FXMLDocumentController implements Initializable {
         yAxisUnemployment.setMinorTickCount(500);
         xAxisUnemployment.setLabel("Year");
         tabUnemployment.setContent(lineChartUnemployment);
+
     }
 
 }
