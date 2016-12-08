@@ -1,0 +1,52 @@
+#app {
+	-fx-background-color: #273444;
+	
+}
+
+#wrapper {
+	-fx-background-color: #273444;
+	
+}
+
+.pane {
+	-fx-background-color: #EFF2F7;
+	-fx-background-radius: 5;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 3, 0, 0, 1);
+	-fx-width: 213px;
+}
+
+#category_title {
+	-fx-font-size: 18px;
+	-fx-font-weight: bold;
+	-fx-text-alignment: center;
+	-fx-font-family: 'Roboto', Arial, sans-serif;
+}
+
+.category_button {
+	-fx-background-color: #3C4858;
+	-fx-text-fill: #FEFEFE;
+	-fx-padding: 10px 0;
+	-fx-transition: all 0.2s ease;
+	-fx-font-family: 'Roboto', Arial, sans-serif;
+	-fx-letter-spacing: 2px;
+}
+
+.category_button: hover {
+	-fx-background-color: #17A0E3;
+	-fx-text-fill: #FEFEFE;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 3, 0, 0, 1);
+}
+
+.category_button: active {
+	-fx-background-color: #17A0E3;
+	-fx-text-fill: #FEFEFE;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 3, 0, 0, 1);
+}
+
+#list {
+	-fx-background-radius: 5;
+}
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 3, 0, 0, 1);
+}
+
+
