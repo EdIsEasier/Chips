@@ -10,6 +10,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
+<<<<<<< HEAD
           <root url="jar://$MODULE_DIR$/jfoenix.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -20,6 +21,13 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/org.json-20120521.jar!/" />
+=======
+<<<<<<< HEAD
+          <root url="jar://C:/JSON/org.json-20120521.jar!/" />
+=======
+          <root url="jar://$USER_HOME$/Downloads/org.json-20120521.jar!/" />
+>>>>>>> fe7a0dd96d321664080f3c8c9564a41ee07c77d8
+>>>>>>> 1cfce13bf938d2c7897fd2adae604b2156e78128
         </CLASSES>
         <JAVADOC />
         <SOURCES />
