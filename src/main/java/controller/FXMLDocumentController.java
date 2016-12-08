@@ -39,11 +39,13 @@ public class FXMLDocumentController implements Initializable {
 
     private ObservableList<Country> countryList;
     private ObservableList<CountryIndicator> countryIndicatorList;
-    private ObservableSet<String> countryNames = FXCollections.observableSet();
-    private ObservableSet<String> regionNames = FXCollections.observableSet();
-    private ObservableSet<String> incomeLevels = FXCollections.observableSet();
+    private ObservableList<String> countryNames = FXCollections.observableArrayList();
+    private ObservableList<String> regionNames = FXCollections.observableArrayList();
+    private ObservableList<String> incomeLevels = FXCollections.observableArrayList();
     private ArrayList<String> selectedItems = new ArrayList<>();
     private String currentSelectedCategory;
+    ComboBox<String> incomeLevelButton = null;
+    ComboBox<String> regionNameButton = null;
     private enum IndicatorType { GDP, GDPPERCAPITA, INFLATION, UNEMPLOYMENT }
 
     @FXML
@@ -111,7 +113,16 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void handleRegionNameAction(ActionEvent event)
     {
-        list.setItems(FXCollections.observableArrayList(regionNames));
+        ComboBox<String> selectedCategory = (ComboBox<String>) event.getSource();
+        String selectedItem = selectedCategory.getSelectionModel().getSelectedItem();
+        System.out.println(selectedItem);
+        List<String> result = FXCollections.observableArrayList();
+        for(Country country: countryList){
+            if(country.getRegionName().equals(selectedItem)){
+                result.add(country.getName());
+            }
+        }
+        list.setItems((ObservableList<String>) result);
         tabPieChart.setDisable(false);
         tabCurrGDP.setDisable(false);
         tabBarChart.setDisable(false);
@@ -119,8 +130,18 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void handleIncomeLevelAction(ActionEvent event)
+
     {
-        list.setItems(FXCollections.observableArrayList(incomeLevels));
+        ComboBox<String> selectedCategory = (ComboBox<String>) event.getSource();
+        String selectedItem = selectedCategory.getSelectionModel().getSelectedItem();
+        System.out.println(selectedItem);
+        List<String> result = FXCollections.observableArrayList();
+        for(Country country: countryList){
+            if(country.getIncomeLevel().equals(selectedItem)){
+                result.add(country.getName());
+            }
+        }
+        list.setItems((ObservableList<String>) result);
         tabPieChart.setDisable(false);
         tabCurrGDP.setDisable(false);
         tabBarChart.setDisable(false);
@@ -272,7 +293,6 @@ public class FXMLDocumentController implements Initializable {
             int lowerMidIncome = 0;
             int upperMidIncome = 0;
             int highIncome = 0;
-            int aggregates = 0;
 
             for (Country c : countryList)
             {
@@ -284,8 +304,6 @@ public class FXMLDocumentController implements Initializable {
                     lowerMidIncome++;
                 else if (c.getIncomeLevel().equals("Upper middle income"))
                     upperMidIncome++;
-                else
-                    aggregates++;
             }
 
 
@@ -294,8 +312,7 @@ public class FXMLDocumentController implements Initializable {
                             new PieChart.Data("Low Income", lowIncome),
                             new PieChart.Data("High Income", highIncome),
                             new PieChart.Data("Lower Middle Income", lowerMidIncome),
-                            new PieChart.Data("Upper Middle Income", upperMidIncome),
-                            new PieChart.Data("Aggregates", aggregates));
+                            new PieChart.Data("Upper Middle Income", upperMidIncome));
 
             pieChart.setData(pieChartData);
             pieChart.setTitle("Income Levels of All Countries");
@@ -357,16 +374,15 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        Button countryButton = null;
+
         try {
 
             VBox drawerContainer = FXMLLoader.load(getClass().getClassLoader().getResource("main/java/view/SidePanelContent.fxml"));
             VBox box = (VBox) drawerContainer.getChildren().get(0);
-            Button countryButton = (Button) box.getChildren().get(0);
-            Button incomeLevelButton = (Button) box.getChildren().get(1);
-            Button regionNameButton = (Button) box.getChildren().get(2);
-//            ComboBox<String> incomeLevelList = (ComboBox<String>) box.getChildren().get(2);
-//            incomeLevelList.setPromptText("Income Level");
-//            incomeLevelList.getItems().addAll("High Income", "Low Income", "Lower Middle Income", "Upper Middle Income");
+            countryButton = (Button) box.getChildren().get(0);
+            incomeLevelButton = (ComboBox<String>) box.getChildren().get(1);
+            regionNameButton = (ComboBox<String>) box.getChildren().get(2);
 
             countryButton.setOnAction(event -> handleCountryNameAction(event));
             incomeLevelButton.setOnAction(event -> handleIncomeLevelAction(event));
@@ -396,19 +412,18 @@ public class FXMLDocumentController implements Initializable {
         TreeSet<String> regions = new TreeSet<>();
         TreeSet<String> levels = new TreeSet<>();
         TreeSet<String> types = new TreeSet<>();
+        TreeSet<String> countries = new TreeSet<>();
 
         for (int i = 0; i < countryList.size(); ++i) {
+            countries.add(countryList.get(i).getName());
             regions.add(countryList.get(i).getRegionName());
             levels.add(countryList.get(i).getIncomeLevel());
             types.add(countryList.get(i).getLendingType());
         }
 
-
-        ObservableSet<String> countries = FXCollections.observableSet("United Kingdom", "United States", "Turkey","United Arab Emirates", "Chile", "China", "Australia", "Austria", "Belgium", "Brazil", "Denmark", "Czech Republic", "Thailand", "Sweden", "Switzerland", "Spain", "Singapore", "Romania", "Russian Federation", "Poland", "Portugal", "Canada", "Finland", "Greece", "Vietnam", "Bangladesh", "Colombia", "South Africa", "Pakistan", "Malaysia", "Ireland", "Israel", "Italy", "Iran, Islamic Rep.", "India", "Indonesia", "Philippines", "Hong Kong SAR, China", "Japan", "Venezuela, RB", "Egypt, Arab Rep.", "Norway", "Nigeria", "Argentina", "Germany", "France", "Korea, Rep.", "Mexico", "Netherlands", "Saudi Arabia");
-
-        countryNames = FXCollections.observableSet(countries);
-        regionNames = FXCollections.observableSet(regions);
-        incomeLevels = FXCollections.observableSet(levels);
+        countryNames = FXCollections.observableArrayList(countries);
+        regionNames = FXCollections.observableArrayList(regions);
+        incomeLevels = FXCollections.observableArrayList(levels);
         tabPieChart.setContent(pieChart);
 
         HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
@@ -436,6 +451,8 @@ public class FXMLDocumentController implements Initializable {
         list.setItems(FXCollections.observableArrayList(countryNames));
 
         list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE); // allows multiple selection while holding CTRL
+        incomeLevelButton.setItems(incomeLevels);
+        regionNameButton.setItems(regionNames);
 
         lineChartCurrGDP.setTitle("Current GDP in US$");
         lineChartCurrGDP.setCreateSymbols(false);

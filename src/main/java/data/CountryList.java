@@ -14,7 +14,7 @@ public class CountryList implements DataManager{
     private ObservableList<Country> countries = FXCollections.observableArrayList();
     private static final String COUNTRY_PATH = "src/main/resources/";
     private static final String COUNTRY_FILE = "src/main/resources/Countries.json";
-    private static final String COUNTRY_API = "http://api.worldbank.org/countries?format=json&per_page=350";
+    private static final String COUNTRY_API = "http://api.worldbank.org/countries/GB;US;TR;AE;CL;CN;AU;AT;BE;BR;DK;CZ;TH;SE;CH;ES;SG;RO;RU;PL;PT;CA;FI;GR;VN;BD;CO;ZA;PK;MY;IE;IL;IT;IR;IN;ID;PH;HK;JP;VE;EG;NO;NG;AR;DE;FR;KR;MX;NL;SA?format=json&per_page=350";
 
     /**
      * Constructs a CountryList by reading the local JSON files
