@@ -4,6 +4,7 @@ import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.URL;
@@ -15,14 +16,18 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.embed.swt.SWTFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -30,10 +35,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import main.java.MainApp;
 import main.java.data.Country;
 import main.java.data.CountryIndicator;
 import main.java.data.CountryIndicatorList;
 import main.java.data.CountryList;
+
+import javax.imageio.ImageIO;
 
 public class FXMLDocumentController implements Initializable {
 
@@ -99,6 +108,37 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Tab tabBarChart;
 
+    @FXML
+    private void handleDownload(ActionEvent event){
+
+        WritableImage image;
+        String buttonID = ((Button) event.getSource()).getId();
+        if(buttonID.equals("GDP")){
+            image = lineChartCurrGDP.snapshot(new SnapshotParameters(), null);
+        }
+        else if(buttonID.equals("GDPPerCapita")){
+            image = lineChartGDPCapita.snapshot(new SnapshotParameters(), null);
+        }
+        else if(buttonID.equals("Inflation")){
+            image = lineChartInflation.snapshot(new SnapshotParameters(), null);
+        }
+        else{
+            image = lineChartUnemployment.snapshot(new SnapshotParameters(), null);
+        }
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialFileName("Chart");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PNG files", "*.png"));
+
+        File savedFile = fileChooser.showSaveDialog(null);
+
+        if(savedFile != null){
+            try {
+                ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", savedFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     @FXML
     private void handleCountryNameAction(ActionEvent event)
@@ -458,25 +498,25 @@ public class FXMLDocumentController implements Initializable {
         lineChartCurrGDP.setCreateSymbols(false);
         yAxisCurrGDP.setMinorTickCount(500);
         xAxisCurrGDP.setLabel("Year");
-        tabCurrGDP.setContent(lineChartCurrGDP);
+        //tabCurrGDP.setContent(lineChartCurrGDP);
 
         lineChartGDPCapita.setTitle("GDP Per Capita in US$");
         lineChartGDPCapita.setCreateSymbols(false);
         yAxisGDPCapita.setMinorTickCount(500);
         xAxisGDPCapita.setLabel("Year");
-        tabGDPCapita.setContent(lineChartGDPCapita);
+        //tabGDPCapita.setContent(lineChartGDPCapita);
 
         lineChartInflation.setTitle("Inflation Rate");
         lineChartInflation.setCreateSymbols(false);
         yAxisInflation.setMinorTickCount(500);
         xAxisInflation.setLabel("Year");
-        tabInflation.setContent(lineChartInflation);
+        //tabInflation.setContent(lineChartInflation);
 
         lineChartUnemployment.setTitle("Unemployment Rate");
         lineChartUnemployment.setCreateSymbols(false);
         yAxisUnemployment.setMinorTickCount(500);
         xAxisUnemployment.setLabel("Year");
-        tabUnemployment.setContent(lineChartUnemployment);
+        //tabUnemployment.setContent(lineChartUnemployment);
 
     }
 
