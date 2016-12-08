@@ -10,16 +10,19 @@ public class CountryIndicatorList implements DataManager{
 
     private ObservableList<CountryIndicator> countryIndicators = FXCollections.observableArrayList();
 
-    private static final String GDP_CURRENT_$US = "http://api.worldbank.org/countries/all/indicators/NY.GDP.MKTP.CD?format=json&per_page=15050";
-    private static final String GDP_PER_CAPITA_CURRENT_$US = "http://api.worldbank.org/countries/all/indicators/NY.GDP.PCAP.CD?format=json&per_page=15050";
-    private static final String INFLATION_RATE = "http://api.worldbank.org/countries/all/indicators/FP.CPI.TOTL.ZG?format=json&per_page=15050";
-    private static final String UNEMPLOYMENT_RATE = "http://api.worldbank.org/countries/all/indicators/SL.UEM.TOTL.ZS?format=json&per_page=15050";
+    private static final String COUNTRY_LIST ="GB;US;TR;AE;CL;CN;AU;AT;BE;BR;DK;CZ;TH;SE;CH;ES;SG;RO;RU;PL;PT;CA;FI;GR;VN;BD;CO;ZA;PK;MY;IE;IL;IT;IR;IN;ID;PH;HK;JP;VE;EG;NO;NG;AR;DE;FR;KR;MX;NL;SA";
+    private static final String GDP_CURRENT_$US = "http://api.worldbank.org/countries/GB;US;TR;AE;CL;CN;AU;AT;BE;BR;DK;CZ;TH;SE;CH;ES;SG;RO;RU;PL;PT;CA;FI;GR;VN;BD;CO;ZA;PK;MY;IE;IL;IT;IR;IN;ID;PH;HK;JP;VE;EG;NO;NG;AR;DE;FR;KR;MX;NL;SA/indicators/NY.GDP.MKTP.CD?format=json&per_page=15050";
+    private static final String GDP_PER_CAPITA_CURRENT_$US = "http://api.worldbank.org/countries/GB;US;TR;AE;CL;CN;AU;AT;BE;BR;DK;CZ;TH;SE;CH;ES;SG;RO;RU;PL;PT;CA;FI;GR;VN;BD;CO;ZA;PK;MY;IE;IL;IT;IR;IN;ID;PH;HK;JP;VE;EG;NO;NG;AR;DE;FR;KR;MX;NL;SA/indicators/NY.GDP.PCAP.CD?format=json&per_page=15050";
+    private static final String INFLATION_RATE = "http://api.worldbank.org/countries/GB;US;TR;AE;CL;CN;AU;AT;BE;BR;DK;CZ;TH;SE;CH;ES;SG;RO;RU;PL;PT;CA;FI;GR;VN;BD;CO;ZA;PK;MY;IE;IL;IT;IR;IN;ID;PH;HK;JP;VE;EG;NO;NG;AR;DE;FR;KR;MX;NL;SA/indicators/FP.CPI.TOTL.ZG?format=json&per_page=15050";
+    private static final String UNEMPLOYMENT_RATE = "http://api.worldbank.org/countries/GB;US;TR;AE;CL;CN;AU;AT;BE;BR;DK;CZ;TH;SE;CH;ES;SG;RO;RU;PL;PT;CA;FI;GR;VN;BD;CO;ZA;PK;MY;IE;IL;IT;IR;IN;ID;PH;HK;JP;VE;EG;NO;NG;AR;DE;FR;KR;MX;NL;SA/indicators/SL.UEM.TOTL.ZS?format=json&per_page=15050";
     private static final String COUNTRYINDICATOR_PATH = "src/main/resources/indicators/";
 
     public CountryIndicatorList() {
         storeJSONFromLocalToList();
     }
-
+//    public static void main(String[] args){
+//        //new CountryIndicatorList().storeJSONToFile(UNEMPLOYMENT_RATE, COUNTRYINDICATOR_PATH + "UNEMPLOYMENT_RATE.json");
+//    }
 
     public CountryIndicator initializeCountryIndicator(JSONObject jsonObject){
         CountryIndicator countryIndicator = null;
