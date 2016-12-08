@@ -10,8 +10,7 @@ public class IndicatorList implements DataManager {
 
     private ObservableList<Indicator> indicators = FXCollections.observableArrayList();
     private static final String INDICATOR_API = "http://api.worldbank.org/topic/3/indicator?format=json&per_page=300";
-    private static final String INDICATOR_FILE = "src/main/resources/Indicators.json";
-    private static final String INDICATOR_PATH = "src/main/resources/";
+    private static final String INDICATOR_FILE =  "main/resources/Indicators.json"; // change to "Indicators.json" when building with gradle
 
     public IndicatorList(){
         storeJSONFromLocalToList();

@@ -1,10 +1,15 @@
 package main.java.data;
 
+import main.java.MainApp;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONTokener;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.FileWriter;
 import java.net.URL;
 
 public interface DataManager {
@@ -26,9 +31,9 @@ public interface DataManager {
     public default String getJSONFromFile(String filePath){
         String jsonArray = null;
         try {
-            FileReader reader = new FileReader(filePath);
+            InputStreamReader reader = new InputStreamReader(MainApp.class.getClassLoader().getResourceAsStream(filePath));
             jsonArray = new JSONArray(new JSONTokener(reader)).toString();
-        } catch (IOException | JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return jsonArray;

@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.FXMLDocumentController">
+<BorderPane prefWidth="1200.0" xmlns:fx="http://javafx.com/fxml" fx:controller="main.java.controller.FXMLDocumentController">
    <left>
       <HBox prefHeight="680.0" prefWidth="255.0" BorderPane.alignment="CENTER">
          <children>

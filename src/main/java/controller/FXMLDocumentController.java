@@ -417,8 +417,9 @@ public class FXMLDocumentController implements Initializable {
         Button countryButton = null;
 
         try {
-
-            VBox drawerContainer = FXMLLoader.load(getClass().getClassLoader().getResource("main/java/view/SidePanelContent.fxml"));
+            // change to "view/SidePanelContent.fxml" when building with gradle and move SidePanelContent.fxml to resources/view/fxml
+            // move style.css too
+            VBox drawerContainer = FXMLLoader.load(MainApp.class.getClassLoader().getResource("main/java/view/SidePanelContent.fxml"));
             VBox box = (VBox) drawerContainer.getChildren().get(0);
             countryButton = (Button) box.getChildren().get(0);
             incomeLevelButton = (ComboBox<String>) box.getChildren().get(1);
