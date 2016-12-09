@@ -143,6 +143,48 @@
                   </VBox>
               </content>
             </Tab>
+            <Tab id="gdpGrowth" fx:id="tabGDPGrowth" text="GDP Growth">
+               <content>
+                  <VBox>
+                     <children>
+                        <VBox alignment="TOP_RIGHT" prefHeight="44.0" prefWidth="823.0">
+                           <children>
+                              <JFXButton id="GDPGrowth" mnemonicParsing="false" onAction="#handleDownload" prefHeight="45.0" prefWidth="109.0" text="Download" />
+                           </children>
+                        </VBox>
+                        <LineChart fx:id="lineChartGDPGrowth" VBox.vgrow="ALWAYS">
+                           <xAxis>
+                              <CategoryAxis side="BOTTOM" fx:id="xAxisGDPGrowth" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis fx:id="yAxisGDPGrowth" side="LEFT" />
+                           </yAxis>
+                        </LineChart>
+                     </children>
+                  </VBox>
+               </content>
+            </Tab>
+            <Tab id="gdpGrowthCapita" fx:id="tabGDPGrowthCapita" text="GDP Growth Per Capita">
+               <content>
+                  <VBox>
+                     <children>
+                        <VBox alignment="TOP_RIGHT" prefHeight="44.0" prefWidth="823.0">
+                           <children>
+                              <JFXButton id="GDPGrowthPerCapita" mnemonicParsing="false" onAction="#handleDownload" prefHeight="45.0" prefWidth="109.0" text="Download" />
+                           </children>
+                        </VBox>
+                        <LineChart fx:id="lineChartGDPGrowthCapita" VBox.vgrow="ALWAYS">
+                           <xAxis>
+                              <CategoryAxis side="BOTTOM" fx:id="xAxisGDPGrowthCapita" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis fx:id="yAxisGDPGrowthCapita" side="LEFT" />
+                           </yAxis>
+                        </LineChart>
+                     </children>
+                  </VBox>
+               </content>
+            </Tab>
           <Tab text="Details">
                <content>
                   <TableView fx:id="detailTable" prefHeight="200.0" prefWidth="200.0">

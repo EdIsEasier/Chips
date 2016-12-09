@@ -44,10 +44,9 @@ public class FXMLDocumentController implements Initializable {
     private ObservableList<String> regionNames = FXCollections.observableArrayList();
     private ObservableList<String> incomeLevels = FXCollections.observableArrayList();
     private ArrayList<String> selectedItems = new ArrayList<>();
-    private String currentSelectedCategory;
     ComboBox<String> incomeLevelButton = null;
     ComboBox<String> regionNameButton = null;
-    private enum IndicatorType { GDP, GDPPERCAPITA, INFLATION, UNEMPLOYMENT }
+    private enum IndicatorType { GDP, GDPPERCAPITA, INFLATION, UNEMPLOYMENT, GDPGROWTH, GDPGROWTHCAPITA }
 
     @FXML
     private TableView detailTable;
@@ -57,8 +56,6 @@ public class FXMLDocumentController implements Initializable {
     private JFXDrawer drawer;
     @FXML
     private JFXHamburger hamburger;
-    @FXML
-    private JFXTabPane tabPane;
     @FXML
     private ListView<String> list;
     @FXML
@@ -86,30 +83,41 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private NumberAxis yAxisUnemployment;
     @FXML
-    private Tab tabCurrGDP;
+    public LineChart<String, Double> lineChartGDPGrowth;
     @FXML
-    private Tab tabGDPCapita;
+    private CategoryAxis xAxisGDPGrowth;
     @FXML
-    private Tab tabInflation;
+    private NumberAxis yAxisGDPGrowth;
     @FXML
-    private Tab tabUnemployment;
+    public LineChart<String, Double> lineChartGDPGrowthCapita;
+    @FXML
+    private CategoryAxis xAxisGDPGrowthCapita;
+    @FXML
+    private NumberAxis yAxisGDPGrowthCapita;
 
     @FXML
     private void handleDownload(ActionEvent event){
-
         WritableImage image;
         String buttonID = ((Button) event.getSource()).getId();
-        if(buttonID.equals("GDP")){
-            image = lineChartCurrGDP.snapshot(new SnapshotParameters(), null);
-        }
-        else if(buttonID.equals("GDPPerCapita")){
-            image = lineChartGDPCapita.snapshot(new SnapshotParameters(), null);
-        }
-        else if(buttonID.equals("Inflation")){
-            image = lineChartInflation.snapshot(new SnapshotParameters(), null);
-        }
-        else{
-            image = lineChartUnemployment.snapshot(new SnapshotParameters(), null);
+        switch (buttonID) {
+            case "GDP":
+                image = lineChartCurrGDP.snapshot(new SnapshotParameters(), null);
+                break;
+            case "GDPPerCapita":
+                image = lineChartGDPCapita.snapshot(new SnapshotParameters(), null);
+                break;
+            case "Inflation":
+                image = lineChartInflation.snapshot(new SnapshotParameters(), null);
+                break;
+            case "Unemployment":
+                image = lineChartUnemployment.snapshot(new SnapshotParameters(), null);
+                break;
+            case "GDPGrowth":
+                image = lineChartGDPGrowth.snapshot(new SnapshotParameters(), null);
+                break;
+            default:
+                image = lineChartGDPGrowthCapita.snapshot(new SnapshotParameters(), null);
+                break;
         }
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialFileName("Chart");
@@ -256,6 +264,18 @@ public class FXMLDocumentController implements Initializable {
                             if (value == 0.0) continue;
                         series.getData().add(new XYChart.Data<>(Integer.toString(c.getDate()), value));
                         break;
+                    case GDPGROWTH:
+                        value = c.getGDP_GROWTH();
+                        if (!showZeroes)
+                            if (value == 0.0) continue;
+                        series.getData().add(new XYChart.Data<>(Integer.toString(c.getDate()), value));
+                        break;
+                    case GDPGROWTHCAPITA:
+                        value = c.getGDP_PER_CAPITA_GROWTH();
+                        if (!showZeroes)
+                            if (value == 0.0) continue;
+                        series.getData().add(new XYChart.Data<>(Integer.toString(c.getDate()), value));
+                        break;
                 }
             }
             dataSeries.add(series);
@@ -271,9 +291,7 @@ public class FXMLDocumentController implements Initializable {
         return false;
     }
 
-
-
-    private final void updateCharts() {
+    private void updateCharts() {
 
         ArrayList<String> toRemove = chartDataToRemove();
         removeOldChartData(toRemove, lineChartCurrGDP, lineChartGDPCapita, lineChartInflation, lineChartUnemployment);
@@ -291,19 +309,14 @@ public class FXMLDocumentController implements Initializable {
         else if (list.getSelectionModel().getSelectedItems().size() == 1){
             results.add(getIndicatorsByCountry(list.getSelectionModel().getSelectedItem())); // get selected country and add it
         }
-        if (!tabCurrGDP.isDisabled())
-            updateChart(lineChartCurrGDP, results, IndicatorType.GDP, false);
 
-        if (!tabGDPCapita.isDisabled())
-            updateChart(lineChartGDPCapita, results, IndicatorType.GDPPERCAPITA, false);
-
-        if (!tabInflation.isDisabled())
-            updateChart(lineChartInflation, results, IndicatorType.INFLATION, true);
-
-        if (!tabUnemployment.isDisabled())
-            updateChart(lineChartUnemployment, results, IndicatorType.UNEMPLOYMENT, false);
+        updateChart(lineChartCurrGDP, results, IndicatorType.GDP, false);
+        updateChart(lineChartGDPCapita, results, IndicatorType.GDPPERCAPITA, false);
+        updateChart(lineChartInflation, results, IndicatorType.INFLATION, true);
+        updateChart(lineChartUnemployment, results, IndicatorType.UNEMPLOYMENT, false);
+        updateChart(lineChartGDPGrowth, results, IndicatorType.GDPGROWTH, false);
+        updateChart(lineChartGDPGrowthCapita, results, IndicatorType.GDPGROWTHCAPITA, false);
     }
-
 
     @FXML
     private void handleListAction(MouseEvent arg0) {
@@ -311,7 +324,6 @@ public class FXMLDocumentController implements Initializable {
             updateCharts();
             updateTable();
         }
-
     }
 
     @FXML
@@ -322,7 +334,6 @@ public class FXMLDocumentController implements Initializable {
             updateTable();
         }
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -355,11 +366,11 @@ public class FXMLDocumentController implements Initializable {
         TreeSet<String> types = new TreeSet<>();
         TreeSet<String> countries = new TreeSet<>();
 
-        for (int i = 0; i < countryList.size(); ++i) {
-            countries.add(countryList.get(i).getName());
-            regions.add(countryList.get(i).getRegionName());
-            levels.add(countryList.get(i).getIncomeLevel());
-            types.add(countryList.get(i).getLendingType());
+        for (Country aCountryList : countryList) {
+            countries.add(aCountryList.getName());
+            regions.add(aCountryList.getRegionName());
+            levels.add(aCountryList.getIncomeLevel());
+            types.add(aCountryList.getLendingType());
         }
 
         countryNames = FXCollections.observableArrayList(countries);
@@ -417,6 +428,18 @@ public class FXMLDocumentController implements Initializable {
         yAxisUnemployment.setMinorTickCount(500);
         yAxisUnemployment.setLabel("Percent");
         xAxisUnemployment.setLabel("Year");
+
+        lineChartGDPGrowth.setTitle("GDP Growth in US$");
+        lineChartGDPGrowth.setCreateSymbols(false);
+        yAxisGDPGrowth.setMinorTickCount(500);
+        yAxisGDPGrowth.setLabel("US$");
+        xAxisGDPGrowth.setLabel("Year");
+
+        lineChartGDPGrowthCapita.setTitle("GDP Growth Per Capita in US$");
+        lineChartGDPGrowthCapita.setCreateSymbols(false);
+        yAxisGDPGrowthCapita.setMinorTickCount(500);
+        yAxisGDPGrowthCapita.setLabel("US$");
+        xAxisGDPGrowthCapita.setLabel("Year");
     }
 
 }
