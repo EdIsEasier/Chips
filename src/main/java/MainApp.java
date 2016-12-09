@@ -21,12 +21,15 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
+
+
+
 public class MainApp extends Application{
     private Pane splashLayout;
     private ProgressBar loadProgress;
     private static final int SPLASH_WIDTH = 248;
     private static final int SPLASH_HEIGHT = 183;
-
+    public static Stage primaryStage;
     @Override
     public void init() {
         // change to "logo.png" when building with gradle
@@ -58,7 +61,7 @@ public class MainApp extends Application{
                 return FXMLLoader.load(getClass().getClassLoader().getResource("main/java/view/EconoMe.fxml"));
             }
         };
-
+        this.primaryStage = stage;
         showSplash(stage, loaded, () -> showMainStage(loaded.valueProperty()));
         new Thread(loaded).start();
     }
@@ -94,6 +97,7 @@ public class MainApp extends Application{
     private void showMainStage(ReadOnlyObjectProperty<Parent> root) {
         Scene scene = new Scene(root.getValue());
         Stage stage = new Stage();
+
         // change to "logo.png" when building with gradle
         stage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("main/resources/logo.png")));
         stage.setTitle("EconoMe");
