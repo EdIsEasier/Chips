@@ -17,16 +17,23 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 import main.java.MainApp;
 import main.java.data.Country;
@@ -35,6 +42,14 @@ import main.java.data.CountryIndicatorList;
 import main.java.data.CountryList;
 
 import javax.imageio.ImageIO;
+import javafx.stage.*;
+import sun.font.TextLabel;
+import javax.imageio.ImageIO;
+import static javafx.scene.paint.Color.*;
+import static main.java.MainApp.primaryStage;
+
+
+
 
 public class FXMLDocumentController implements Initializable {
 
@@ -46,7 +61,10 @@ public class FXMLDocumentController implements Initializable {
     private ArrayList<String> selectedItems = new ArrayList<>();
     ComboBox<String> incomeLevelButton = null;
     ComboBox<String> regionNameButton = null;
+    Button aboutButton;
     private enum IndicatorType { GDP, GDPPERCAPITA, INFLATION, UNEMPLOYMENT, GDPGROWTH, GDPGROWTHCAPITA }
+
+
 
     @FXML
     private TableView detailTable;
@@ -133,6 +151,82 @@ public class FXMLDocumentController implements Initializable {
             }
         }
     }
+
+    @FXML
+    private void handleAboutAction (ActionEvent event)
+    {
+
+        Stage newStage = new Stage();
+        VBox comp = new VBox();
+        comp.setAlignment(Pos.CENTER);
+
+        Label aboutContent1 = new Label (
+                "\nAuthor: Team Amazing Flash"
+        );
+
+        Label aboutContent2 = new Label (
+                "   Andhika (Andy) Srimadeva\n" +
+                        "   Edvinas (Ed) Kruglovas\n" +
+                        "   Petru (Armand) Bancila\n" +
+                        "   Viktoria (Viktoria) Marvakova\n" +
+                        "   Naseem Usmani\n" +
+                        "   Jaydene (Jay) Green-Stevens\n\n"
+        );
+
+        Label aboutContent3 = new Label (
+                "Data is retrieved with WorldBank API.\n" +
+                        "This program uses these libraries:\n"+
+                        "JFoenix and org-json-java."
+        );
+
+
+
+
+
+
+
+
+        //aboutContent.setEffect(new DropShadow());
+        aboutContent1.setFont(Font.font(null, FontWeight.NORMAL, 16));
+        aboutContent3.setFont(Font.font(null, FontWeight.EXTRA_LIGHT, 9));
+
+        Image logo = new Image(getClass().getClassLoader().getResourceAsStream("main/resources/logo.png"));
+
+
+        Canvas canvas = new Canvas(124, 92);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+
+        gc.setFill(WHITE);
+
+        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+        gc.drawImage(logo, 0, 0, logo.getWidth() / 2, logo.getHeight() / 2);
+
+
+        comp.getChildren().add(canvas);
+        //comp.getChildren().add(aboutContent);
+
+        comp.getChildren().add(aboutContent1);
+        comp.getChildren().add(aboutContent2);
+        Separator separator1 = new Separator();
+        comp.getChildren().add(separator1);
+        comp.getChildren().add(aboutContent3);
+
+        comp.setStyle("-fx-background-color: white");
+
+
+        Scene stageScene = new Scene(comp, 250, 300);
+
+        newStage.setScene(stageScene);
+        newStage.setTitle("About");
+        newStage.initModality(Modality.WINDOW_MODAL);
+        newStage.initOwner(MainApp.primaryStage);
+        newStage.setResizable(false);
+        newStage.show();
+        //lock windows when opened
+
+    }
+
 
     @FXML
     private void handleCountryNameAction(ActionEvent event)
@@ -348,7 +442,8 @@ public class FXMLDocumentController implements Initializable {
             countryButton = (Button) box.getChildren().get(0);
             incomeLevelButton = (ComboBox<String>) box.getChildren().get(1);
             regionNameButton = (ComboBox<String>) box.getChildren().get(2);
-
+            aboutButton = (Button) drawerContainer.getChildren().get(1);
+            aboutButton.setOnAction(event -> handleAboutAction(event));
             countryButton.setOnAction(event -> handleCountryNameAction(event));
             incomeLevelButton.setOnAction(event -> handleIncomeLevelAction(event));
             regionNameButton.setOnAction(event -> handleRegionNameAction(event));
