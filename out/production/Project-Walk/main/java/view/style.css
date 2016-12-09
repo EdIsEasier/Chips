@@ -81,28 +81,12 @@
 	-fx-background-size: 30 30;
 }
 
-#pie {
-	-fx-background-image: url("../../resources/pie.png");
-	-fx-background-position: left center;
-	-fx-background-repeat: no-repeat no-repeat;
-	-fx-background-size: 30 30;
-}
-
-#barchart {
-	-fx-background-image: url("../../resources/barchart.png");
-	-fx-background-position: left center;
-	-fx-background-repeat: no-repeat no-repeat;
-	-fx-background-size: 30 30;
-}
-
 #details {
 	-fx-background-image: url("../../resources/details.png");
 	-fx-background-position: left center;
 	-fx-background-repeat: no-repeat no-repeat;
 	-fx-background-size: 30 30;
 }
-
-
 
 .download {
     -fx-width: 200px;
@@ -113,3 +97,15 @@
 	
 }
 
+#gdpGrowth{
+	-fx-background-image: url("../../resources/gdpGrowth.png");
+	-fx-background-position: left center;
+	-fx-background-repeat: no-repeat no-repeat;
+	-fx-background-size: 30 30;
+}
+#gdpGrowthCapita{
+	-fx-background-image: url("../../resources/capitaGrowth.png");
+	-fx-background-position: left center;
+	-fx-background-repeat: no-repeat no-repeat;
+	-fx-background-size: 30 30;
+}

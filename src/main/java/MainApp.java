@@ -22,8 +22,6 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 
-
-
 public class MainApp extends Application{
     private Pane splashLayout;
     private ProgressBar loadProgress;

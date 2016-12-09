@@ -2,12 +2,14 @@ package main.java.controller;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -30,20 +32,19 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import main.java.MainApp;
 import main.java.data.Country;
 import main.java.data.CountryIndicator;
 import main.java.data.CountryIndicatorList;
 import main.java.data.CountryList;
+
 import javax.imageio.ImageIO;
-import javafx.stage.*;
-import static javafx.scene.paint.Color.*;
-
-
-
 public class FXMLDocumentController implements Initializable {
 
     private ObservableList<Country> countryList;
@@ -55,9 +56,8 @@ public class FXMLDocumentController implements Initializable {
     ComboBox<String> incomeLevelButton = null;
     ComboBox<String> regionNameButton = null;
     Button aboutButton;
+    HamburgerBackArrowBasicTransition transition;
     private enum IndicatorType { GDP, GDPPERCAPITA, INFLATION, UNEMPLOYMENT, GDPGROWTH, GDPGROWTHCAPITA }
-
-
 
     @FXML
     private TableView detailTable;
@@ -174,7 +174,7 @@ public class FXMLDocumentController implements Initializable {
         Image logo = new Image(getClass().getClassLoader().getResourceAsStream("main/resources/logo.png"));
         Canvas canvas = new Canvas(124, 92);
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setFill(WHITE);
+        gc.setFill(Color.WHITE);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         gc.drawImage(logo, 0, 0, logo.getWidth() / 2, logo.getHeight() / 2);
 
@@ -203,6 +203,7 @@ public class FXMLDocumentController implements Initializable {
     private void handleCountryNameAction(ActionEvent event)
     {
         list.setItems(FXCollections.observableArrayList(countryNames));
+        handleHamburger();
     }
 
     @FXML
@@ -218,6 +219,7 @@ public class FXMLDocumentController implements Initializable {
             }
         }
         list.setItems((ObservableList<String>) result);
+        handleHamburger();
     }
 
     @FXML
@@ -234,6 +236,7 @@ public class FXMLDocumentController implements Initializable {
             }
         }
         list.setItems((ObservableList<String>) result);
+        handleHamburger();
     }
 
     private ArrayList<CountryIndicator> getIndicatorsByCountry(String strCountry)
@@ -400,6 +403,25 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
+    private void handleHamburger(){
+        transition.setRate(transition.getRate()*-1);
+        transition.play();
+
+        if(drawer.isShown()){
+
+            drawer.close();
+            ObservableList<Node> workingCollection1 = FXCollections.observableArrayList(stack.getChildren());
+            Collections.swap(workingCollection1, 0, 1);
+            stack.getChildren().setAll(workingCollection1);
+
+        }else{
+
+            ObservableList<Node> workingCollection = FXCollections.observableArrayList(stack.getChildren());
+            Collections.swap(workingCollection, 1, 0);
+            stack.getChildren().setAll(workingCollection);
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -443,27 +465,12 @@ public class FXMLDocumentController implements Initializable {
         regionNames = FXCollections.observableArrayList(regions);
         incomeLevels = FXCollections.observableArrayList(levels);
 
-        HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+        transition = new HamburgerBackArrowBasicTransition(hamburger);
         transition.setRate(-1);
+
         hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED,(e)->{
 
-            transition.setRate(transition.getRate()*-1);
-            transition.play();
-
-            if(drawer.isShown()){
-
-                drawer.close();
-                ObservableList<Node> workingCollection1 = FXCollections.observableArrayList(stack.getChildren());
-                Collections.swap(workingCollection1, 0, 1);
-                stack.getChildren().setAll(workingCollection1);
-
-            }else{
-                //drawer.open();
-                list.setEditable(true);
-                ObservableList<Node> workingCollection = FXCollections.observableArrayList(stack.getChildren());
-                Collections.swap(workingCollection, 1, 0);
-                stack.getChildren().setAll(workingCollection);
-            }
+          handleHamburger();
         });
         list.setItems(FXCollections.observableArrayList(countryNames));
 
