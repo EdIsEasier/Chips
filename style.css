@@ -1,0 +1,115 @@
+#app {
+	-fx-background-color: #273444;
+	
+}
+
+#wrapper {
+	-fx-background-color: #273444;
+	
+}
+
+.pane {
+	-fx-background-color: #EFF2F7;
+	-fx-background-radius: 5;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 3, 0, 0, 1);
+	-fx-width: 213px;
+}
+
+#category_title {
+	-fx-font-size: 18px;
+	-fx-font-weight: bold;
+	-fx-text-alignment: center;
+	-fx-font-family: 'Roboto', Arial, sans-serif;
+}
+
+.category_button {
+	-fx-background-color: #3C4858;
+	-fx-text-fill: #FEFEFE;
+	-fx-padding: 10px 0;
+	-fx-transition: all 0.2s ease;
+	-fx-font-family: 'Roboto', Arial, sans-serif;
+	-fx-letter-spacing: 2px;
+}
+
+.category_button: hover {
+	-fx-background-color: #17A0E3;
+	-fx-text-fill: #FEFEFE;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 3, 0, 0, 1);
+}
+
+.category_button: active {
+	-fx-background-color: #17A0E3;
+	-fx-text-fill: #FEFEFE;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 3, 0, 0, 1);
+}
+
+#list {
+	-fx-background-radius: 5;
+}
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 3, 0, 0, 1);
+}
+
+.tab {
+	-fx-padding: 0 0 0 30px;
+}
+
+#gdp { 
+	-fx-background-image: url("../../resources/gdp.png");
+	-fx-background-position: left center;
+	-fx-background-repeat: no-repeat no-repeat;
+	-fx-background-size: 30 30;
+}
+
+#gdpcapita {
+	-fx-background-image: url("../../resources/capita.png");
+	-fx-background-position: left center;
+	-fx-background-repeat: no-repeat no-repeat;
+	-fx-background-size: 30 30;
+}
+
+#inflation {
+	-fx-background-image: url("../../resources/inflation.png");
+	-fx-background-position: left center;
+	-fx-background-repeat: no-repeat no-repeat;
+	-fx-background-size: 30 30;
+}
+
+#unemployment {
+	-fx-background-image: url("../../resources/unemployment.png");
+	-fx-background-position: left center;
+	-fx-background-repeat: no-repeat no-repeat;
+	-fx-background-size: 30 30;
+}
+
+#pie {
+	-fx-background-image: url("../../resources/pie.png");
+	-fx-background-position: left center;
+	-fx-background-repeat: no-repeat no-repeat;
+	-fx-background-size: 30 30;
+}
+
+#barchart {
+	-fx-background-image: url("../../resources/barchart.png");
+	-fx-background-position: left center;
+	-fx-background-repeat: no-repeat no-repeat;
+	-fx-background-size: 30 30;
+}
+
+#details {
+	-fx-background-image: url("../../resources/details.png");
+	-fx-background-position: left center;
+	-fx-background-repeat: no-repeat no-repeat;
+	-fx-background-size: 30 30;
+}
+
+
+
+.download {
+    -fx-width: 200px;
+	-fx-background-image: url("../../resources/download.png");
+	-fx-background-position: right center;
+	-fx-background-repeat: no-repeat no-repeat;
+	-fx-background-size: 30 30;
+	
+}
+
