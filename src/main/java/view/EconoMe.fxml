@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefWidth="1200.0" xmlns:fx="http://javafx.com/fxml" fx:controller="main.java.controller.FXMLDocumentController">
+<BorderPane prefWidth="1200.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.65" fx:controller="main.java.controller.FXMLDocumentController">
    <left>
       <HBox prefHeight="680.0" prefWidth="255.0" BorderPane.alignment="CENTER">
          <children>
@@ -86,7 +86,7 @@
                      <children>
                         <VBox alignment="TOP_RIGHT" prefHeight="71.0" prefWidth="823.0">
                            <children>
-                              <JFXButton id="GDPPerCapita" alignment="CENTER" mnemonicParsing="false" onAction="#handleDownload" prefHeight="51.0" prefWidth="116.0" text="Download" VBox.vgrow="ALWAYS" />
+                              <JFXButton id="download" alignment="CENTER" mnemonicParsing="false" onAction="#handleDownload" prefHeight="37.0" prefWidth="50.0" styleClass="download" stylesheets="@style.css" text=" " VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
                        <LineChart fx:id="lineChartGDPCapita" prefHeight="627.0" prefWidth="823.0">
@@ -107,7 +107,7 @@
                      <children>
                         <VBox alignment="TOP_RIGHT" prefHeight="43.0" prefWidth="823.0">
                            <children>
-                              <JFXButton id="Inflation" mnemonicParsing="false" onAction="#handleDownload" prefHeight="60.0" prefWidth="130.0" text="Download" />
+                              <JFXButton id="Inflation" mnemonicParsing="false" onAction="#handleDownload" prefHeight="43.0" prefWidth="47.0" styleClass="download" stylesheets="@style.css" text=" " />
                            </children>
                         </VBox>
                        <LineChart fx:id="lineChartInflation" VBox.vgrow="ALWAYS">
@@ -128,7 +128,7 @@
                      <children>
                         <VBox alignment="TOP_RIGHT" prefHeight="44.0" prefWidth="823.0">
                            <children>
-                              <JFXButton id="Unemployment" mnemonicParsing="false" onAction="#handleDownload" prefHeight="45.0" prefWidth="109.0" text="Download" />
+                              <JFXButton id="Unemployment" mnemonicParsing="false" onAction="#handleDownload" prefHeight="45.0" prefWidth="49.0" styleClass="download" stylesheets="@style.css" text=" " />
                            </children>
                         </VBox>
                        <LineChart fx:id="lineChartUnemployment" VBox.vgrow="ALWAYS">
@@ -149,7 +149,7 @@
                      <children>
                         <VBox alignment="TOP_RIGHT" prefHeight="44.0" prefWidth="823.0">
                            <children>
-                              <JFXButton id="GDPGrowth" mnemonicParsing="false" onAction="#handleDownload" prefHeight="45.0" prefWidth="109.0" text="Download" />
+                              <JFXButton id="GDPGrowth" mnemonicParsing="false" onAction="#handleDownload" prefHeight="45.0" prefWidth="59.0" styleClass="download" stylesheets="@style.css" text=" " />
                            </children>
                         </VBox>
                         <LineChart fx:id="lineChartGDPGrowth" VBox.vgrow="ALWAYS">
@@ -170,7 +170,7 @@
                      <children>
                         <VBox alignment="TOP_RIGHT" prefHeight="44.0" prefWidth="823.0">
                            <children>
-                              <JFXButton id="GDPGrowthPerCapita" mnemonicParsing="false" onAction="#handleDownload" prefHeight="45.0" prefWidth="109.0" text="Download" />
+                              <JFXButton id="GDPGrowthPerCapita" mnemonicParsing="false" onAction="#handleDownload" prefHeight="45.0" prefWidth="63.0" styleClass="download" stylesheets="@style.css" text=" " />
                            </children>
                         </VBox>
                         <LineChart fx:id="lineChartGDPGrowthCapita" VBox.vgrow="ALWAYS">
