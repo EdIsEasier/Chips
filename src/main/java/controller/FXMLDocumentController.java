@@ -174,7 +174,7 @@ public class FXMLDocumentController implements Initializable {
         );
 
         Label aboutContent3 = new Label (
-                "Data is retrieved with WorldBank API.\n" +
+                "Data is retrieved with the WorldBank API.\n" +
                         "This program uses these libraries:\n"+
                         "JFoenix and org-json-java."
         );
