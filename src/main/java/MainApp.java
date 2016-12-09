@@ -61,7 +61,6 @@ public class MainApp extends Application{
                 return FXMLLoader.load(getClass().getClassLoader().getResource("main/java/view/EconoMe.fxml"));
             }
         };
-        this.primaryStage = stage;
         showSplash(stage, loaded, () -> showMainStage(loaded.valueProperty()));
         new Thread(loaded).start();
     }
@@ -102,6 +101,7 @@ public class MainApp extends Application{
         stage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("main/resources/logo.png")));
         stage.setTitle("EconoMe");
         stage.setScene(scene);
+        this.primaryStage = stage;
         stage.show();
     }
 
