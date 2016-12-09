@@ -9,7 +9,6 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
@@ -20,7 +19,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefWidth="1200.0" xmlns:fx="http://javafx.com/fxml" fx:controller="main.java.controller.FXMLDocumentController">
+<BorderPane prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.71" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.FXMLDocumentController">
    <left>
       <HBox prefHeight="680.0" prefWidth="255.0" BorderPane.alignment="CENTER">
          <children>
@@ -52,18 +51,21 @@
       </HBox>
    </left>
    <center>
-      <JFXTabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" tabMinHeight="50.0" BorderPane.alignment="CENTER">
+      <JFXTabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="50.0" BorderPane.alignment="CENTER">
          <cursor>
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
          <tabs>
-            <Tab fx:id="tabCurrGDP" text="GDP">
+            <Tab id="gdp" fx:id="tabCurrGDP" text="GDP">
                <content>
                   <VBox prefHeight="538.0" prefWidth="795.0">
                      <children>
-                        <VBox alignment="TOP_RIGHT" prefHeight="42.0" prefWidth="716.0">
+                        <VBox alignment="TOP_RIGHT" prefHeight="37.0" prefWidth="347.0" styleClass="download" stylesheets="@style.css">
                            <children>
-                              <JFXButton id="GDP" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleDownload" prefHeight="42.0" prefWidth="114.0" text="Download" />
+                              <JFXButton id="download" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleDownload" prefHeight="34.0" prefWidth="40.0" styleClass="download" stylesheets="@style.css" text=" ">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin></JFXButton>
                            </children>
                         </VBox>
                         <LineChart fx:id="lineChartCurrGDP" prefHeight="599.0" prefWidth="549.0" VBox.vgrow="ALWAYS">
@@ -78,7 +80,7 @@
                   </VBox>
                </content>
             </Tab>
-            <Tab fx:id="tabGDPCapita" text="GDP Per Capita">
+            <Tab id="gdpcapita" fx:id="tabGDPCapita" text="GDP Per Capita">
                <content>
                   <VBox>
                      <children>
@@ -99,7 +101,7 @@
                   </VBox>
                </content>
             </Tab>
-            <Tab fx:id="tabInflation" text="Inflation">
+            <Tab id="inflation" fx:id="tabInflation" text="Inflation">
               <content>
                   <VBox>
                      <children>
@@ -120,7 +122,7 @@
                   </VBox>
               </content>
             </Tab>
-            <Tab fx:id="tabUnemployment" text="Unemployment">
+            <Tab id="unemployment" fx:id="tabUnemployment" text="Unemployment">
               <content>
                   <VBox>
                      <children>
