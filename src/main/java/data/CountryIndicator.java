@@ -4,8 +4,6 @@ import javafx.beans.property.*;
 
 public class CountryIndicator{
 
-    private StringProperty indicatorID;
-    private StringProperty indicatorValue;
     private StringProperty countryID;
     private StringProperty countryValue;
     private IntegerProperty date;
@@ -13,10 +11,10 @@ public class CountryIndicator{
     private DoubleProperty GDP_PER_CAPITA_CURRENT_$US;
     private DoubleProperty INFLATION_RATE;
     private DoubleProperty UNEMPLOYMENT_RATE;
+    private DoubleProperty GDP_GROWTH;
+    private DoubleProperty GDP_PER_CAPITA_GROWTH;
 
     public CountryIndicator(){
-        indicatorID = new SimpleStringProperty("indicatorID");
-        indicatorValue = new SimpleStringProperty("indicatorValue");
         countryID = new SimpleStringProperty("countryID");
         countryValue = new SimpleStringProperty("countryValue");
         date = new SimpleIntegerProperty(0000);
@@ -24,11 +22,12 @@ public class CountryIndicator{
         GDP_PER_CAPITA_CURRENT_$US = new SimpleDoubleProperty(0.0);
         INFLATION_RATE = new SimpleDoubleProperty(0.0);
         UNEMPLOYMENT_RATE = new SimpleDoubleProperty(0.0);
+        GDP_GROWTH = new SimpleDoubleProperty(0.0);
+        GDP_PER_CAPITA_GROWTH = new SimpleDoubleProperty(0.0);
     }
 
-    public CountryIndicator(String indicatorID, String indicatorValue, String countryID, String countryValue, int date){
-        this.indicatorID = new SimpleStringProperty(indicatorID);
-        this.indicatorValue = new SimpleStringProperty(indicatorValue);
+    public CountryIndicator(String countryID, String countryValue, int date){
+
         this.countryID = new SimpleStringProperty(countryID);
         this.countryValue = new SimpleStringProperty(countryValue);
         this.date = new SimpleIntegerProperty(date);
@@ -36,6 +35,8 @@ public class CountryIndicator{
         GDP_PER_CAPITA_CURRENT_$US = new SimpleDoubleProperty(0.0);
         INFLATION_RATE = new SimpleDoubleProperty(0.0);
         UNEMPLOYMENT_RATE = new SimpleDoubleProperty(0.0);
+        GDP_GROWTH = new SimpleDoubleProperty(0.0);
+        GDP_PER_CAPITA_GROWTH = new SimpleDoubleProperty(0.0);
     }
 
     public double getUNEMPLOYMENT_RATE() {
@@ -62,30 +63,28 @@ public class CountryIndicator{
         this.GDP_PER_CAPITA_CURRENT_$US.set(GDP__PER_CAPITA_CURRENT_$US);
     }
 
-
-
-    public String getIndicatorID() {
-        return indicatorID.get();
+    public double getGDP_GROWTH() {
+        return GDP_GROWTH.get();
     }
 
-    public StringProperty indicatorIDProperty() {
-        return indicatorID;
+    public DoubleProperty GDP_GROWTHProperty() {
+        return GDP_GROWTH;
     }
 
-    public void setIndicatorID(String indicatorID) {
-        this.indicatorID.set(indicatorID);
+    public void setGDP_GROWTH(double GDP_GROWTH) {
+        this.GDP_GROWTH.set(GDP_GROWTH);
     }
 
-    public String getIndicatorValue() {
-        return indicatorValue.get();
+    public double getGDP_PER_CAPITA_GROWTH() {
+        return GDP_PER_CAPITA_GROWTH.get();
     }
 
-    public StringProperty indicatorValueProperty() {
-        return indicatorValue;
+    public DoubleProperty GDP_PER_CAPITA_GROWTHProperty() {
+        return GDP_PER_CAPITA_GROWTH;
     }
 
-    public void setIndicatorValue(String indicatorValue) {
-        this.indicatorValue.set(indicatorValue);
+    public void setGDP_PER_CAPITA_GROWTH(double GDP_PER_CAPITA_GROWTH) {
+        this.GDP_PER_CAPITA_GROWTH.set(GDP_PER_CAPITA_GROWTH);
     }
 
     public String getCountryID() {
