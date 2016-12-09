@@ -2,14 +2,12 @@ package main.java.controller;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -40,14 +38,9 @@ import main.java.data.Country;
 import main.java.data.CountryIndicator;
 import main.java.data.CountryIndicatorList;
 import main.java.data.CountryList;
-
 import javax.imageio.ImageIO;
 import javafx.stage.*;
-import sun.font.TextLabel;
-import javax.imageio.ImageIO;
 import static javafx.scene.paint.Color.*;
-import static main.java.MainApp.primaryStage;
-
 
 
 
@@ -155,7 +148,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void handleAboutAction (ActionEvent event)
     {
-
         Stage newStage = new Stage();
         VBox comp = new VBox();
         comp.setAlignment(Pos.CENTER);
@@ -163,7 +155,6 @@ public class FXMLDocumentController implements Initializable {
         Label aboutContent1 = new Label (
                 "\nAuthor: Team Amazing Flash"
         );
-
         Label aboutContent2 = new Label (
                 "   Andhika (Andy) Srimadeva\n" +
                         "   Edvinas (Ed) Kruglovas\n" +
@@ -172,51 +163,32 @@ public class FXMLDocumentController implements Initializable {
                         "   Naseem Usmani\n" +
                         "   Jaydene (Jay) Green-Stevens\n\n"
         );
-
         Label aboutContent3 = new Label (
                 "Data is retrieved with the WorldBank API.\n" +
                         "This program uses these libraries:\n"+
                         "JFoenix and org-json-java."
         );
-
-
-
-
-
-
-
-
-        //aboutContent.setEffect(new DropShadow());
         aboutContent1.setFont(Font.font(null, FontWeight.NORMAL, 16));
         aboutContent3.setFont(Font.font(null, FontWeight.EXTRA_LIGHT, 9));
 
         Image logo = new Image(getClass().getClassLoader().getResourceAsStream("main/resources/logo.png"));
-
-
         Canvas canvas = new Canvas(124, 92);
         GraphicsContext gc = canvas.getGraphicsContext2D();
-
         gc.setFill(WHITE);
-
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
         gc.drawImage(logo, 0, 0, logo.getWidth() / 2, logo.getHeight() / 2);
 
 
         comp.getChildren().add(canvas);
-        //comp.getChildren().add(aboutContent);
-
         comp.getChildren().add(aboutContent1);
         comp.getChildren().add(aboutContent2);
         Separator separator1 = new Separator();
         comp.getChildren().add(separator1);
         comp.getChildren().add(aboutContent3);
-
         comp.setStyle("-fx-background-color: white");
 
 
         Scene stageScene = new Scene(comp, 250, 300);
-
         newStage.setScene(stageScene);
         newStage.setTitle("About");
         newStage.initModality(Modality.WINDOW_MODAL);
@@ -224,7 +196,6 @@ public class FXMLDocumentController implements Initializable {
         newStage.setResizable(false);
         newStage.show();
         //lock windows when opened
-
     }
 
 
