@@ -1,0 +1,84 @@
+#app {
+	-fx-background-color: #273444;
+	
+}
+
+#wrapper {
+	-fx-background-color: #273444;
+	
+}
+
+.pane {
+	-fx-background-color: #EFF2F7;
+	-fx-background-radius: 5;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 3, 0, 0, 1);
+	-fx-width: 213px;
+}
+
+#category_title {
+	-fx-font-size: 18px;
+	-fx-font-weight: bold;
+	-fx-text-alignment: center;
+	-fx-font-family: 'Roboto', Arial, sans-serif;
+}
+
+.category_button {
+	-fx-background-color: #3C4858;
+	-fx-text-fill: #FEFEFE;
+	-fx-padding: 10px 0;
+	-fx-transition: all 0.2s ease;
+	-fx-font-family: 'Roboto', Arial, sans-serif;
+	-fx-letter-spacing: 2px;
+}
+
+.category_button: hover {
+	-fx-background-color: #17A0E3;
+	-fx-text-fill: #FEFEFE;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 3, 0, 0, 1);
+}
+
+.category_button: active {
+	-fx-background-color: #17A0E3;
+	-fx-text-fill: #FEFEFE;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 3, 0, 0, 1);
+}
+
+#list {
+	-fx-background-radius: 5;
+}
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 3, 0, 0, 1);
+}
+
+.sidenav {
+    -fx-pref-height: 100%;
+    -fx-pref-width: 250px;
+    -fx-background-position: left;
+    -fx-background-color: #111;
+   
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s
+}
+
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
