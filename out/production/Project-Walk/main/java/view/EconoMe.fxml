@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.71" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.FXMLDocumentController">
+<BorderPane prefWidth="1200.0" xmlns:fx="http://javafx.com/fxml" fx:controller="main.java.controller.FXMLDocumentController">
    <left>
       <HBox prefHeight="680.0" prefWidth="255.0" BorderPane.alignment="CENTER">
          <children>
@@ -142,6 +142,48 @@
                      </children>
                   </VBox>
               </content>
+            </Tab>
+            <Tab id="gdpGrowth" fx:id="tabGDPGrowth" text="GDP Growth">
+               <content>
+                  <VBox>
+                     <children>
+                        <VBox alignment="TOP_RIGHT" prefHeight="44.0" prefWidth="823.0">
+                           <children>
+                              <JFXButton id="GDPGrowth" mnemonicParsing="false" onAction="#handleDownload" prefHeight="45.0" prefWidth="109.0" text="Download" />
+                           </children>
+                        </VBox>
+                        <LineChart fx:id="lineChartGDPGrowth" VBox.vgrow="ALWAYS">
+                           <xAxis>
+                              <CategoryAxis side="BOTTOM" fx:id="xAxisGDPGrowth" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis fx:id="yAxisGDPGrowth" side="LEFT" />
+                           </yAxis>
+                        </LineChart>
+                     </children>
+                  </VBox>
+               </content>
+            </Tab>
+            <Tab id="gdpGrowthCapita" fx:id="tabGDPGrowthCapita" text="GDP Growth Per Capita">
+               <content>
+                  <VBox>
+                     <children>
+                        <VBox alignment="TOP_RIGHT" prefHeight="44.0" prefWidth="823.0">
+                           <children>
+                              <JFXButton id="GDPGrowthPerCapita" mnemonicParsing="false" onAction="#handleDownload" prefHeight="45.0" prefWidth="109.0" text="Download" />
+                           </children>
+                        </VBox>
+                        <LineChart fx:id="lineChartGDPGrowthCapita" VBox.vgrow="ALWAYS">
+                           <xAxis>
+                              <CategoryAxis side="BOTTOM" fx:id="xAxisGDPGrowthCapita" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis fx:id="yAxisGDPGrowthCapita" side="LEFT" />
+                           </yAxis>
+                        </LineChart>
+                     </children>
+                  </VBox>
+               </content>
             </Tab>
           <Tab text="Details">
                <content>
