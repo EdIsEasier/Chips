@@ -3,21 +3,16 @@ package main.java.controller;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.*;
-import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableSet;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.embed.swt.SWTFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,15 +21,12 @@ import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import main.java.MainApp;
 import main.java.data.Country;
@@ -70,8 +62,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private ListView<String> list;
     @FXML
-    private PieChart pieChart;
-    @FXML
     private LineChart<String, Double> lineChartCurrGDP;
     @FXML
     private CategoryAxis xAxisCurrGDP;
@@ -103,10 +93,6 @@ public class FXMLDocumentController implements Initializable {
     private Tab tabInflation;
     @FXML
     private Tab tabUnemployment;
-    @FXML
-    private Tab tabPieChart;
-    @FXML
-    private Tab tabBarChart;
 
     @FXML
     private void handleDownload(ActionEvent event){
@@ -144,10 +130,6 @@ public class FXMLDocumentController implements Initializable {
     private void handleCountryNameAction(ActionEvent event)
     {
         list.setItems(FXCollections.observableArrayList(countryNames));
-        tabPieChart.setDisable(false);
-        tabCurrGDP.setDisable(false);
-        tabBarChart.setDisable(false);
-
     }
 
     @FXML
@@ -163,9 +145,6 @@ public class FXMLDocumentController implements Initializable {
             }
         }
         list.setItems((ObservableList<String>) result);
-        tabPieChart.setDisable(false);
-        tabCurrGDP.setDisable(false);
-        tabBarChart.setDisable(false);
     }
 
     @FXML
@@ -182,17 +161,14 @@ public class FXMLDocumentController implements Initializable {
             }
         }
         list.setItems((ObservableList<String>) result);
-        tabPieChart.setDisable(false);
-        tabCurrGDP.setDisable(false);
-        tabBarChart.setDisable(false);
     }
 
     private ArrayList<CountryIndicator> getIndicatorsByCountry(String strCountry)
     {
         ArrayList<CountryIndicator> country = new ArrayList<>();
-        for(CountryIndicator c : countryIndicatorList)
-            if(c.getCountryValue().equals(strCountry))
-                country.add(c);
+        for (int i = countryIndicatorList.size() - 1; i >= 0; --i)
+            if (countryIndicatorList.get(i).getCountryValue().equals(strCountry))
+                country.add(countryIndicatorList.get(i));
 
         return country;
     }
@@ -326,69 +302,6 @@ public class FXMLDocumentController implements Initializable {
 
         if (!tabUnemployment.isDisabled())
             updateChart(lineChartUnemployment, results, IndicatorType.UNEMPLOYMENT, false);
-
-        if (!tabPieChart.isDisabled())
-        {
-            int lowIncome = 0;
-            int lowerMidIncome = 0;
-            int upperMidIncome = 0;
-            int highIncome = 0;
-
-            for (Country c : countryList)
-            {
-                if (c.getIncomeLevel().equals("Low income"))
-                    lowIncome++;
-                else if (c.getIncomeLevel().equals("High income"))
-                    highIncome++;
-                else if (c.getIncomeLevel().equals("Lower middle income"))
-                    lowerMidIncome++;
-                else if (c.getIncomeLevel().equals("Upper middle income"))
-                    upperMidIncome++;
-            }
-
-
-            ObservableList<PieChart.Data> pieChartData =
-                    FXCollections.observableArrayList(
-                            new PieChart.Data("Low Income", lowIncome),
-                            new PieChart.Data("High Income", highIncome),
-                            new PieChart.Data("Lower Middle Income", lowerMidIncome),
-                            new PieChart.Data("Upper Middle Income", upperMidIncome));
-
-            pieChart.setData(pieChartData);
-            pieChart.setTitle("Income Levels of All Countries");
-        }
-
-        if (!tabBarChart.isDisabled())
-        {
-            String selectedItem = (String) list.getSelectionModel().getSelectedItem();
-            ArrayList<CountryIndicator> results2 = new ArrayList<>();
-            for(CountryIndicator c: countryIndicatorList){
-                if(c.getCountryValue().equals(selectedItem)){
-                    results2.add(c);
-                }
-            }
-
-            //prepare the data
-            CategoryAxis xAxis = new CategoryAxis();
-            NumberAxis yAxis = new NumberAxis();
-
-            xAxis.setLabel("Year");
-
-            XYChart.Series<String, Double> series = new XYChart.Series<>();
-            series.setName("data");
-            for(CountryIndicator c: results2){
-                if(c.getGDP_CURRENT_$US() != 0.0){
-                    series.getData().add(new XYChart.Data<>(Integer.toString(c.getDate()), c.getGDP_CURRENT_$US()));
-                }
-            }
-
-            BarChart barChart = new BarChart<String,Number>(xAxis,yAxis);
-            barChart.setTitle("GDP in US dollars");
-            barChart.getData().add(series);
-            barChart.setCategoryGap(0);
-            barChart.setBarGap(0.5);
-            tabBarChart.setContent(barChart);
-        }
     }
 
 
@@ -436,19 +349,6 @@ public class FXMLDocumentController implements Initializable {
 
         this.countryIndicatorList = new CountryIndicatorList().getCountryIndicators();
         countryList = new CountryList().getCountries();
-        pieChart = new PieChart() {
-            @Override
-            protected void layoutChartChildren(double top, double left, double contentWidth, double contentHeight) {
-                if (getLabelsVisible()) {
-                    getData().forEach(d -> {
-                        Optional<Node> opTextNode = pieChart.lookupAll(".chart-pie-label").stream().filter(n -> n instanceof Text && ((Text) n).getText().contains(d.getName())).findAny();
-                        if (opTextNode.isPresent()) {
-                            ((Text) opTextNode.get()).setText(d.getName() + " " + "(" + (int)d.getPieValue() + ")");
-                        }
-                    });
-                }
-                super.layoutChartChildren(top, left, contentWidth, contentHeight);
-            }};
 
         TreeSet<String> regions = new TreeSet<>();
         TreeSet<String> levels = new TreeSet<>();
@@ -465,7 +365,6 @@ public class FXMLDocumentController implements Initializable {
         countryNames = FXCollections.observableArrayList(countries);
         regionNames = FXCollections.observableArrayList(regions);
         incomeLevels = FXCollections.observableArrayList(levels);
-        tabPieChart.setContent(pieChart);
 
         HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
         transition.setRate(-1);
@@ -498,27 +397,26 @@ public class FXMLDocumentController implements Initializable {
         lineChartCurrGDP.setTitle("Current GDP in US$");
         lineChartCurrGDP.setCreateSymbols(false);
         yAxisCurrGDP.setMinorTickCount(500);
+        yAxisCurrGDP.setLabel("US$");
         xAxisCurrGDP.setLabel("Year");
-        //tabCurrGDP.setContent(lineChartCurrGDP);
 
         lineChartGDPCapita.setTitle("GDP Per Capita in US$");
         lineChartGDPCapita.setCreateSymbols(false);
         yAxisGDPCapita.setMinorTickCount(500);
+        yAxisGDPCapita.setLabel("US$");
         xAxisGDPCapita.setLabel("Year");
-        //tabGDPCapita.setContent(lineChartGDPCapita);
 
         lineChartInflation.setTitle("Inflation Rate");
         lineChartInflation.setCreateSymbols(false);
         yAxisInflation.setMinorTickCount(500);
+        yAxisInflation.setLabel("Percent");
         xAxisInflation.setLabel("Year");
-        //tabInflation.setContent(lineChartInflation);
 
         lineChartUnemployment.setTitle("Unemployment Rate");
         lineChartUnemployment.setCreateSymbols(false);
         yAxisUnemployment.setMinorTickCount(500);
+        yAxisUnemployment.setLabel("Percent");
         xAxisUnemployment.setLabel("Year");
-        //tabUnemployment.setContent(lineChartUnemployment);
-
     }
 
 }

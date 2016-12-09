@@ -141,12 +141,6 @@
                   </VBox>
               </content>
             </Tab>
-            <Tab fx:id="tabPieChart" text="Pie Chart">
-               <content>
-                  <PieChart fx:id="pieChart" />
-               </content>
-            </Tab>
-            <Tab fx:id="tabBarChart" text="Bar Chart (Current GDP)" />
           <Tab text="Details">
                <content>
                   <TableView fx:id="detailTable" prefHeight="200.0" prefWidth="200.0">
@@ -161,7 +155,8 @@
                     </columns>
                     -->
                   </TableView>
-               </content></Tab>
+               </content>
+          </Tab>
          </tabs>
       </JFXTabPane>
    </center>
