@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Add">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/FadeApp.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Project-Walk/main/FadeApp.class" afterPath="$PROJECT_DIR$/out/production/Project-Walk/main/FadeApp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Project-Walk/main/java/MainApp.class" afterPath="$PROJECT_DIR$/out/production/Project-Walk/main/java/MainApp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Project-Walk/main/java/controller/FXMLDocumentController$1.class" afterPath="$PROJECT_DIR$/out/production/Project-Walk/main/java/controller/FXMLDocumentController$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Project-Walk/main/java/controller/FXMLDocumentController$IndicatorType.class" afterPath="$PROJECT_DIR$/out/production/Project-Walk/main/java/controller/FXMLDocumentController$IndicatorType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Project-Walk/main/java/controller/FXMLDocumentController.class" afterPath="$PROJECT_DIR$/out/production/Project-Walk/main/java/controller/FXMLDocumentController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Added the ability to remove countries form new the 2 new indicator charts">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Project-Walk/main/FadeApp.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Project-Walk/main/java/view/EconoMe.fxml" afterPath="$PROJECT_DIR$/out/production/Project-Walk/main/java/view/EconoMe.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/MainApp.java" afterPath="$PROJECT_DIR$/src/main/java/MainApp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/view/EconoMe.fxml" afterPath="$PROJECT_DIR$/src/main/java/view/EconoMe.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controller/FXMLDocumentController.java" afterPath="$PROJECT_DIR$/src/main/java/controller/FXMLDocumentController.java" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -71,11 +63,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="FXMLDocumentController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FXMLDocumentController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/controller/FXMLDocumentController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="118" column="48" lean-forward="false" selection-start-line="118" selection-start-column="48" selection-end-line="118" selection-end-column="48" />
+            <state relative-caret-position="117">
+              <caret line="296" column="162" lean-forward="false" selection-start-line="296" selection-start-column="162" selection-end-line="296" selection-end-column="162" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -96,11 +88,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainApp.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainApp.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/MainApp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-852">
-              <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+            <state relative-caret-position="1428">
+              <caret line="105" column="5" lean-forward="true" selection-start-line="105" selection-start-column="5" selection-end-line="105" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1934#2286#0" expanded="true" />
@@ -118,6 +110,16 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GUIController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/data/GUIController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1059">
+              <caret line="157" column="75" lean-forward="false" selection-start-line="157" selection-start-column="75" selection-end-line="157" selection-end-column="75" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -230,9 +232,9 @@
         <option value="$PROJECT_DIR$/src/main/java/data/DataManager.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/java/data/CountryIndicatorList.java" />
-        <option value="$PROJECT_DIR$/src/main/java/controller/FXMLDocumentController.java" />
         <option value="$PROJECT_DIR$/src/main/java/MainApp.java" />
         <option value="$PROJECT_DIR$/src/main/java/view/EconoMe.fxml" />
+        <option value="$PROJECT_DIR$/src/main/java/controller/FXMLDocumentController.java" />
       </list>
     </option>
   </component>
@@ -1150,7 +1152,7 @@
       <workItem from="1359379250712" duration="1302000" />
       <workItem from="1481239202161" duration="897000" />
       <workItem from="1481288787029" duration="1181000" />
-      <workItem from="1481292958492" duration="8881000" />
+      <workItem from="1481292958492" duration="9960000" />
     </task>
     <task id="LOCAL-00001" summary="Update DataManager to use InputStreamReader when reading files instead of FileReader. Also added comments to where changes will be needed when building with Gradle.">
       <created>1481239632258</created>
@@ -1173,11 +1175,18 @@
       <option name="project" value="LOCAL" />
       <updated>1481301071837</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added a splash screen">
+      <created>1481301980038</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1481301980038</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12261000" />
+    <option name="totallyTimeSpent" value="13340000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -1273,7 +1282,8 @@
     <MESSAGE value="Update DataManager to use InputStreamReader when reading files instead of FileReader. Also added comments to where changes will be needed when building with Gradle." />
     <MESSAGE value="Removed the pie and bar charts, added labels to the Y axes and reversed the country order so it's ascending." />
     <MESSAGE value="Added tabs for indicators GDP_GROWTH and GDP_PER_CAPITA_GROWTH" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added tabs for indicators GDP_GROWTH and GDP_PER_CAPITA_GROWTH" />
+    <MESSAGE value="Added a splash screen" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added a splash screen" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1333,13 +1343,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/view/GUI.fxml" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/data/GUIController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2904">
-          <caret line="157" column="75" lean-forward="false" selection-start-line="157" selection-start-column="75" selection-end-line="157" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_111/javafx-src.zip!/javafx/util/Callback.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/data/Country.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1396,24 +1399,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="19" column="1" lean-forward="true" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/data/DataManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/data/CountryIndicatorList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -1444,16 +1429,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/FXMLDocumentController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="118" column="48" lean-forward="false" selection-start-line="118" selection-start-column="48" selection-end-line="118" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/view/EconoMe.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
@@ -1465,14 +1440,50 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="1" lean-forward="true" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/MainApp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-852">
-          <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+        <state relative-caret-position="1428">
+          <caret line="105" column="5" lean-forward="true" selection-start-line="105" selection-start-column="5" selection-end-line="105" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1934#2286#0" expanded="true" />
             <element signature="e#2285#2286#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/DataManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/GUIController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1059">
+          <caret line="157" column="75" lean-forward="false" selection-start-line="157" selection-start-column="75" selection-end-line="157" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/FXMLDocumentController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="296" column="162" lean-forward="false" selection-start-line="296" selection-start-column="162" selection-end-line="296" selection-end-column="162" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

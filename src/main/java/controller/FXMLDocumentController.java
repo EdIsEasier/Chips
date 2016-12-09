@@ -294,7 +294,7 @@ public class FXMLDocumentController implements Initializable {
     private void updateCharts() {
 
         ArrayList<String> toRemove = chartDataToRemove();
-        removeOldChartData(toRemove, lineChartCurrGDP, lineChartGDPCapita, lineChartInflation, lineChartUnemployment);
+        removeOldChartData(toRemove, lineChartCurrGDP, lineChartGDPCapita, lineChartInflation, lineChartUnemployment, lineChartGDPGrowth, lineChartGDPGrowthCapita);
 
         if (doesCountryExist(lineChartCurrGDP, list.getSelectionModel().getSelectedItem()) || list.getSelectionModel().getSelectedItem() == null)
             return;
