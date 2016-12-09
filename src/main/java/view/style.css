@@ -102,11 +102,12 @@
 	-fx-background-size: 30 30;
 }
 
-.download {
-	-fx-padding: 0 0 0 20px;
 
+
+.download {
+    -fx-width: 200px;
 	-fx-background-image: url("../../resources/download.png");
-	-fx-background-position: left center;
+	-fx-background-position: right center;
 	-fx-background-repeat: no-repeat no-repeat;
 	-fx-background-size: 30 30;
 	
