@@ -6,10 +6,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 /**
  * A class to represent the list of countries from the WorldBank API
  */
@@ -29,8 +25,12 @@ public class CountryList implements DataManager{
     @Override
     public void storeJSONFromURLToList() {
         String json = getJSONFromURL(COUNTRY_API);
+        addJSONToList(json);
+    }
+
+    private void addJSONToList(String jsonText){
         try {
-            JSONArray jsonArray = new JSONArray(json).getJSONArray(1);
+            JSONArray jsonArray = new JSONArray(jsonText).getJSONArray(1);
             for(int i = 0; i < jsonArray.length(); ++i){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 Country country = initializeCountry(jsonObject);
@@ -39,30 +39,19 @@ public class CountryList implements DataManager{
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
     public void storeJSONFromLocalToList() {
         String json = getJSONFromFile(COUNTRY_FILE);
-
-        try {
-            JSONArray jsonArray = new JSONArray(json).getJSONArray(1);
-            for(int i = 0; i < jsonArray.length(); ++i){
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                Country country = initializeCountry(jsonObject);
-                countries.add(country);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        addJSONToList(json);
     }
 
     public ObservableList<Country> getCountries(){
         return countries;
     }
 
-    public Country initializeCountry(JSONObject jsonObject){
+    private Country initializeCountry(JSONObject jsonObject){
         Country country = null;
         try {
             String id = (String) jsonObject.get("id");
@@ -81,13 +70,5 @@ public class CountryList implements DataManager{
         }
         return country;
     }
-
-//    public static void main(String[] args){
-//       ObservableList<Country> observableList = new CountryList().getCountries();
-//        for(int i = 0; i < observableList.size(); i++){
-//            System.out.println(observableList.get(i).getName() + " - " +observableList.get(i).getCapitalCity());
-//        }
-//
-//    }
 
 }
