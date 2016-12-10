@@ -44,7 +44,7 @@
                         <JFXDrawer fx:id="drawer" defaultDrawerSize="200.0" prefHeight="610.0" prefWidth="218.0" />
                         <VBox id="listID" minWidth="213.0" prefHeight="645.0" prefWidth="218.0">
                            <children>
-                              <ListView fx:id="list" onKeyReleased="#handleListAction2" onMouseClicked="#handleListAction" prefHeight="680.0" prefWidth="255.0" stylesheets="@listStyle.css" VBox.vgrow="ALWAYS" />
+                              <ListView fx:id="list" onKeyReleased="#handleListAction2" onMouseClicked="#handleListAction" prefHeight="680.0" prefWidth="255.0" stylesheets="@style.css" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
                      </children>
@@ -203,7 +203,7 @@
             </Tab>
           <Tab fx:id="details" text="Details">
                <content>
-                  <TableView fx:id="detailTable" prefHeight="200.0" prefWidth="200.0" stylesheets="@tableViewStyle.css">
+                  <TableView fx:id="detailTable" prefHeight="200.0" prefWidth="200.0" stylesheets="@style.css">
                      <!--
                     <columns>
                       <TableColumn prefWidth="137.0" text="Country" fx:id="countryColumn"/>
