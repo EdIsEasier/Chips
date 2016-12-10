@@ -6,6 +6,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.InetAddress;
+
 public class CountryIndicatorList implements DataManager{
 
     private ObservableList<CountryIndicator> countryIndicators = FXCollections.observableArrayList();
