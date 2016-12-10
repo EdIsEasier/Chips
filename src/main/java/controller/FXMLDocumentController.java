@@ -282,6 +282,7 @@ public class FXMLDocumentController implements Initializable {
             }
         }
 
+
         TableColumn<CountryIndicator, String> country = new TableColumn<>("Country");
         TableColumn<CountryIndicator, Number> year = new TableColumn<>("Year");
         TableColumn<CountryIndicator, Number> gdp = new TableColumn<>("GDP ($)");

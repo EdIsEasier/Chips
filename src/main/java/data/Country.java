@@ -56,6 +56,18 @@ public class Country{
 
     }
 
+    public String getIso2Code() {
+        return iso2Code.get();
+    }
+
+    public StringProperty iso2CodeProperty() {
+        return iso2Code;
+    }
+
+    public void setIso2Code(String iso2Code) {
+        this.iso2Code.set(iso2Code);
+    }
+
     public String getId() {
         return id.get();
     }
