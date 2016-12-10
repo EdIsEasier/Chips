@@ -273,14 +273,10 @@ public class FXMLDocumentController implements Initializable {
     {
         ObservableList<String> selectedItems = list.getSelectionModel().getSelectedItems();
         ObservableList<CountryIndicator> results = FXCollections.observableArrayList();
-        for(CountryIndicator c: countryIndicatorList){
+        for(CountryIndicator c: countryIndicatorList)
             for (String s : selectedItems)
-            {
-                if(c.getCountryValue().equals(s)){
+                if(c.getCountryValue().equals(s))
                     results.add(c);
-                }
-            }
-        }
 
         TableColumn<CountryIndicator, String> country = new TableColumn<>("Country");
         TableColumn<CountryIndicator, Number> year = new TableColumn<>("Year");
@@ -302,7 +298,6 @@ public class FXMLDocumentController implements Initializable {
         detailTable.getColumns().clear();
         detailTable.getColumns().addAll(country, year, gdp, gdpPerCapita, inflationRate, unemploymentRate, gdpGrowth, gdpPerCapitaGrowth);
         detailTable.setItems(results);
-
     }
 
     private void updateChart(LineChart<String, Double> chart, ArrayList<ArrayList<CountryIndicator>> data, IndicatorType indicator, boolean showZeroes)
