@@ -6,14 +6,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.net.InetAddress;
-
 public class CountryIndicatorList implements DataManager{
 
     private ObservableList<CountryIndicator> countryIndicators = FXCollections.observableArrayList();
 
-    private static final String COUNTRY_LIST ="GB;US;TR;AE;CL;CN;AU;AT;BE;BR;DK;CZ;TH;SE;CH;ES;SG;RO;RU;PL;PT;CA;FI;GR;VN;BD;CO;ZA;PK;MY;IE;IL;IT;IR;IN;ID;PH;HK;JP;VE;EG;NO;NG;AR;DE;FR;KR;MX;NL;SA";
     private static final String GDP_CURRENT_$US = "http://api.worldbank.org/countries/GB;US;TR;AE;CL;CN;AU;AT;BE;BR;DK;CZ;TH;SE;CH;ES;SG;RO;RU;PL;PT;CA;FI;GR;VN;BD;CO;ZA;PK;MY;IE;IL;IT;IR;IN;ID;PH;HK;JP;VE;EG;NO;NG;AR;DE;FR;KR;MX;NL;SA/indicators/NY.GDP.MKTP.CD?format=json&per_page=15050";
     private static final String GDP_PER_CAPITA_CURRENT_$US = "http://api.worldbank.org/countries/GB;US;TR;AE;CL;CN;AU;AT;BE;BR;DK;CZ;TH;SE;CH;ES;SG;RO;RU;PL;PT;CA;FI;GR;VN;BD;CO;ZA;PK;MY;IE;IL;IT;IR;IN;ID;PH;HK;JP;VE;EG;NO;NG;AR;DE;FR;KR;MX;NL;SA/indicators/NY.GDP.PCAP.CD?format=json&per_page=15050";
     private static final String INFLATION_RATE = "http://api.worldbank.org/countries/GB;US;TR;AE;CL;CN;AU;AT;BE;BR;DK;CZ;TH;SE;CH;ES;SG;RO;RU;PL;PT;CA;FI;GR;VN;BD;CO;ZA;PK;MY;IE;IL;IT;IR;IN;ID;PH;HK;JP;VE;EG;NO;NG;AR;DE;FR;KR;MX;NL;SA/indicators/FP.CPI.TOTL.ZG?format=json&per_page=15050";
@@ -25,11 +21,8 @@ public class CountryIndicatorList implements DataManager{
     public CountryIndicatorList() {
         storeJSONFromLocalToList();
     }
-//    public static void main(String[] args){
-//        new CountryIndicatorList().storeJSONToFile(GDP_PER_CAPITA_GROWTH, "src/main/resources/indicators/GDP_PER_CAPITA_GROWTH.json");
-//    }
 
-    public CountryIndicator initializeCountryIndicator(JSONObject jsonObject){
+    private CountryIndicator initializeCountryIndicator(JSONObject jsonObject){
         CountryIndicator countryIndicator = null;
         try {
             String countryID = (String) jsonObject.getJSONObject("country").get("id");
@@ -51,29 +44,40 @@ public class CountryIndicatorList implements DataManager{
             JSONArray jsonArray3 = new JSONArray(getJSONFromFile(COUNTRYINDICATOR_PATH + "UNEMPLOYMENT_RATE.json")).getJSONArray(1);
             JSONArray jsonArray4 = new JSONArray(getJSONFromFile(COUNTRYINDICATOR_PATH + "GDP_GROWTH.json")).getJSONArray(1);
             JSONArray jsonArray5 = new JSONArray(getJSONFromFile(COUNTRYINDICATOR_PATH + "GDP_PER_CAPITA_GROWTH.json")).getJSONArray(1);
-            for(int i = 0; i < jsonArray.length() && i < jsonArray1.length(); i++){
-                CountryIndicator countryIndicator = initializeCountryIndicator(jsonArray.getJSONObject(i));
-                if(!jsonArray.getJSONObject(i).get("value").equals(null)){
-                    countryIndicator.setGDP_CURRENT_$US(Double.parseDouble((String) jsonArray.getJSONObject(i).get("value")));
+            addJSONToList(jsonArray.length(), jsonArray, jsonArray1, jsonArray2, jsonArray3, jsonArray4, jsonArray5);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addJSONToList(int size, JSONArray gdp, JSONArray gdpPerCapita,
+                               JSONArray inflationRate, JSONArray unemploymentRate,
+                               JSONArray gdpGrowth, JSONArray gdpPerCapitaGrowth){
+        try {
+            for (int i = 0; i < size; ++i) {
+                CountryIndicator countryIndicator = initializeCountryIndicator(gdp.getJSONObject(i));
+                if (!gdp.getJSONObject(i).get("value").equals(null)) {
+                    countryIndicator.setGDP_CURRENT_$US(Double.parseDouble((String) gdp.getJSONObject(i).get("value")));
                 }
-                if(!jsonArray1.getJSONObject(i).get("value").equals(null)){
-                    countryIndicator.setGDP_PER_CAPITA_CURRENT_$US(Double.parseDouble((String) jsonArray1.getJSONObject(i).get("value")));
+                if (!gdpPerCapita.getJSONObject(i).get("value").equals(null)) {
+                    countryIndicator.setGDP_PER_CAPITA_CURRENT_$US(Double.parseDouble((String) gdpPerCapita.getJSONObject(i).get("value")));
                 }
-                if(!jsonArray2.getJSONObject(i).get("value").equals(null)){
-                    countryIndicator.setINFLATION_RATE(Double.parseDouble((String) jsonArray2.getJSONObject(i).get("value")));
+                if (!inflationRate.getJSONObject(i).get("value").equals(null)) {
+                    countryIndicator.setINFLATION_RATE(Double.parseDouble((String) inflationRate.getJSONObject(i).get("value")));
                 }
-                if(!jsonArray3.getJSONObject(i).get("value").equals(null)){
-                    countryIndicator.setUNEMPLOYMENT_RATE(Double.parseDouble((String) jsonArray3.getJSONObject(i).get("value")));
+                if (!unemploymentRate.getJSONObject(i).get("value").equals(null)) {
+                    countryIndicator.setUNEMPLOYMENT_RATE(Double.parseDouble((String) unemploymentRate.getJSONObject(i).get("value")));
                 }
-                if(!jsonArray4.getJSONObject(i).get("value").equals(null)){
-                    countryIndicator.setGDP_GROWTH(Double.parseDouble((String) jsonArray4.getJSONObject(i).get("value")));
+                if (!gdpGrowth.getJSONObject(i).get("value").equals(null)) {
+                    countryIndicator.setGDP_GROWTH(Double.parseDouble((String) gdpGrowth.getJSONObject(i).get("value")));
                 }
-                if(!jsonArray5.getJSONObject(i).get("value").equals(null)){
-                    countryIndicator.setGDP_PER_CAPITA_GROWTH(Double.parseDouble((String) jsonArray5.getJSONObject(i).get("value")));
+                if (!gdpPerCapitaGrowth.getJSONObject(i).get("value").equals(null)) {
+                    countryIndicator.setGDP_PER_CAPITA_GROWTH(Double.parseDouble((String) gdpPerCapitaGrowth.getJSONObject(i).get("value")));
                 }
                 countryIndicators.add(countryIndicator);
             }
-        } catch (JSONException e) {
+        }
+        catch (JSONException e){
             e.printStackTrace();
         }
     }
@@ -87,28 +91,7 @@ public class CountryIndicatorList implements DataManager{
             JSONArray jsonArray3 = new JSONArray(getJSONFromURL(UNEMPLOYMENT_RATE)).getJSONArray(1);
             JSONArray jsonArray4 = new JSONArray(getJSONFromFile(GDP_GROWTH)).getJSONArray(1);
             JSONArray jsonArray5 = new JSONArray(getJSONFromFile(GDP_PER_CAPITA_GROWTH)).getJSONArray(1);
-            for(int i = 0; i < jsonArray.length() && i < jsonArray1.length(); i++){
-                CountryIndicator countryIndicator = initializeCountryIndicator(jsonArray.getJSONObject(i));
-                if(!jsonArray.getJSONObject(i).get("value").equals(null)){
-                    countryIndicator.setGDP_CURRENT_$US(Double.parseDouble((String) jsonArray.getJSONObject(i).get("value")));
-                }
-                if(!jsonArray1.getJSONObject(i).get("value").equals(null)){
-                    countryIndicator.setGDP_PER_CAPITA_CURRENT_$US(Double.parseDouble((String) jsonArray1.getJSONObject(i).get("value")));
-                }
-                if(!jsonArray2.getJSONObject(i).get("value").equals(null)){
-                    countryIndicator.setINFLATION_RATE(Double.parseDouble((String) jsonArray2.getJSONObject(i).get("value")));
-                }
-                if(!jsonArray3.getJSONObject(i).get("value").equals(null)){
-                    countryIndicator.setUNEMPLOYMENT_RATE(Double.parseDouble((String) jsonArray3.getJSONObject(i).get("value")));
-                }
-                if(!jsonArray4.getJSONObject(i).get("value").equals(null)){
-                    countryIndicator.setGDP_GROWTH(Double.parseDouble((String) jsonArray4.getJSONObject(i).get("value")));
-                }
-                if(!jsonArray5.getJSONObject(i).get("value").equals(null)){
-                    countryIndicator.setGDP_PER_CAPITA_GROWTH(Double.parseDouble((String) jsonArray5.getJSONObject(i).get("value")));
-                }
-                countryIndicators.add(countryIndicator);
-            }
+            addJSONToList(jsonArray.length(), jsonArray, jsonArray1, jsonArray2, jsonArray3, jsonArray4, jsonArray5);
         } catch (JSONException e) {
             e.printStackTrace();
         }
