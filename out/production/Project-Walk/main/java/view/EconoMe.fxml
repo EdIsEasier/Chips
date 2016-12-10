@@ -18,8 +18,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.71" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.FXMLDocumentController">
+<BorderPane prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.FXMLDocumentController">
    <left>
       <HBox prefHeight="680.0" prefWidth="255.0" BorderPane.alignment="CENTER">
          <children>
@@ -28,10 +29,13 @@
                   <Pane minHeight="51.0" minWidth="72.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="51.0" prefWidth="218.0" scaleShape="false">
                      <children>
                         <JFXHamburger fx:id="hamburger" layoutX="210.0" layoutY="2.0" prefHeight="47.0" prefWidth="45.0" />
-                        <Label fx:id="mainLabel" layoutX="-2.0" layoutY="-1.0" prefHeight="57.0" prefWidth="176.0" text="Choose an option...">
+                        <Label fx:id="mainLabel" layoutX="-2.0" layoutY="-1.0" prefHeight="57.0" prefWidth="201.0" text="Select Country">
                            <padding>
                               <Insets left="10.0" />
                            </padding>
+                           <font>
+                              <Font size="24.0" />
+                           </font>
                         </Label>
                      </children>
                   </Pane>
@@ -40,7 +44,7 @@
                         <JFXDrawer fx:id="drawer" defaultDrawerSize="200.0" prefHeight="610.0" prefWidth="218.0" />
                         <VBox id="listID" minWidth="213.0" prefHeight="645.0" prefWidth="218.0">
                            <children>
-                              <ListView fx:id="list" onKeyReleased="#handleListAction2" onMouseClicked="#handleListAction" prefHeight="680.0" prefWidth="255.0" VBox.vgrow="ALWAYS" />
+                              <ListView fx:id="list" onKeyReleased="#handleListAction2" onMouseClicked="#handleListAction" prefHeight="680.0" prefWidth="255.0" stylesheets="@listStyle.css" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
                      </children>
@@ -91,7 +95,7 @@
                                     <Insets />
                                  </VBox.margin></JFXButton>
                            </children>
-                        </VBox>                       <LineChart fx:id="lineChartGDPCapita" prefHeight="627.0" prefWidth="823.0">
+                        </VBox>                       <LineChart fx:id="lineChartGDPCapita" prefHeight="627.0" prefWidth="823.0" VBox.vgrow="ALWAYS">
                           <xAxis>
                              <CategoryAxis side="BOTTOM" fx:id="xAxisGDPCapita" />
                           </xAxis>
@@ -197,9 +201,9 @@
                   </VBox>
                </content>
             </Tab>
-          <Tab text="Details" fx:id="details">
+          <Tab fx:id="details" text="Details">
                <content>
-                  <TableView fx:id="detailTable" prefHeight="200.0" prefWidth="200.0">
+                  <TableView fx:id="detailTable" prefHeight="200.0" prefWidth="200.0" stylesheets="@tableViewStyle.css">
                      <!--
                     <columns>
                       <TableColumn prefWidth="137.0" text="Country" />

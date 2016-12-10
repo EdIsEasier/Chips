@@ -105,6 +105,8 @@ public class FXMLDocumentController implements Initializable {
     private CategoryAxis xAxisGDPGrowthCapita;
     @FXML
     private NumberAxis yAxisGDPGrowthCapita;
+    @FXML
+    private Label mainLabel;
 
     @FXML
     private void handleDownload(ActionEvent event){
@@ -404,22 +406,29 @@ public class FXMLDocumentController implements Initializable {
     }
 
     private void handleHamburger(){
+
+        if(transition.getRate() > 0){
+            mainLabel.setText("Select Country");
+        }
+        else {
+            mainLabel.setText("Select Category");
+        }
         transition.setRate(transition.getRate()*-1);
         transition.play();
 
-        if(drawer.isShown()){
+        //if(drawer.isShown()){
 
-            drawer.close();
-            ObservableList<Node> workingCollection1 = FXCollections.observableArrayList(stack.getChildren());
-            Collections.swap(workingCollection1, 0, 1);
-            stack.getChildren().setAll(workingCollection1);
+            //drawer.close();
+        ObservableList<Node> workingCollection1 = FXCollections.observableArrayList(stack.getChildren());
+        Collections.swap(workingCollection1, 0, 1);
+        stack.getChildren().setAll(workingCollection1);
 
-        }else{
-
-            ObservableList<Node> workingCollection = FXCollections.observableArrayList(stack.getChildren());
-            Collections.swap(workingCollection, 1, 0);
-            stack.getChildren().setAll(workingCollection);
-        }
+//        }else{
+//            drawer.open();
+//            ObservableList<Node> workingCollection = FXCollections.observableArrayList(stack.getChildren());
+//            Collections.swap(workingCollection, 1, 0);
+//            stack.getChildren().setAll(workingCollection);
+//        }
     }
 
     @Override
