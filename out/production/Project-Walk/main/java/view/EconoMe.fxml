@@ -178,7 +178,7 @@
                   </VBox>
                </content>
             </Tab>
-            <Tab id="gdpGrowthCapita" fx:id="tabGDPGrowthCapita" text="GDP Growth Per Capita">
+            <Tab id="gdpGrowthCapita" fx:id="tabGDPGrowthCapita" text="GDP Per Capita Growth">
                <content>
                   <VBox>
                      <children>
@@ -206,14 +206,16 @@
                   <TableView fx:id="detailTable" prefHeight="200.0" prefWidth="200.0" stylesheets="@tableViewStyle.css">
                      <!--
                     <columns>
-                      <TableColumn prefWidth="137.0" text="Country" />
-                      <TableColumn prefWidth="91.0" text="Year" />
-                        <TableColumn minWidth="0.0" prefWidth="185.0" text="GDP ($)" />
-                        <TableColumn prefWidth="191.0" text="GDP Per Capita ($)" />
-                        <TableColumn prefWidth="142.0" text="Inflation Rate (%)" />
-                        <TableColumn prefWidth="186.0" text="Unemployment Rate (%)" />
+                      <TableColumn prefWidth="137.0" text="Country" fx:id="countryColumn"/>
+                      <TableColumn prefWidth="91.0" text="Year" fx:id="yearColumn"/>
+                       <TableColumn minWidth="0.0" prefWidth="185.0" text="GDP ($)" fx:id="gdpColumn"/>
+                       <TableColumn prefWidth="191.0" text="GDP Per Capita ($)" fx:id="gdpPerCapitaColumn"/>
+                       <TableColumn prefWidth="142.0" text="Inflation Rate (%)" fx:id="inflationRateColumn"/>
+                       <TableColumn prefWidth="186.0" text="Unemployment Rate (%)" fx:id="unemploymentRateColumn"/>
+                       <TableColumn prefWidth="186.0" text="GDP Growth (%)" fx:id="gdpGrowthColumn"/>
+                       <TableColumn prefWidth="186.0" text="GDP Per Capita Growth (%)" fx:id="gdpPerCapitaGrowthColumn"/>
                     </columns>
-                    -->
+                     -->
                   </TableView>
                </content>
           </Tab>

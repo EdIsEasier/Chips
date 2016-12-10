@@ -279,12 +279,15 @@ public class FXMLDocumentController implements Initializable {
             }
         }
 
+
         TableColumn<CountryIndicator, String> country = new TableColumn<>("Country");
         TableColumn<CountryIndicator, Number> year = new TableColumn<>("Year");
         TableColumn<CountryIndicator, Number> gdp = new TableColumn<>("GDP ($)");
         TableColumn<CountryIndicator, Number> gdpPerCapita = new TableColumn<>("GDP Per Capita ($)");
         TableColumn<CountryIndicator, Number> inflationRate = new TableColumn<>("Inflation Rate (%)");
         TableColumn<CountryIndicator, Number> unemploymentRate = new TableColumn<>("Unemployment Rate (%)");
+        TableColumn<CountryIndicator, Number> gdpGrowth = new TableColumn<>("GDP Growth (%)");
+        TableColumn<CountryIndicator, Number> gdpPerCapitaGrowth = new TableColumn<>("GDP Per Capita Growth (%)");
 
         country.setCellValueFactory(cellData -> cellData.getValue().countryValueProperty());
         year.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
@@ -292,8 +295,10 @@ public class FXMLDocumentController implements Initializable {
         gdpPerCapita.setCellValueFactory(cellData -> cellData.getValue().GDP_PER_CAPITA_CURRENT_$USProperty());
         inflationRate.setCellValueFactory(cellData -> cellData.getValue().INFLATION_RATEProperty());
         unemploymentRate.setCellValueFactory(cellData -> cellData.getValue().UNEMPLOYMENT_RATEProperty());
+        gdpGrowth.setCellValueFactory(cellData -> cellData.getValue().GDP_GROWTHProperty());
+        gdpPerCapitaGrowth.setCellValueFactory(cellData -> cellData.getValue().GDP_PER_CAPITA_GROWTHProperty());
         detailTable.getColumns().clear();
-        detailTable.getColumns().addAll(country, year, gdp, gdpPerCapita, inflationRate, unemploymentRate);
+        detailTable.getColumns().addAll(country, year, gdp, gdpPerCapita, inflationRate, unemploymentRate, gdpGrowth, gdpPerCapitaGrowth);
         detailTable.setItems(results);
 
     }
