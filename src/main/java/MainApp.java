@@ -21,13 +21,21 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-
+/**
+ *  The main class of the application that initializes the files, the GUI and displays the progress
+ *  in a splash screen.
+ */
 public class MainApp extends Application{
     private Pane splashLayout;
     private ProgressBar loadProgress;
     private static final int SPLASH_WIDTH = 248;
     private static final int SPLASH_HEIGHT = 183;
     public static Stage primaryStage;
+
+    /**
+     *  Initializes the splash screen by instantiating each of its components and
+     *  setting its style
+     */
     @Override
     public void init() {
         // change to "logo.png" when building with gradle
@@ -50,6 +58,12 @@ public class MainApp extends Application{
         splashLayout.setEffect(new DropShadow());
     }
 
+    /**
+     *  Starts the program by creating a new Task that loads the GUI and the data and
+     *  is used to track the loading process for the splash screen
+     * @param stage Stage used to display the splash screen
+     * @throws Exception For any exceptions that may be thrown
+     */
     @Override
     public void start(Stage stage) throws Exception{
         final Task<Parent> loaded = new Task<Parent>(){
@@ -103,9 +117,13 @@ public class MainApp extends Application{
         stage.show();
     }
 
+    /**
+     *  An interface to signify the completion of a Task
+     */
     public interface InitCompletionHandler {
         void complete();
     }
+
     public static void main(String[] args) {
         launch(args);
     }

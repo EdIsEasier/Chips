@@ -1,3 +1,4 @@
+apply plugin:'application'
 apply plugin:'java'
 jar {
 	manifest {
@@ -15,4 +16,7 @@ repositories {
 dependencies {
 	compile 'org.json:json:20160810'
 	compile 'com.jfoenix:jfoenix:1.0.0'
+	testCompile 'junit:junit:4.12'
 }
+
+mainClassName = 'main.java.MainApp'
