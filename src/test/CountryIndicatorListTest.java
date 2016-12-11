@@ -16,6 +16,20 @@ import static org.junit.Assert.assertTrue;
 public class CountryIndicatorListTest {
 
     @Test
+    public void testDefaultCountryIndicator(){
+        CountryIndicator countryIndicator = new CountryIndicator();
+        double defaultIndicatorValue = 0.0;
+        assertEquals("countryID", countryIndicator.getCountryID());
+        assertEquals("countryValue", countryIndicator.getCountryValue());
+        assertEquals(defaultIndicatorValue, countryIndicator.getGDP_CURRENT_$US(), 0.0);
+        assertEquals(defaultIndicatorValue, countryIndicator.getGDP_PER_CAPITA_CURRENT_$US(), 0.0);
+        assertEquals(defaultIndicatorValue, countryIndicator.getINFLATION_RATE(), 0.0);
+        assertEquals(defaultIndicatorValue, countryIndicator.getUNEMPLOYMENT_RATE(), 0.0);
+        assertEquals(defaultIndicatorValue, countryIndicator.getGDP_GROWTH(), 0.0);
+        assertEquals(defaultIndicatorValue, countryIndicator.getGDP_PER_CAPITA_GROWTH(), 0.0);
+
+    }
+    @Test
     public void testHowManyIndicators(){
         int numberOfIndicators = new CountryIndicatorList().getCountryIndicators().size();
         assertTrue("There is fewer number of indicators than expected", numberOfIndicators >= 2850);

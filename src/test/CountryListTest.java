@@ -3,16 +3,23 @@ package test;
 import main.java.data.Country;
 import main.java.data.CountryList;
 import org.junit.Test;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Observable;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class CountryListTest {
+
+    @Test
+    public void testDefaultCountry(){
+        Country country = new Country();
+        assertEquals("id", country.getId());
+        assertEquals("iso2Code", country.getIso2Code());
+        assertEquals("name", country.getName());
+        assertEquals("regionID", country.getRegionID());
+        assertEquals("regionName", country.getRegionName());
+        assertEquals("incomeLevel", country.getIncomeLevel());
+        assertEquals("capitalCity", country.getCapitalCity());
+    }
 
     @Test
     public void testHowManyCountries(){

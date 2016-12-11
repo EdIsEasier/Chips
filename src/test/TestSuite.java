@@ -6,7 +6,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         CountryListTest.class,
-        CountryIndicatorListTest.class
+        CountryIndicatorListTest.class,
 })
 public class TestSuite {
 }
