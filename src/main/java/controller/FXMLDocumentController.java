@@ -72,39 +72,15 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private LineChart<String, Double> lineChartCurrGDP;
     @FXML
-    private CategoryAxis xAxisCurrGDP;
-    @FXML
-    private NumberAxis yAxisCurrGDP;
-    @FXML
     private LineChart<String, Double> lineChartGDPCapita;
-    @FXML
-    private CategoryAxis xAxisGDPCapita;
-    @FXML
-    private NumberAxis yAxisGDPCapita;
     @FXML
     private LineChart<String, Double> lineChartInflation;
     @FXML
-    private CategoryAxis xAxisInflation;
-    @FXML
-    private NumberAxis yAxisInflation;
-    @FXML
     private LineChart<String, Double> lineChartUnemployment;
-    @FXML
-    private CategoryAxis xAxisUnemployment;
-    @FXML
-    private NumberAxis yAxisUnemployment;
     @FXML
     public LineChart<String, Double> lineChartGDPGrowth;
     @FXML
-    private CategoryAxis xAxisGDPGrowth;
-    @FXML
-    private NumberAxis yAxisGDPGrowth;
-    @FXML
     public LineChart<String, Double> lineChartGDPGrowthCapita;
-    @FXML
-    private CategoryAxis xAxisGDPGrowthCapita;
-    @FXML
-    private NumberAxis yAxisGDPGrowthCapita;
     @FXML
     private Label mainLabel;
 
@@ -226,7 +202,6 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void handleIncomeLevelAction(ActionEvent event)
-
     {
         ComboBox<String> selectedCategory = (ComboBox<String>) event.getSource();
         String selectedItem = selectedCategory.getSelectionModel().getSelectedItem();
@@ -434,8 +409,8 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
+    public void initialize(URL url, ResourceBundle rb)
+    {
         Button countryButton = null;
 
         try {
@@ -488,42 +463,5 @@ public class FXMLDocumentController implements Initializable {
         list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE); // allows multiple selection while holding CTRL
         incomeLevelButton.setItems(incomeLevels);
         regionNameButton.setItems(regionNames);
-
-        lineChartCurrGDP.setTitle("Current GDP in US$");
-        lineChartCurrGDP.setCreateSymbols(false);
-        yAxisCurrGDP.setMinorTickCount(500);
-        yAxisCurrGDP.setLabel("US$");
-        xAxisCurrGDP.setLabel("Year");
-
-        lineChartGDPCapita.setTitle("GDP Per Capita in US$");
-        lineChartGDPCapita.setCreateSymbols(false);
-        yAxisGDPCapita.setMinorTickCount(500);
-        yAxisGDPCapita.setLabel("US$");
-        xAxisGDPCapita.setLabel("Year");
-
-        lineChartInflation.setTitle("Inflation Rate");
-        lineChartInflation.setCreateSymbols(false);
-        yAxisInflation.setMinorTickCount(500);
-        yAxisInflation.setLabel("Percent");
-        xAxisInflation.setLabel("Year");
-
-        lineChartUnemployment.setTitle("Unemployment Rate");
-        lineChartUnemployment.setCreateSymbols(false);
-        yAxisUnemployment.setMinorTickCount(500);
-        yAxisUnemployment.setLabel("Percent");
-        xAxisUnemployment.setLabel("Year");
-
-        lineChartGDPGrowth.setTitle("GDP Growth in US$");
-        lineChartGDPGrowth.setCreateSymbols(false);
-        yAxisGDPGrowth.setMinorTickCount(500);
-        yAxisGDPGrowth.setLabel("US$");
-        xAxisGDPGrowth.setLabel("Year");
-
-        lineChartGDPGrowthCapita.setTitle("GDP Growth Per Capita in US$");
-        lineChartGDPGrowthCapita.setCreateSymbols(false);
-        yAxisGDPGrowthCapita.setMinorTickCount(500);
-        yAxisGDPGrowthCapita.setLabel("US$");
-        xAxisGDPGrowthCapita.setLabel("Year");
     }
-
 }
