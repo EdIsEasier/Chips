@@ -16,12 +16,16 @@ public class CountryList implements DataManager{
     private static final String COUNTRY_API = "http://api.worldbank.org/countries/GB;US;TR;AE;CL;CN;AU;AT;BE;BR;DK;CZ;TH;SE;CH;ES;SG;RO;RU;PL;PT;CA;FI;GR;VN;BD;CO;ZA;PK;MY;IE;IL;IT;IR;IN;ID;PH;HK;JP;VE;EG;NO;NG;AR;DE;FR;KR;MX;NL;SA?format=json&per_page=350";
 
     /**
-     * Constructs a CountryList by reading the local JSON files
+     * Constructor for CountryList
+     * When constructed using 'new', it will have a list of countries
      */
     public CountryList(){
         storeJSONFromLocalToList();
     }
 
+    /**
+     * Reads JSON data from locally and stores it in a list
+     */
     @Override
     public void storeJSONFromURLToList() {
         String json = getJSONFromURL(COUNTRY_API);
@@ -41,12 +45,19 @@ public class CountryList implements DataManager{
         }
     }
 
+    /**
+     * Reads JSON data from a URL and stores it in a list
+     */
     @Override
     public void storeJSONFromLocalToList() {
         String json = getJSONFromFile(COUNTRY_FILE);
         addJSONToList(json);
     }
 
+    /**
+     * Retrieves a list of Country
+     * @return list of Country
+     */
     public ObservableList<Country> getCountries(){
         return countries;
     }
