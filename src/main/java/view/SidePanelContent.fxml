@@ -4,7 +4,7 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="box" minHeight="74.0" minWidth="255.0" prefHeight="700.0" prefWidth="255.0" styleClass="pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.SidePanelContentController">
+<VBox fx:id="box" minHeight="74.0" minWidth="255.0" prefHeight="700.0" prefWidth="255.0" styleClass="pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox prefHeight="618.0" prefWidth="255.0" VBox.vgrow="ALWAYS">
          <children>

@@ -66,18 +66,18 @@
                      <children>
                         <VBox alignment="TOP_RIGHT" prefHeight="37.0" prefWidth="347.0" styleClass="download" stylesheets="@style.css">
                            <children>
-                              <JFXButton id="download" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleDownload" prefHeight="34.0" prefWidth="40.0" styleClass="download" stylesheets="@style.css" text=" ">
+                              <JFXButton id="GDP" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleDownload" prefHeight="34.0" prefWidth="40.0" styleClass="download" stylesheets="@style.css" text=" ">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin></JFXButton>
                            </children>
                         </VBox>
-                        <LineChart fx:id="lineChartCurrGDP" prefHeight="599.0" prefWidth="549.0" VBox.vgrow="ALWAYS">
+                        <LineChart fx:id="lineChartCurrGDP" title="Current GDP in US$" createSymbols="false" VBox.vgrow="ALWAYS">
                            <xAxis>
-                              <CategoryAxis side="BOTTOM" fx:id="xAxisCurrGDP" />
+                              <CategoryAxis side="BOTTOM" fx:id="xAxisCurrGDP" label="Year"/>
                            </xAxis>
                            <yAxis>
-                              <NumberAxis fx:id="yAxisCurrGDP" side="LEFT" />
+                              <NumberAxis fx:id="yAxisCurrGDP" side="LEFT" label="US$" minorTickCount="500"/>
                            </yAxis>
                         </LineChart>
                      </children>
@@ -90,17 +90,18 @@
                      <children>
                         <VBox alignment="TOP_RIGHT" prefHeight="37.0" prefWidth="347.0" styleClass="download" stylesheets="@style.css">
                            <children>
-                              <JFXButton id="download" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleDownload" prefHeight="34.0" prefWidth="40.0" styleClass="download" stylesheets="@style.css" text=" ">
+                              <JFXButton id="GDPPerCapita" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleDownload" prefHeight="34.0" prefWidth="40.0" styleClass="download" stylesheets="@style.css" text=" ">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin></JFXButton>
                            </children>
-                        </VBox>                       <LineChart fx:id="lineChartGDPCapita" prefHeight="627.0" prefWidth="823.0" VBox.vgrow="ALWAYS">
+                        </VBox>
+                        <LineChart fx:id="lineChartGDPCapita" title="Current GDP Per Capita in US$" createSymbols="false" VBox.vgrow="ALWAYS">
                           <xAxis>
-                             <CategoryAxis side="BOTTOM" fx:id="xAxisGDPCapita" />
+                             <CategoryAxis side="BOTTOM" fx:id="xAxisGDPCapita" label="Year"/>
                           </xAxis>
                           <yAxis>
-                             <NumberAxis fx:id="yAxisGDPCapita" side="LEFT" />
+                             <NumberAxis fx:id="yAxisGDPCapita" side="LEFT" label="US$" minorTickCount="500"/>
                           </yAxis>
                        </LineChart>
                      </children>
@@ -113,18 +114,18 @@
                      <children>
                         <VBox alignment="TOP_RIGHT" prefHeight="37.0" prefWidth="347.0" styleClass="download" stylesheets="@style.css">
                            <children>
-                              <JFXButton id="download" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleDownload" prefHeight="34.0" prefWidth="40.0" styleClass="download" stylesheets="@style.css" text=" ">
+                              <JFXButton id="Inflation" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleDownload" prefHeight="34.0" prefWidth="40.0" styleClass="download" stylesheets="@style.css" text=" ">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin></JFXButton>
                            </children>
                         </VBox>
-                       <LineChart fx:id="lineChartInflation" VBox.vgrow="ALWAYS">
+                       <LineChart fx:id="lineChartInflation" title="Inflation Rate" createSymbols="false" VBox.vgrow="ALWAYS">
                           <xAxis>
-                             <CategoryAxis side="BOTTOM" fx:id="xAxisInflation" />
+                             <CategoryAxis side="BOTTOM" fx:id="xAxisInflation" label="Year"/>
                           </xAxis>
                           <yAxis>
-                             <NumberAxis fx:id="yAxisInflation" side="LEFT" />
+                             <NumberAxis fx:id="yAxisInflation" side="LEFT" label="Percent" minorTickCount="500"/>
                           </yAxis>
                        </LineChart>
                      </children>
@@ -137,18 +138,18 @@
                      <children>
                         <VBox alignment="TOP_RIGHT" prefHeight="37.0" prefWidth="347.0" styleClass="download" stylesheets="@style.css">
                            <children>
-                              <JFXButton id="download" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleDownload" prefHeight="34.0" prefWidth="40.0" styleClass="download" stylesheets="@style.css" text=" ">
+                              <JFXButton id="Unemployment" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleDownload" prefHeight="34.0" prefWidth="40.0" styleClass="download" stylesheets="@style.css" text=" ">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin></JFXButton>
                            </children>
                         </VBox>
-                       <LineChart fx:id="lineChartUnemployment" VBox.vgrow="ALWAYS">
+                       <LineChart fx:id="lineChartUnemployment" title="Unemployment Rate" createSymbols="false" VBox.vgrow="ALWAYS">
                           <xAxis>
-                             <CategoryAxis side="BOTTOM" fx:id="xAxisUnemployment" />
+                             <CategoryAxis side="BOTTOM" fx:id="xAxisUnemployment" label="Year"/>
                           </xAxis>
                           <yAxis>
-                             <NumberAxis fx:id="yAxisUnemployment" side="LEFT" />
+                             <NumberAxis fx:id="yAxisUnemployment" side="LEFT" label="Percent" minorTickCount="500"/>
                           </yAxis>
                        </LineChart>
                      </children>
@@ -161,17 +162,18 @@
                      <children>
                         <VBox alignment="TOP_RIGHT" prefHeight="37.0" prefWidth="347.0" styleClass="download" stylesheets="@style.css">
                            <children>
-                              <JFXButton id="download" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleDownload" prefHeight="34.0" prefWidth="40.0" styleClass="download" stylesheets="@style.css" text=" ">
+                              <JFXButton id="GDPGrowth" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleDownload" prefHeight="34.0" prefWidth="40.0" styleClass="download" stylesheets="@style.css" text=" ">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin></JFXButton>
                            </children>
-                        </VBox>                        <LineChart fx:id="lineChartGDPGrowth" VBox.vgrow="ALWAYS">
+                        </VBox>
+                        <LineChart fx:id="lineChartGDPGrowth" title="GDP Growth in US$" createSymbols="false" VBox.vgrow="ALWAYS">
                            <xAxis>
-                              <CategoryAxis side="BOTTOM" fx:id="xAxisGDPGrowth" />
+                              <CategoryAxis side="BOTTOM" fx:id="xAxisGDPGrowth" label="Year"/>
                            </xAxis>
                            <yAxis>
-                              <NumberAxis fx:id="yAxisGDPGrowth" side="LEFT" />
+                              <NumberAxis fx:id="yAxisGDPGrowth" side="LEFT" label="US$" minorTickCount="500"/>
                            </yAxis>
                         </LineChart>
                      </children>
@@ -184,17 +186,18 @@
                      <children>
                         <VBox alignment="TOP_RIGHT" prefHeight="37.0" prefWidth="347.0" styleClass="download" stylesheets="@style.css">
                            <children>
-                              <JFXButton id="download" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleDownload" prefHeight="34.0" prefWidth="40.0" styleClass="download" stylesheets="@style.css" text=" ">
+                              <JFXButton id="GDPGrowthPerCapita" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleDownload" prefHeight="34.0" prefWidth="40.0" styleClass="download" stylesheets="@style.css" text=" ">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin></JFXButton>
                            </children>
-                        </VBox>                        <LineChart fx:id="lineChartGDPGrowthCapita" VBox.vgrow="ALWAYS">
+                        </VBox>
+                        <LineChart fx:id="lineChartGDPGrowthCapita" title="GDP Growth Per Capita in US$" createSymbols="false" VBox.vgrow="ALWAYS">
                            <xAxis>
-                              <CategoryAxis side="BOTTOM" fx:id="xAxisGDPGrowthCapita" />
+                              <CategoryAxis side="BOTTOM" fx:id="xAxisGDPGrowthCapita" label="Year"/>
                            </xAxis>
                            <yAxis>
-                              <NumberAxis fx:id="yAxisGDPGrowthCapita" side="LEFT" />
+                              <NumberAxis fx:id="yAxisGDPGrowthCapita" side="LEFT" label="US$" minorTickCount="500"/>
                            </yAxis>
                         </LineChart>
                      </children>
