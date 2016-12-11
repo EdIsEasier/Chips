@@ -6,10 +6,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * This class provides a list of CountryIndicators.
+ */
 public class CountryIndicatorList implements DataManager{
 
     private ObservableList<CountryIndicator> countryIndicators = FXCollections.observableArrayList();
-
     private static final String GDP_CURRENT_$US = "http://api.worldbank.org/countries/GB;US;TR;AE;CL;CN;AU;AT;BE;BR;DK;CZ;TH;SE;CH;ES;SG;RO;RU;PL;PT;CA;FI;GR;VN;BD;CO;ZA;PK;MY;IE;IL;IT;IR;IN;ID;PH;HK;JP;VE;EG;NO;NG;AR;DE;FR;KR;MX;NL;SA/indicators/NY.GDP.MKTP.CD?format=json&per_page=15050";
     private static final String GDP_PER_CAPITA_CURRENT_$US = "http://api.worldbank.org/countries/GB;US;TR;AE;CL;CN;AU;AT;BE;BR;DK;CZ;TH;SE;CH;ES;SG;RO;RU;PL;PT;CA;FI;GR;VN;BD;CO;ZA;PK;MY;IE;IL;IT;IR;IN;ID;PH;HK;JP;VE;EG;NO;NG;AR;DE;FR;KR;MX;NL;SA/indicators/NY.GDP.PCAP.CD?format=json&per_page=15050";
     private static final String INFLATION_RATE = "http://api.worldbank.org/countries/GB;US;TR;AE;CL;CN;AU;AT;BE;BR;DK;CZ;TH;SE;CH;ES;SG;RO;RU;PL;PT;CA;FI;GR;VN;BD;CO;ZA;PK;MY;IE;IL;IT;IR;IN;ID;PH;HK;JP;VE;EG;NO;NG;AR;DE;FR;KR;MX;NL;SA/indicators/FP.CPI.TOTL.ZG?format=json&per_page=15050";
@@ -18,6 +20,10 @@ public class CountryIndicatorList implements DataManager{
     private static final String GDP_PER_CAPITA_GROWTH = "http://api.worldbank.org/countries/GB;US;TR;AE;CL;CN;AU;AT;BE;BR;DK;CZ;TH;SE;CH;ES;SG;RO;RU;PL;PT;CA;FI;GR;VN;BD;CO;ZA;PK;MY;IE;IL;IT;IR;IN;ID;PH;HK;JP;VE;EG;NO;NG;AR;DE;FR;KR;MX;NL;SA/indicators/NY.GDP.PCAP.KD.ZG?format=json&per_page=15050";
     private static final String COUNTRYINDICATOR_PATH = "main/resources/indicators/"; // change to "indicators/" when building with gradle
 
+    /**
+     * Constructor for CountryIndicatorList.
+     * When constructed using 'new', it will have a list of CountryIndicator
+     */
     public CountryIndicatorList() {
         storeJSONFromLocalToList();
     }
@@ -35,6 +41,9 @@ public class CountryIndicatorList implements DataManager{
         return countryIndicator;
     }
 
+    /**
+     * Reads JSON data from a local file and store it in the list
+     */
     @Override
     public void storeJSONFromLocalToList() {
         try {
@@ -82,6 +91,9 @@ public class CountryIndicatorList implements DataManager{
         }
     }
 
+    /**
+     * Reads JSON data from a URL and stores it in the list
+     */
     @Override
     public void storeJSONFromURLToList() {
         try {
@@ -97,6 +109,10 @@ public class CountryIndicatorList implements DataManager{
         }
     }
 
+    /**
+     * Retrieves the list of CountryIndicator
+     * @return list of CountryIndicator
+     */
     public ObservableList<CountryIndicator> getCountryIndicators(){
         return countryIndicators;
     }
