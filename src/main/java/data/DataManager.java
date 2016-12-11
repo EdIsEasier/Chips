@@ -4,7 +4,6 @@ import main.java.MainApp;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONTokener;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,8 +11,16 @@ import java.io.InputStreamReader;
 import java.io.FileWriter;
 import java.net.URL;
 
+/**
+ * An interface to help other classes retrieve JSON data from an API
+ */
 public interface DataManager {
 
+    /**
+     * Retrieves a string representation of a JSON data from the specified URL
+     * @param url URL to get the JSON data
+     * @return a string of the JSON data
+     */
     public default String getJSONFromURL(String url){
         String JSONText = null;
         try {
@@ -28,6 +35,11 @@ public interface DataManager {
         return JSONText;
     }
 
+    /**
+     * Retrieves a string representation of a JSON data from a local file
+     * @param filePath path of the .json file
+     * @return a string of the JSON data
+     */
     public default String getJSONFromFile(String filePath){
         String jsonArray = null;
         try {
@@ -39,6 +51,11 @@ public interface DataManager {
         return jsonArray;
     }
 
+    /**
+     * Stores a JSON data from a URL to a local file
+     * @param url URL to get the JSON data
+     * @param fileName name of the .json file to store it to
+     */
     public default void storeJSONToFile(String url, String fileName) {
         String json = getJSONFromURL(url);
 
@@ -52,9 +69,14 @@ public interface DataManager {
         }
     }
 
-
+    /**
+     * An abstract method to store JSON data from a local file to a list
+     */
     public void storeJSONFromLocalToList();
-    public void storeJSONFromURLToList();
 
+    /**
+     * An abstract method to store JSON data from a URL to a list
+     */
+    public void storeJSONFromURLToList();
 
 }
