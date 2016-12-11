@@ -437,14 +437,12 @@ public class FXMLDocumentController implements Initializable {
 
         TreeSet<String> regions = new TreeSet<>();
         TreeSet<String> levels = new TreeSet<>();
-        TreeSet<String> types = new TreeSet<>();
         TreeSet<String> countries = new TreeSet<>();
 
         for (Country aCountryList : countryList) {
             countries.add(aCountryList.getName());
             regions.add(aCountryList.getRegionName());
             levels.add(aCountryList.getIncomeLevel());
-            types.add(aCountryList.getLendingType());
         }
 
         countryNames = FXCollections.observableArrayList(countries);

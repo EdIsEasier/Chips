@@ -60,11 +60,8 @@ public class CountryList implements DataManager{
             String regionID = (String) jsonObject.getJSONObject("region").get("id");
             String regionName = (String) jsonObject.getJSONObject("region").get("value");
             String incomeLevel = (String) jsonObject.getJSONObject("incomeLevel").get("value");
-            String lendingType = (String) jsonObject.getJSONObject("lendingType").get("value");
             String capitalCity = (String) jsonObject.get("capitalCity");
-            String longitude = (String) jsonObject.get("longitude");
-            String latitude = (String) jsonObject.get("latitude");
-            country = new Country(id, iso2Code, name, regionID, regionName, incomeLevel, lendingType, capitalCity, longitude, latitude);
+            country = new Country(id, iso2Code, name, regionID, regionName, incomeLevel, capitalCity);
         } catch (JSONException e) {
             e.printStackTrace();
         }

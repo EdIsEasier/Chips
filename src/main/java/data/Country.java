@@ -8,7 +8,7 @@ import javafx.beans.property.StringProperty;
  */
 public class Country{
 
-    private StringProperty id, iso2Code, name, regionID, regionName, incomeLevel, lendingType, capitalCity, longitude, latitude;
+    private StringProperty id, iso2Code, name, regionID, regionName, incomeLevel, capitalCity;
 
 
     /**
@@ -21,10 +21,7 @@ public class Country{
         this.regionID = new SimpleStringProperty("regionID");
         this.regionName = new SimpleStringProperty("regionName");
         this.incomeLevel = new SimpleStringProperty("incomeLevel");
-        this.lendingType = new SimpleStringProperty("lendingType");
         this.capitalCity = new SimpleStringProperty("capitalCity");
-        this.longitude = new SimpleStringProperty("longitude");
-        this.latitude = new SimpleStringProperty("latitude");
     }
 
     /**
@@ -35,24 +32,18 @@ public class Country{
      * @param regionID
      * @param regionName
      * @param incomeLevel
-     * @param lendingType
      * @param capitalCity
-     * @param longitude
-     * @param latitude
      */
     public Country(String id, String iso2Code, String name, String regionID,
-                   String regionName, String incomeLevel, String lendingType,
-                   String capitalCity, String longitude, String latitude) {
+                   String regionName, String incomeLevel,
+                   String capitalCity) {
         this.id = new SimpleStringProperty(id);
         this.iso2Code = new SimpleStringProperty(iso2Code);
         this.name = new SimpleStringProperty(name);
         this.regionID = new SimpleStringProperty(regionID);
         this.regionName = new SimpleStringProperty(regionName);
         this.incomeLevel = new SimpleStringProperty(incomeLevel);
-        this.lendingType = new SimpleStringProperty(lendingType);
         this.capitalCity = new SimpleStringProperty(capitalCity);
-        this.longitude = new SimpleStringProperty(longitude);
-        this.latitude = new SimpleStringProperty(latitude);
 
     }
 
@@ -126,18 +117,6 @@ public class Country{
         this.incomeLevel.set(incomeLevel);
     }
 
-    public String getLendingType() {
-        return lendingType.get();
-    }
-
-    public StringProperty lendingTypeProperty() {
-        return lendingType;
-    }
-
-    public void setLendingType(String lendingType) {
-        this.lendingType.set(lendingType);
-    }
-
     public String getCapitalCity() {
         return capitalCity.get();
     }
@@ -148,30 +127,6 @@ public class Country{
 
     public void setCapitalCity(String capitalCity) {
         this.capitalCity.set(capitalCity);
-    }
-
-    public String getLongitude() {
-        return longitude.get();
-    }
-
-    public StringProperty longitudeProperty() {
-        return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude.set(longitude);
-    }
-
-    public String getLatitude() {
-        return latitude.get();
-    }
-
-    public StringProperty latitudeProperty() {
-        return latitude;
-    }
-
-    public void setLatitude(String latitude) {
-        this.latitude.set(latitude);
     }
 
 }
