@@ -1,6 +1,10 @@
 package test;
 
+import main.java.data.CountryIndicator;
 import org.junit.Test;
+
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -41,5 +45,15 @@ public class ControllerTest {
         assertEquals(8, controller.list.size());
         controller.handleIncomeLevelAction("Upper middle income");
         assertEquals(13, controller.list.size());
+    }
+
+    @Test
+    public void testGetIndicatorsByCountry()
+    {
+        for (String s : controller.countryNames)
+        {
+            ArrayList<CountryIndicator> indicators =  controller.getIndicatorsByCountry(s);
+            assertTrue("There are fewer indicators for " + s + " than expected", indicators.size() > 50);
+        }
     }
 }

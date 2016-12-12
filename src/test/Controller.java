@@ -7,10 +7,6 @@ import main.java.data.Country;
 import main.java.data.CountryIndicator;
 import main.java.data.CountryIndicatorList;
 import main.java.data.CountryList;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class Controller {
     public ObservableList<Country> countryList;
@@ -18,8 +14,6 @@ public class Controller {
     public ObservableList<String> countryNames = FXCollections.observableArrayList();
     public ObservableList<String> regionNames = FXCollections.observableArrayList();
     public ObservableList<String> incomeLevels = FXCollections.observableArrayList();
-    public ArrayList<String> selectedItems = new ArrayList<>();
-    public enum IndicatorType { GDP, GDPPERCAPITA, INFLATION, UNEMPLOYMENT, GDPGROWTH, GDPGROWTHCAPITA }
     ObservableList<String> list = FXCollections.observableArrayList();
 
     public Controller()
