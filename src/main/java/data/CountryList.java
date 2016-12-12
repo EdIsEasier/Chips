@@ -6,6 +6,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+
 /**
  * A class to represent the list of countries from the WorldBank API
  */
@@ -20,7 +24,16 @@ public class CountryList implements DataManager{
      * When constructed using 'new', it will have a list of countries
      */
     public CountryList(){
-        storeJSONFromLocalToList();
+        if (testInet("www.google.com"))
+        {
+            System.out.println("Is reachable");
+            storeJSONFromURLToList();
+        }
+        else
+        {
+            System.out.println("Not reachable");
+            storeJSONFromLocalToList();
+        }
     }
 
     /**

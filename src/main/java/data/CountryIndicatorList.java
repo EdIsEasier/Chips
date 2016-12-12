@@ -6,6 +6,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
 /**
  * This class provides a list of CountryIndicators.
  */
@@ -25,7 +31,16 @@ public class CountryIndicatorList implements DataManager{
      * When constructed using 'new', it will have a list of CountryIndicator
      */
     public CountryIndicatorList() {
-        storeJSONFromLocalToList();
+        if (testInet("www.google.com"))
+        {
+            System.out.println("Is reachable");
+            storeJSONFromURLToList();
+        }
+        else
+        {
+            System.out.println("Not reachable");
+            storeJSONFromLocalToList();
+        }
     }
 
     private CountryIndicator initializeCountryIndicator(JSONObject jsonObject){
@@ -101,8 +116,8 @@ public class CountryIndicatorList implements DataManager{
             JSONArray jsonArray1 = new JSONArray(getJSONFromURL(GDP_PER_CAPITA_CURRENT_$US)).getJSONArray(1);
             JSONArray jsonArray2 = new JSONArray(getJSONFromURL(INFLATION_RATE)).getJSONArray(1);
             JSONArray jsonArray3 = new JSONArray(getJSONFromURL(UNEMPLOYMENT_RATE)).getJSONArray(1);
-            JSONArray jsonArray4 = new JSONArray(getJSONFromFile(GDP_GROWTH)).getJSONArray(1);
-            JSONArray jsonArray5 = new JSONArray(getJSONFromFile(GDP_PER_CAPITA_GROWTH)).getJSONArray(1);
+            JSONArray jsonArray4 = new JSONArray(getJSONFromURL(GDP_GROWTH)).getJSONArray(1);
+            JSONArray jsonArray5 = new JSONArray(getJSONFromURL(GDP_PER_CAPITA_GROWTH)).getJSONArray(1);
             addJSONToList(jsonArray.length(), jsonArray, jsonArray1, jsonArray2, jsonArray3, jsonArray4, jsonArray5);
         } catch (JSONException e) {
             e.printStackTrace();

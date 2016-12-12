@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.FileWriter;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.net.URL;
 
 /**
@@ -66,6 +68,26 @@ public interface DataManager {
             fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Checks whether there's internet connection
+     *
+     * @param site the website to check for
+     * @return true if there is a connection, false otherwise
+     */
+    public default boolean testInet(String site) {
+        Socket sock = new Socket();
+        InetSocketAddress addr = new InetSocketAddress(site,80);
+        try {
+            sock.connect(addr,3000);
+            return true;
+        } catch (IOException e) {
+            return false;
+        } finally {
+            try {sock.close();}
+            catch (IOException e) {}
         }
     }
 
