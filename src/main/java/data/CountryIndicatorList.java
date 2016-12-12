@@ -32,15 +32,9 @@ public class CountryIndicatorList implements DataManager{
      */
     public CountryIndicatorList() {
         if (testInet("www.google.com"))
-        {
-            System.out.println("Is reachable");
             storeJSONFromURLToList();
-        }
         else
-        {
-            System.out.println("Not reachable");
             storeJSONFromLocalToList();
-        }
     }
 
     private CountryIndicator initializeCountryIndicator(JSONObject jsonObject){

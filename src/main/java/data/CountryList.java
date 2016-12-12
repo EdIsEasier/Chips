@@ -25,15 +25,9 @@ public class CountryList implements DataManager{
      */
     public CountryList(){
         if (testInet("www.google.com"))
-        {
-            System.out.println("Is reachable");
             storeJSONFromURLToList();
-        }
         else
-        {
-            System.out.println("Not reachable");
             storeJSONFromLocalToList();
-        }
     }
 
     /**
