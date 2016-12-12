@@ -25,7 +25,7 @@ public class CountryIndicator{
     public CountryIndicator(){
         countryID = new SimpleStringProperty("countryID");
         countryValue = new SimpleStringProperty("countryValue");
-        date = new SimpleIntegerProperty(0000);
+        date = new SimpleIntegerProperty(0);
         GDP_CURRENT_$US = new SimpleDoubleProperty(0.0);
         GDP_PER_CAPITA_CURRENT_$US = new SimpleDoubleProperty(0.0);
         INFLATION_RATE = new SimpleDoubleProperty(0.0);
@@ -40,7 +40,7 @@ public class CountryIndicator{
      * @param countryValue Name of the country
      * @param date Year of the indicator
      */
-    public CountryIndicator(String countryID, String countryValue, int date){
+    CountryIndicator(String countryID, String countryValue, int date){
 
         this.countryID = new SimpleStringProperty(countryID);
         this.countryValue = new SimpleStringProperty(countryValue);
@@ -73,7 +73,7 @@ public class CountryIndicator{
      * Sets the rate of unemployment indicator
      * @param UNEMPLOYMENT_RATE rate of unemployment
      */
-    public void setUNEMPLOYMENT_RATE(double UNEMPLOYMENT_RATE) {
+    void setUNEMPLOYMENT_RATE(double UNEMPLOYMENT_RATE) {
         this.UNEMPLOYMENT_RATE.set(UNEMPLOYMENT_RATE);
     }
 
@@ -97,7 +97,7 @@ public class CountryIndicator{
      * Sets the GDP Per Capita indicator
      * @param GDP__PER_CAPITA_CURRENT_$US GDP Per Capita (Current $US)
      */
-    public void setGDP_PER_CAPITA_CURRENT_$US(double GDP__PER_CAPITA_CURRENT_$US) {
+    void setGDP_PER_CAPITA_CURRENT_$US(double GDP__PER_CAPITA_CURRENT_$US) {
         this.GDP_PER_CAPITA_CURRENT_$US.set(GDP__PER_CAPITA_CURRENT_$US);
     }
 
@@ -121,7 +121,7 @@ public class CountryIndicator{
      * Sets the GDP Growth indicator
      * @param GDP_GROWTH GDP Growth value
      */
-    public void setGDP_GROWTH(double GDP_GROWTH) {
+    void setGDP_GROWTH(double GDP_GROWTH) {
         this.GDP_GROWTH.set(GDP_GROWTH);
     }
 
@@ -145,7 +145,7 @@ public class CountryIndicator{
      * Sets the GDP Per Capita Growth indicator
      * @param GDP_PER_CAPITA_GROWTH GDP Per Capita Growth value
      */
-    public void setGDP_PER_CAPITA_GROWTH(double GDP_PER_CAPITA_GROWTH) {
+    void setGDP_PER_CAPITA_GROWTH(double GDP_PER_CAPITA_GROWTH) {
         this.GDP_PER_CAPITA_GROWTH.set(GDP_PER_CAPITA_GROWTH);
     }
 
@@ -155,22 +155,6 @@ public class CountryIndicator{
      */
     public String getCountryID() {
         return countryID.get();
-    }
-
-    /**
-     * Retrieves the country ID property
-     * @return country ID property
-     */
-    public StringProperty countryIDProperty() {
-        return countryID;
-    }
-
-    /**
-     * Sets the ID of the country
-     * @param countryID ID of the country
-     */
-    public void setCountryID(String countryID) {
-        this.countryID.set(countryID);
     }
 
     /**
@@ -187,14 +171,6 @@ public class CountryIndicator{
      */
     public StringProperty countryValueProperty() {
         return countryValue;
-    }
-
-    /**
-     * Sets the name of the country
-     * @param countryValue name of the country
-     */
-    public void setCountryValue(String countryValue) {
-        this.countryValue.set(countryValue);
     }
 
     /**
@@ -217,7 +193,7 @@ public class CountryIndicator{
      * Sets the GDP indicator
      * @param GDP_CURRENT_$US GDP indicator value
      */
-    public void setGDP_CURRENT_$US(double GDP_CURRENT_$US) {
+    void setGDP_CURRENT_$US(double GDP_CURRENT_$US) {
         this.GDP_CURRENT_$US.set(GDP_CURRENT_$US);
     }
 
@@ -235,14 +211,6 @@ public class CountryIndicator{
      */
     public IntegerProperty dateProperty() {
         return date;
-    }
-
-    /**
-     * Sets the year of the indicator
-     * @param date year value
-     */
-    public void setDate(int date) {
-        this.date.set(date);
     }
 
     /**
@@ -265,7 +233,7 @@ public class CountryIndicator{
      * Sets the rate of inflation indicator
      * @param INFLATION_RATE rate of inflation value
      */
-    public void setINFLATION_RATE(double INFLATION_RATE) {
+    void setINFLATION_RATE(double INFLATION_RATE) {
         this.INFLATION_RATE.set(INFLATION_RATE);
     }
 }

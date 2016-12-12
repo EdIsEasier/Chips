@@ -23,7 +23,7 @@ public interface DataManager {
      * @param url URL to get the JSON data
      * @return a string of the JSON data
      */
-    public default String getJSONFromURL(String url){
+    default String getJSONFromURL(String url){
         String JSONText = null;
         try {
             InputStream inputStream = new URL(url).openStream();
@@ -42,7 +42,7 @@ public interface DataManager {
      * @param filePath path of the .json file
      * @return a string of the JSON data
      */
-    public default String getJSONFromFile(String filePath){
+    default String getJSONFromFile(String filePath){
         String jsonArray = null;
         try {
             InputStreamReader reader = new InputStreamReader(MainApp.class.getClassLoader().getResourceAsStream(filePath));
@@ -58,7 +58,7 @@ public interface DataManager {
      * @param url URL to get the JSON data
      * @param fileName name of the .json file to store it to
      */
-    public default void storeJSONToFile(String url, String fileName) {
+    default void storeJSONToFile(String url, String fileName) {
         String json = getJSONFromURL(url);
 
         try {
@@ -77,7 +77,7 @@ public interface DataManager {
      * @param site the website to check for
      * @return true if there is a connection, false otherwise
      */
-    public default boolean testInet(String site) {
+    default boolean testInet(String site) {
         Socket sock = new Socket();
         InetSocketAddress addr = new InetSocketAddress(site,80);
         try {
@@ -87,18 +87,20 @@ public interface DataManager {
             return false;
         } finally {
             try {sock.close();}
-            catch (IOException e) {}
+            catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     /**
      * An abstract method to store JSON data from a local file to a list
      */
-    public void storeJSONFromLocalToList();
+    void storeJSONFromLocalToList();
 
     /**
      * An abstract method to store JSON data from a URL to a list
      */
-    public void storeJSONFromURLToList();
+    void storeJSONFromURLToList();
 
 }
