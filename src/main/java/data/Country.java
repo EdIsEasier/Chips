@@ -8,11 +8,10 @@ import javafx.beans.property.StringProperty;
  */
 public class Country{
 
-    private StringProperty id, iso2Code, name, regionID, regionName, incomeLevel, lendingType, capitalCity, longitude, latitude;
-
+    private StringProperty id, iso2Code, name, regionID, regionName, incomeLevel, capitalCity;
 
     /**
-     * Constructs a Country with a default property
+     * Constructs a Country with a default value for each property
      */
     public Country(){
         this.id = new SimpleStringProperty("id");
@@ -21,145 +20,94 @@ public class Country{
         this.regionID = new SimpleStringProperty("regionID");
         this.regionName = new SimpleStringProperty("regionName");
         this.incomeLevel = new SimpleStringProperty("incomeLevel");
-        this.lendingType = new SimpleStringProperty("lendingType");
         this.capitalCity = new SimpleStringProperty("capitalCity");
-        this.longitude = new SimpleStringProperty("longitude");
-        this.latitude = new SimpleStringProperty("latitude");
     }
 
     /**
      * Constructs a Country with a specified property
-     * @param id
-     * @param iso2Code
-     * @param name
-     * @param regionID
-     * @param regionName
-     * @param incomeLevel
-     * @param lendingType
-     * @param capitalCity
-     * @param longitude
-     * @param latitude
+     * @param id 3 character codes of the country
+     * @param iso2Code 2 character codes of the country
+     * @param name name of the country
+     * @param regionID ID of the region of the country
+     * @param regionName name of the region of the country
+     * @param incomeLevel income level category of the country
+     * @param capitalCity capital city of the country
      */
     public Country(String id, String iso2Code, String name, String regionID,
-                   String regionName, String incomeLevel, String lendingType,
-                   String capitalCity, String longitude, String latitude) {
+                   String regionName, String incomeLevel,
+                   String capitalCity) {
         this.id = new SimpleStringProperty(id);
         this.iso2Code = new SimpleStringProperty(iso2Code);
         this.name = new SimpleStringProperty(name);
         this.regionID = new SimpleStringProperty(regionID);
         this.regionName = new SimpleStringProperty(regionName);
         this.incomeLevel = new SimpleStringProperty(incomeLevel);
-        this.lendingType = new SimpleStringProperty(lendingType);
         this.capitalCity = new SimpleStringProperty(capitalCity);
-        this.longitude = new SimpleStringProperty(longitude);
-        this.latitude = new SimpleStringProperty(latitude);
 
     }
 
+    /**
+     * Retrieves the ISO 2 code of the country
+     * @return ISO 2 codes of the country
+     */
+    public String getIso2Code() {
+        return iso2Code.get();
+    }
+
+    /**
+     * Retrieves the 3 character code of the country
+     * @return 3 character code of the country
+     */
     public String getId() {
         return id.get();
     }
 
-    public StringProperty idProperty() {
-        return id;
-    }
-
+    /**
+     * Sets the ID of the country
+     * @param id ID of the country
+     */
     public void setId(String id) {
         this.id.set(id);
     }
 
+    /**
+     * Retrieves the name of the country
+     * @return name of the country
+     */
     public String getName() {
         return name.get();
     }
 
-    public StringProperty getNameProperty() { return name; }
-
-    public void setName(String name) {
-        this.name.set(name);
-    }
-
+    /**
+     * Retrieves the ID of the region of the country
+     * @return region ID of the country
+     */
     public String getRegionID() {
         return regionID.get();
     }
 
-    public StringProperty regionIDProperty() {
-        return regionID;
-    }
-
-    public void setRegionID(String regionID) {
-        this.regionID.set(regionID);
-    }
-
+    /**
+     * Retrieves the name of the region of the country
+     * @return name of the region
+     */
     public String getRegionName() {
         return regionName.get();
     }
 
-    public StringProperty regionNameProperty() {
-        return regionName;
-    }
-
-    public void setRegionName(String regionName) {
-        this.regionName.set(regionName);
-    }
-
+    /**
+     * Retrieves the income level of the country
+     * @return income level category of the country
+     */
     public String getIncomeLevel() {
         return incomeLevel.get();
     }
 
-    public StringProperty incomeLevelProperty() {
-        return incomeLevel;
-    }
-
-    public void setIncomeLevel(String incomeLevel) {
-        this.incomeLevel.set(incomeLevel);
-    }
-
-    public String getLendingType() {
-        return lendingType.get();
-    }
-
-    public StringProperty lendingTypeProperty() {
-        return lendingType;
-    }
-
-    public void setLendingType(String lendingType) {
-        this.lendingType.set(lendingType);
-    }
-
+    /**
+     * Retrieves the capital city of the country
+     * @return capital city of the country
+     */
     public String getCapitalCity() {
         return capitalCity.get();
-    }
-
-    public StringProperty capitalCityProperty() {
-        return capitalCity;
-    }
-
-    public void setCapitalCity(String capitalCity) {
-        this.capitalCity.set(capitalCity);
-    }
-
-    public String getLongitude() {
-        return longitude.get();
-    }
-
-    public StringProperty longitudeProperty() {
-        return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude.set(longitude);
-    }
-
-    public String getLatitude() {
-        return latitude.get();
-    }
-
-    public StringProperty latitudeProperty() {
-        return latitude;
-    }
-
-    public void setLatitude(String latitude) {
-        this.latitude.set(latitude);
     }
 
 }
