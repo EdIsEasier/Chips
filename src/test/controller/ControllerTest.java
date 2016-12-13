@@ -35,6 +35,8 @@ public class ControllerTest {
         assertEquals(3, controller.list.size());
         controller.handleRegionNameAction("Sub-Saharan Africa ");
         assertEquals(2, controller.list.size());
+        controller.handleRegionNameAction("Antartica");
+        assertEquals(0, controller.list.size());
     }
 
     @Test
@@ -45,6 +47,10 @@ public class ControllerTest {
         assertEquals(8, controller.list.size());
         controller.handleIncomeLevelAction("Upper middle income");
         assertEquals(13, controller.list.size());
+        controller.handleIncomeLevelAction("Low income");
+        assertEquals(0, controller.list.size());
+        controller.handleIncomeLevelAction("High income");
+        assertEquals(0, controller.list.size());
     }
 
     @Test
