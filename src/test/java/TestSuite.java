@@ -1,9 +1,10 @@
-package test;
+package test.java;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import test.controller.*;
-import test.data.*;
+import test.java.controller.ControllerTest;
+import test.java.data.CountryIndicatorListTest;
+import test.java.data.CountryListTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({

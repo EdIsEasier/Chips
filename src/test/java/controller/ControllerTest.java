@@ -1,4 +1,4 @@
-package test.controller;
+package test.java.controller;
 
 import main.java.data.CountryIndicator;
 import org.junit.Test;
@@ -49,7 +49,7 @@ public class ControllerTest {
         assertEquals(13, controller.list.size());
         controller.handleIncomeLevelAction("Low income");
         assertEquals(0, controller.list.size());
-        controller.handleIncomeLevelAction("High income");
+        controller.handleIncomeLevelAction("No income");
         assertEquals(0, controller.list.size());
     }
 

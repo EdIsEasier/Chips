@@ -1,4 +1,4 @@
-package test.data;
+package test.java.data;
 
 import main.java.data.Country;
 import main.java.data.CountryList;
