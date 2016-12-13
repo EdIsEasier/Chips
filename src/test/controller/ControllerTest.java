@@ -1,4 +1,4 @@
-package test;
+package test.controller;
 
 import main.java.data.CountryIndicator;
 import org.junit.Test;

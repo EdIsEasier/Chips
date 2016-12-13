@@ -1,4 +1,4 @@
-package test;
+package test.controller;
 import java.util.*;
 
 import javafx.collections.FXCollections;

@@ -1,4 +1,4 @@
-package test;
+package test.data;
 
 import main.java.data.CountryIndicator;
 import main.java.data.CountryIndicatorList;
