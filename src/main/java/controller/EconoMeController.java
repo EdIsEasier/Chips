@@ -45,7 +45,7 @@ import main.java.data.CountryIndicatorList;
 import main.java.data.CountryList;
 
 import javax.imageio.ImageIO;
-public class FXMLDocumentController implements Initializable {
+public class EconoMeController implements Initializable {
 
     private ObservableList<Country> countryList;
     private ObservableList<CountryIndicator> countryIndicatorList;
@@ -144,7 +144,7 @@ public class FXMLDocumentController implements Initializable {
         Label aboutContent3 = new Label (
                 "Data is retrieved with the WorldBank API.\n" +
                         "This program uses these libraries:\n"+
-                        "JFoenix and org-json-java."
+                        "JFoenix, org-json-java and JUnit"
         );
         aboutContent1.setFont(Font.font(null, FontWeight.NORMAL, 16));
         aboutContent3.setFont(Font.font(null, FontWeight.EXTRA_LIGHT, 9));
@@ -166,7 +166,7 @@ public class FXMLDocumentController implements Initializable {
         comp.setStyle("-fx-background-color: white");
 
 
-        Scene stageScene = new Scene(comp, 250, 300);
+        Scene stageScene = new Scene(comp, 350, 400);
         newStage.setScene(stageScene);
         newStage.setTitle("About");
         newStage.initModality(Modality.WINDOW_MODAL);
@@ -189,7 +189,7 @@ public class FXMLDocumentController implements Initializable {
     {
         ComboBox<String> selectedCategory = (ComboBox<String>) event.getSource();
         String selectedItem = selectedCategory.getSelectionModel().getSelectedItem();
-        System.out.println(selectedItem);
+        //System.out.println(selectedItem);
         List<String> result = FXCollections.observableArrayList();
         for(Country country: countryList){
             if(country.getRegionName().equals(selectedItem)){
@@ -205,7 +205,7 @@ public class FXMLDocumentController implements Initializable {
     {
         ComboBox<String> selectedCategory = (ComboBox<String>) event.getSource();
         String selectedItem = selectedCategory.getSelectionModel().getSelectedItem();
-        System.out.println(selectedItem);
+        //System.out.println(selectedItem);
         List<String> result = FXCollections.observableArrayList();
         for(Country country: countryList){
             if(country.getIncomeLevel().equals(selectedItem)){
@@ -230,7 +230,7 @@ public class FXMLDocumentController implements Initializable {
     {
         ArrayList<String> remove = new ArrayList<>(selectedItems); // list of countries to remove from chart
         remove.removeAll(list.getSelectionModel().getSelectedItems()); // remove all those that were selected before but aren't now
-        System.out.println(remove);
+        //System.out.println(remove);
         selectedItems.clear(); // clear the list of previously selected countries
         selectedItems.addAll(list.getSelectionModel().getSelectedItems()); // add currently selected countries for the next click
         return remove;
@@ -351,7 +351,7 @@ public class FXMLDocumentController implements Initializable {
         if (toRemove.isEmpty()) // if there's nothing to remove or if we've only selected one country
         {
             results.add(getIndicatorsByCountry(list.getSelectionModel().getSelectedItem())); // get selected country and add it
-            System.out.println("CHECK");
+            //System.out.println("CHECK");
         }
         else if (list.getSelectionModel().getSelectedItems().size() == 1){
             results.add(getIndicatorsByCountry(list.getSelectionModel().getSelectedItem())); // get selected country and add it
@@ -429,7 +429,7 @@ public class FXMLDocumentController implements Initializable {
             drawer.getChildren().add(drawerContainer);
 
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EconoMeController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         this.countryIndicatorList = new CountryIndicatorList().getCountryIndicators();

@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.FXMLDocumentController">
+<BorderPane prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.EconoMeController">
    <left>
       <HBox prefHeight="680.0" prefWidth="255.0" BorderPane.alignment="CENTER">
          <children>
@@ -44,7 +44,7 @@
                         <JFXDrawer fx:id="drawer" defaultDrawerSize="200.0" prefHeight="610.0" prefWidth="218.0" />
                         <VBox id="listID" minWidth="213.0" prefHeight="645.0" prefWidth="218.0">
                            <children>
-                              <ListView fx:id="list" onKeyReleased="#handleListAction2" onMouseClicked="#handleListAction" prefHeight="680.0" prefWidth="255.0" stylesheets="@style.css" VBox.vgrow="ALWAYS" />
+                              <ListView id="mainList" fx:id="list" onKeyReleased="#handleListAction2" onMouseClicked="#handleListAction" prefHeight="680.0" prefWidth="255.0" stylesheets="@style.css" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
                      </children>
@@ -168,12 +168,12 @@
                                  </VBox.margin></JFXButton>
                            </children>
                         </VBox>
-                        <LineChart fx:id="lineChartGDPGrowth" title="GDP Growth in US$" createSymbols="false" VBox.vgrow="ALWAYS">
+                        <LineChart fx:id="lineChartGDPGrowth" title="GDP Growth" createSymbols="false" VBox.vgrow="ALWAYS">
                            <xAxis>
                               <CategoryAxis side="BOTTOM" fx:id="xAxisGDPGrowth" label="Year"/>
                            </xAxis>
                            <yAxis>
-                              <NumberAxis fx:id="yAxisGDPGrowth" side="LEFT" label="US$" minorTickCount="500"/>
+                              <NumberAxis fx:id="yAxisGDPGrowth" side="LEFT" label="Percent" minorTickCount="500"/>
                            </yAxis>
                         </LineChart>
                      </children>
@@ -192,12 +192,12 @@
                                  </VBox.margin></JFXButton>
                            </children>
                         </VBox>
-                        <LineChart fx:id="lineChartGDPGrowthCapita" title="GDP Growth Per Capita in US$" createSymbols="false" VBox.vgrow="ALWAYS">
+                        <LineChart fx:id="lineChartGDPGrowthCapita" title="GDP Per Capita Growth" createSymbols="false" VBox.vgrow="ALWAYS">
                            <xAxis>
                               <CategoryAxis side="BOTTOM" fx:id="xAxisGDPGrowthCapita" label="Year"/>
                            </xAxis>
                            <yAxis>
-                              <NumberAxis fx:id="yAxisGDPGrowthCapita" side="LEFT" label="US$" minorTickCount="500"/>
+                              <NumberAxis fx:id="yAxisGDPGrowthCapita" side="LEFT" label="Percent" minorTickCount="500"/>
                            </yAxis>
                         </LineChart>
                      </children>
@@ -206,7 +206,7 @@
             </Tab>
           <Tab fx:id="details" text="Details">
                <content>
-                  <TableView fx:id="detailTable" prefHeight="200.0" prefWidth="200.0" stylesheets="@style.css">
+                  <TableView id="mainTable" fx:id="detailTable" prefHeight="200.0" prefWidth="200.0" stylesheets="@style.css">
                      <!--
                     <columns>
                       <TableColumn prefWidth="137.0" text="Country" fx:id="countryColumn"/>
